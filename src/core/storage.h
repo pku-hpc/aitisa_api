@@ -1,41 +1,24 @@
-#ifndef STORAGE_H_
-#define STORAGE_H_
+#ifndef STORAGE_H
+#define STORAGE_H
 
 #include <stdint.h>
 #include <stdlib.h>
-#include "allocator.h"
-#include "device.h"
+#include "src/core/device.h"
+#include "src/core/status.h"
+#include "src/core/types.h"
 
-typedef enum {
-  kInt8 = 0U,
-  kInt16 = 1U,
-  kInt32 = 2U,
-  kInt64 = 3U,
-  kUInt8 = 4U,
-  kUInt16 = 5U,
-  kUInt32 = 6U,
-  kUInt64 = 7U,
-  kFloat = 8U,
-  kDouble = 9U
-} ScalarType;
-
-typedef struct DataType {
-  ScalarType code;
-  uint8_t bits;
-} DataType;
-
-// size重名
-typedef struct Storage {
-  void *data;
+struct _StorageImpl {
+  DataType dtype;
+  Device device;
   int64_t size;
-  DataType *dtype;
-  Device *device;
-  // Allocator *allocator;
-} Storage;
+  void *data;
+};
 
-void create_storage(DataType dtype, Device device, int64_t size,
-                    Storage *storage);
+typedef struct _StorageImpl *Storage;
 
-void destroy_storage(Storage *storage);
+Status aitisa_create_storage(DataType dtype, Device device, int64_t size,
+                             Storage *storage);
+
+Status aitisa_destroy_storage(Storage *storage);
 
 #endif

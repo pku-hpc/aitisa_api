@@ -1,54 +1,95 @@
 cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
-project(std_ai_api VERSION 0.0.1 LANGUAGES C)
+project(aitisa_api VERSION 0.0.7 LANGUAGES C CXX)
 
-option(ENABLE_TESTING "Enable Tests" ON)
-option(USE_OPENMP "Build with OpenMP support" ON)
-option(USE_GTEST "Test with GTest support" ON)
+##############################################
+# General options
+##############################################
+option(AITISA_API_BUILD_SHARED_LIBS "Compiled as a shared library" ON)
+option(AITISA_API_BUILD_TESTING "Build with testing enabled" ON)
+option(AITISA_API_USE_GTEST_LOCAL "Download and build with GTest" ON)
+
+if(AITISA_API_BUILD_SHARED_LIBS)
+  set(BUILD_SHARED_LIBS ON CACHE INTERNAL "")
+endif()
 
 # Show the detail of compile messages
 set(CMAKE_VERBOSE_MAKEFILE ON)
-# set(CMAKE_COLOR_MAKEFILE   ON)
+set(CMAKE_COLOR_MAKEFILE   ON)
 
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib CACHE PATH "Single directory for all static libraries.")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib CACHE PATH "Single directory for all dynamic libraries.")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin CACHE PATH "Single directory for all executable.")
-set(EXTERNAL_INSTALL_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty)
-
-# Find all the files under `src/`
-FILE(GLOB_RECURSE cpu_source "src/*.c" "src/*.h")
-set(srcs ${cpu_source})
-
-# Create library target with all the source codes.
-add_library(std_ai_api ${srcs})
-
-set_target_properties(std_ai_api PROPERTIES 
-  CUDA_SEPERABLE_COMPILATION ON 
-  INTERFACE_POSITION_INDEPENDENT_CODE ON 
-)
-
-# change "PRIVATE" to "PUBLIC" or test file won't compile under c_std_99
-target_compile_features(std_ai_api PUBLIC c_std_99)
-
-target_include_directories(std_ai_api
-  PUBLIC
-    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-  PRIVATE
-    # ${CMAKE_CURRENT_SOURCE_DIR}/src
-)
-
-set(std_ai_api_link_libraries)
-
-if(USE_OPENMP)
-  include(cmake/public/OpenMP.cmake)
+##############################################
+# General setup
+##############################################
+# https://blog.kitware.com/cmake-and-the-default-build-type
+#set(default_build_type "Release")
+set(default_build_type "Debug")
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  message(STATUS "Setting build type to '${default_build_type}' as none was specified.")
+  set(CMAKE_BUILD_TYPE "${default_build_type}" CACHE
+    STRING "Choose the type of build." FORCE)
+  # Set the possible values of build type for cmake-gui
+  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
+    "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 endif()
 
-target_link_libraries(std_ai_api PUBLIC ${std_ai_api_link_libraries})
+set(AITISA_API_ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(AITISA_API_CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+set(AITISA_API_EXTERNAL_DIR ${AITISA_API_ROOT_DIR}/third_party)
 
-if(ENABLE_TESTING)
+
+include(GNUInstallDirs)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR})
+
+##############################################
+# Create target and set properties
+##############################################
+
+include(cmake/public/Utils.cmake)
+
+# Find all the files under `src/`
+FILE(GLOB_RECURSE aitisa_api_srcs "src/*.c" "src/*.h")
+
+# Create library target with all the source codes.
+if(BUILD_SHARED_LIBS)
+  add_library(aitisa_api SHARED ${aitisa_api_srcs})
+  set_target_properties(aitisa_api
+    PROPERTIES
+      INTERFACE_POSITION_INDEPENDENT_CODE ON
+      OUTPUT_NAME "aitisa_api"
+      SOVERSION ${PROJECT_VERSION_MAJOR}
+      C_VISIBILITY_PRESET "hidden"
+      VISIBILITY_INLINES_HIDDEN ON
+  )
+  target_compile_definitions(aitisa_api
+    PRIVATE
+      AITISA_API_SHARED_LIBS
+      AITISA_API_SHARED_LIBS_EXPORTS
+  )
+else()
+  add_library(aitisa_api STATIC ${aitisa_api_srcs})
+endif()
+
+target_compile_features(aitisa_api PUBLIC c_std_99)
+
+target_include_directories(aitisa_api
+  PUBLIC
+    $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+)
+
+aitisa_api_make_interface_library(aitisa_api aitisa_api_interface)
+add_library(aitisa_api::aitisa_api ALIAS aitisa_api_interface)
+
+##############################################
+# Testing
+##############################################
+if(AITISA_API_BUILD_TESTING)
   enable_testing()
-  if(USE_GTEST)
+  if(AITISA_API_USE_GTEST_LOCAL)
     include(cmake/local/GTest.cmake)
+  else()
+    include(cmake/public/GTest.cmake)
   endif()
   add_subdirectory(test)
 endif()

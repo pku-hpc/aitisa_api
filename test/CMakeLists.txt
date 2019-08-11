@@ -1,2 +1,18 @@
-add_executable(tensor_test tensor_test.c)
-target_link_libraries(tensor_test -Wl,--whole-archive std_ai_api -Wl,--no-whole-archive)
+# Add unit test files
+list(APPEND aitisa_test_srcs 
+  tensor_test.cpp
+)
+
+# Build a exe for each test files
+foreach(test_src ${aitisa_test_srcs})
+  get_filename_component(test_name ${test_src} NAME_WE)
+  aitisa_api_register_exe(${test_name} 
+      "${test_src}" "test" "aitisa_api::aitisa_api" "aitisa_api::gmock")
+endforeach()
+
+# Build a exe including all test files 
+set(AITISA_BUILD_TEST_MAIN OFF)
+if(${AITISA_BUILD_TEST_MAIN})
+  add_executable(main main.cpp ${aitisa_api_cpu_test_srcs})
+  target_link_libraries(main "aitisa_api::aitisa_api" "aitisa_api::gmock")
+endif()

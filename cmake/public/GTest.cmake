@@ -1,11 +1,15 @@
-# if gtest isn't found, cmake will throw an error
-# `Could NOT find GTest (missing: GTEST_LIBRARY GTEST_INCLUDE_DIR GTEST_MAIN_LIBRARY)`
-# rather than set `GTEST_FOUND` variable and running into if-else branch
-find_package(GTest QUIET REQUIRED)
-if(GTEST_FOUND)
-  message(WARNING "std_ai_api: Found GTest.")
-else()
-  message(WARNING "std_ai_api: Cannot find GTest, turn off the `USE_GTEST` option automatically.")
-  set(USE_GTEST OFF)
+if(aitisa_api_public_gtest_cmake_included)
   return()
 endif()
+set(aitisa_api_public_gtest_cmake_included true)
+
+aitisa_api_update_option(GTEST_ROOT ${GTEST_ROOT_DIR})
+
+find_package(GTEST REQUIRED)
+add_library(aitisa_api::gtest INTERFACE IMPORTED)
+set_property(
+  TARGET aitisa_api::gtest PROPERTY INTERFACE_INCLUDE_DIRECTORIES
+  ${GTEST_INCLUDE_DIRS})
+set_property(
+  TARGET aitisa_api::gtest PROPERTY INTERFACE_LINK_LIBRARIES
+  ${GTEST_BOTH_LIBRARIES})
