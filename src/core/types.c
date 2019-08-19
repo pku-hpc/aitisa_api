@@ -180,10 +180,10 @@ GetTypedValueFunc aitisa_get_typed_value_func(DataType dtype) {
   return get_typed_value_funcs[dtype.code];
 }
 
-SetTypedValueFunc aisisa_set_typed_value_func(DataType dtype) {
+SetTypedValueFunc aitisa_set_typed_value_func(DataType dtype) {
   return set_typed_value_funcs[dtype.code];
 }
 
-CasttoTypedValueFunc aisisa_castto_typed_value_func(DataType dtype) {
+CasttoTypedValueFunc aitisa_castto_typed_value_func(DataType dtype) {
   return castto_typed_value_funcs[dtype.code];
 }
