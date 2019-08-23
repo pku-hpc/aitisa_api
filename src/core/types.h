@@ -29,8 +29,8 @@ typedef void (*SetTypedValueFunc)(void *addr, void *value);
 typedef void (*CasttoTypedValueFunc)(void *addr, double *value);
 
 GetTypedValueFunc aitisa_get_typed_value_func(DataType dtype);
-SetTypedValueFunc aisisa_set_typed_value_func(DataType dtype);
-CasttoTypedValueFunc aisisa_castto_typed_value_func(DataType dtype);
+SetTypedValueFunc aitisa_set_typed_value_func(DataType dtype);
+CasttoTypedValueFunc aitisa_castto_typed_value_func(DataType dtype);
 
 
 #endif
