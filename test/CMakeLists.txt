@@ -3,6 +3,7 @@ list(APPEND aitisa_test_srcs
   tensor_test.cpp
   matmul_test.cpp
   broadcast_test.cpp
+  binary_test.cpp
 )
 
 # Build a exe for each test files

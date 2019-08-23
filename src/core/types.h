@@ -25,11 +25,15 @@ typedef struct {
 } DataType;
 
 typedef void (*GetTypedValueFunc)(void *addr, void *value);
+typedef void (*GetTypedArrayValueFunc)(void *addr, int64_t i, void *value);
 typedef void (*SetTypedValueFunc)(void *addr, void *value);
+typedef void (*SetTypedArrayValueFunc)(void *addr, int64_t i, void *value);
 typedef void (*CasttoTypedValueFunc)(void *addr, double *value);
 
 GetTypedValueFunc aitisa_get_typed_value_func(DataType dtype);
+GetTypedArrayValueFunc aitisa_get_typed_array_value_func(DataType dtype);
 SetTypedValueFunc aitisa_set_typed_value_func(DataType dtype);
+SetTypedArrayValueFunc aitisa_set_typed_array_value_func(DataType dtype);
 CasttoTypedValueFunc aitisa_castto_typed_value_func(DataType dtype);
 
 
