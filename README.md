@@ -1,2 +1,2 @@
-# ai_std_api
-Standard API for AI operations
+# aitisa_api
+Standard APIs for AI operations

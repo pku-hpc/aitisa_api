@@ -1,14 +1,16 @@
-#ifndef DEVICE_H_
-#define DEVICE_H_
+#ifndef DEVICE_H
+#define DEVICE_H
+
+#include "src/core/macros.h"
 
 typedef enum {
-  kCPU = 0,
-  kCUDA = 1
+  DEVICE_CPU = 0,
+  DEVICE_CUDA = 1
 } DeviceType;
 
 typedef struct {
-  DeviceType device_type;
-  int device_id;
+  DeviceType type;
+  int id;
 } Device;
 
 #endif

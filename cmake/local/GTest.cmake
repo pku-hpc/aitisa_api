@@ -12,7 +12,7 @@ download_project(PROJ                ${_external_target_name}
                  GIT_TAG             v1.8.x  
                  GIT_PROGRESS        TRUE
                  ${UPDATE_DISCONNECTED_IF_AVAILABLE}
-                 PREFIX "${EXTERNAL_INSTALL_DIRECTORY}/${_external_target_name}"
+                 PREFIX "${AITISA_API_EXTERNAL_DIR}/${_external_target_name}"
 )
 
 
@@ -30,7 +30,7 @@ if(NOT TARGET gtest_main)
     EXCLUDE_FROM_ALL)
 endif()
 
-add_library(std_ai_api::gtest ALIAS gtest_main)
-add_library(std_ai_api::gmock ALIAS gmock_main)
+add_library(aitisa_api::gtest ALIAS gtest_main)
+add_library(aitisa_api::gmock ALIAS gmock_main)
 
 unset(_external_target_name)

@@ -1,28 +1,31 @@
-#ifndef SHAPE_H_
-#define SHAPE_H_
+#ifndef SHAPE_H
+#define SHAPE_H
 
 #include <stdint.h>
 #include <stdlib.h>
 
-typedef enum { 
-  kDense = 0,
-  kSparse = 1,
-  kInvalid = 2
+#include "src/core/macros.h"
+#include "src/core/status.h"
+
+typedef enum {
+  LAYOUT_DENSE = 0,
+  LAYOUT_SPARSE = 1,
 } LayoutType;
 
-// Tensorflow max_sparse_elements
-typedef struct Layout {
+typedef struct {
   LayoutType type;
-  // int32_t *minor_to_major;
+  int64_t *min2maj;
 } Layout;
 
-typedef struct Shape {
-  int64_t *dims;
+typedef struct {
   int64_t ndim;
-  Layout *layout;
+  int64_t *dims;
+  Layout layout;
 } Shape;
 
-void create_shape(Layout layout, int64_t *dims, unsigned int ndim, Shape *shape);
-void destroy_shape(Shape *shape);
+Status aitisa_create_shape(LayoutType layout_type, int64_t *dims,
+                           int64_t ndim, Shape *shape);
+
+Status aitisa_destroy_shape(Shape *shape);
 
 #endif
