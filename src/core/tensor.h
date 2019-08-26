@@ -30,16 +30,20 @@ static inline int64_t* aitisa_tensor_dims(const Tensor t) {
   return t->shape.dims;
 }
 
+static inline int64_t aitisa_tensor_size(const Tensor t) {
+  return t->size;
+}
+
 static inline Shape aitisa_tensor_shape(const Tensor t) {
   return t->shape;
 }
 
-static inline Storage aitisa_tensor_storage(const Tensor t) {
-  return t->storage;
+static inline LayoutType aitisa_tensor_layout_type(const Tensor t) {
+  return t->shape.layout.type;
 }
 
-static inline int64_t aitisa_tensor_size(const Tensor t) {
-  return t->size;
+static inline Storage aitisa_tensor_storage(const Tensor t) {
+  return t->storage;
 }
 
 static inline void* aitisa_tensor_data(const Tensor t) {
@@ -48,6 +52,10 @@ static inline void* aitisa_tensor_data(const Tensor t) {
 
 static inline DataType aitisa_tensor_data_type(const Tensor t) {
   return t->storage->dtype;
+}
+
+static inline Device aitisa_tensor_device(const Tensor t) {
+  return t->storage->device;
 }
 
 static inline void aitisa_tensor_set_item(const Tensor t, int64_t idx,

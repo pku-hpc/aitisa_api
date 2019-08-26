@@ -1,6 +1,7 @@
 # Add unit test files
 list(APPEND aitisa_test_srcs 
   tensor_test.cpp
+  conv_test.cpp
 )
 
 # Build a exe for each test files
@@ -13,6 +14,6 @@ endforeach()
 # Build a exe including all test files 
 set(AITISA_BUILD_TEST_MAIN OFF)
 if(${AITISA_BUILD_TEST_MAIN})
-  add_executable(main main.cpp ${aitisa_api_cpu_test_srcs})
+  add_executable(main main.cpp ${aitisa_api_test_srcs})
   target_link_libraries(main "aitisa_api::aitisa_api" "aitisa_api::gmock")
 endif()
