@@ -53,7 +53,6 @@ static inline void* aitisa_tensor_data(const Tensor t) {
 static inline DataType aitisa_tensor_data_type(const Tensor t) {
   return t->storage->dtype;
 }
-
 static inline Device aitisa_tensor_device(const Tensor t) {
   return t->storage->device;
 }
