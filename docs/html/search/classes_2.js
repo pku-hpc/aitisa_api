@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['datatype_220',['DataType',['../structDataType.html',1,'']]],
-  ['device_221',['Device',['../structDevice.html',1,'']]]
+  ['datatype_221',['DataType',['../structDataType.html',1,'']]],
+  ['device_222',['Device',['../structDevice.html',1,'']]]
 ];

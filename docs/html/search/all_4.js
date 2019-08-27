@@ -9,5 +9,6 @@ var searchData=
   ['device_5fcuda_95',['DEVICE_CUDA',['../device_8h.html#ad258d4c51629346fceac4679b3209ad9a9ba2c4184a2ba92064b4b96b51aab777',1,'device.h']]],
   ['devicetype_96',['DeviceType',['../device_8h.html#ad258d4c51629346fceac4679b3209ad9',1,'device.h']]],
   ['dims_97',['dims',['../structShape.html#a7e0a8a2aa34a10832a6ef39b714b4909',1,'Shape']]],
-  ['dtype_98',['dtype',['../struct__StorageImpl.html#ad0823f91b52c35860a5464190b2cff8c',1,'_StorageImpl']]]
+  ['dtype_98',['dtype',['../struct__StorageImpl.html#ad0823f91b52c35860a5464190b2cff8c',1,'_StorageImpl']]],
+  ['developer_20guide_99',['Developer Guide',['../index.html',1,'']]]
 ];

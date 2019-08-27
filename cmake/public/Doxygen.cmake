@@ -11,8 +11,8 @@ set(aitisa_api_public_doxygen_cmake_included true)
 
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
-    set(DOXYGEN_OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/doc)
-    set(DOXYGEN_STAMP_FILE ${CMAKE_CURRENT_BINARY_DIR}/doc.stamp)
+    set(DOXYGEN_OUTPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/docs)
+    set(DOXYGEN_STAMP_FILE ${CMAKE_CURRENT_BINARY_DIR}/docs.stamp)
     configure_file(
         ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in
         ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
@@ -25,7 +25,7 @@ if(DOXYGEN_FOUND)
         COMMAND ${CMAKE_COMMAND} -E touch ${DOXYGEN_STAMP_FILE}
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Generating API documentation with Doxygen" VERBATIM)
-    add_custom_target(doc DEPENDS ${DOXYGEN_STAMP_FILE})
+    add_custom_target(docs DEPENDS ${DOXYGEN_STAMP_FILE})
 
     if(NOT AITISA_API_INSTALL_MODE STREQUAL "BUNDLE")
         install(
