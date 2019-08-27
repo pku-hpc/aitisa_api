@@ -1,9 +1,9 @@
 Developer Guide {#dev_guide}
 ============================
 
-AITISA_API is an open-source performance library for Standard APIs for AI operations. The library supports basic math operations beyond an unified data structure called Tensor and building blocks for neural networks. AITISA_API is also a baseline reference CPU version for High-performance Intelligent Compute Engine (HICE).
+AITISA_API is an open-source library aiming to provide a reference implementation for the standard APIs proposed by AITISA, which are widely used by different AI applications. Base on the unified data structures, this library will provide the basic math operations, the neural network operations, and the machine leaning operations, etc. Besides, AITISA_API will also provide a testing framework to help other standard-compliant implementations to verify their correctness.
 
-# Class
+# Data Structures 
 - @ref Allocator
 - @ref DataType
 - @ref Device
