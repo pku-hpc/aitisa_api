@@ -2,10 +2,12 @@
 #include "src/core/allocator.h"
 #include "src/basic/index_utils.h"
 #include "src/nn/conv.h"
-#include <stdio.h> 
+#include <stdio.h>
 
-// Compute the output dims based on input dims, filter dims and other related
-// configurations
+/*
+ * Compute the output dims based on input dims, filter dims and other related
+ * configurations such as stride, padding, and dialation.
+ */
 static void conv_output_dims(const int64_t *input_dims,
                              const int64_t *filter_dims, const int *stride,
                              const int *padding, const int *dilation,
@@ -19,9 +21,11 @@ static void conv_output_dims(const int64_t *input_dims,
   }
 }
 
-Status aitisa_conv(const Tensor input, const Tensor filter, const int *stride,
-                   const int *padding, const int *dilation, const int groups,
-                   Tensor *output_ptr) {
+/* The implementation of convolution for the float data type */
+static Status aitisa_conv_float(const Tensor input, const Tensor filter,
+                                const int *stride, const int *padding,
+                                const int *dilation, const int groups,
+                                Tensor *output_ptr) {
   int64_t ndim = aitisa_tensor_ndim(input);
   int64_t *in_dims = aitisa_tensor_dims(input);
   int64_t *fil_dims = aitisa_tensor_dims(filter);
@@ -77,12 +81,6 @@ Status aitisa_conv(const Tensor input, const Tensor filter, const int *stride,
         out_coords[0] = b;
         out_coords[1] = oc;
 
-        //printf("\nout_coords: ");
-        //for (int it = 0; it < ndim; ++it) {
-        //  printf("%ld ", out_coords[it]);
-        //}
-        //printf("\n");
-
         for (int64_t d = 0; d < sdim; ++d) {
           in_coords[2 + d] = out_coords[2 + d] * stride[d] - padding[d];
         }
@@ -96,12 +94,6 @@ Status aitisa_conv(const Tensor input, const Tensor filter, const int *stride,
             fil_coords[0] = oc;
             fil_coords[1] = ic;
 
-            //printf("\nfil_coords: ");
-            //for (int it = 0; it < ndim; ++it) {
-            //  printf("%ld ", fil_coords[it]);
-            //}
-            //printf("\n");
-
             int inside = 1;
             for (int64_t d = 0; d < sdim && inside; ++d) {
               tmp_coords[2 + d] =
@@ -112,19 +104,11 @@ Status aitisa_conv(const Tensor input, const Tensor filter, const int *stride,
             tmp_coords[0] = in_coords[0];
             tmp_coords[1] = in_coords[1];
 
-            //printf("tmp_coords: ");
-            //for (int it = 0; it < ndim; ++it) {
-            //  printf("%ld ", tmp_coords[it]);
-            //}
-            //printf("\n");
-            //printf("inside: %d\n", inside);
             if (inside) {
               int64_t in_offset =
                   aitisa_coords_to_offset(input, tmp_coords, ndim);
-              //printf("in_offset: %ld\n", in_offset);
               int64_t fil_offset =
                   aitisa_coords_to_offset(filter, fil_coords, ndim);
-              //printf("fil_offset: %ld\n", fil_offset);
               tmp += in_data[in_offset] * fil_data[fil_offset];
             }
           }
@@ -143,4 +127,22 @@ Status aitisa_conv(const Tensor input, const Tensor filter, const int *stride,
   aitisa_default_cpu_allocator()->raw_dealloc(in_strides);
   aitisa_default_cpu_allocator()->raw_dealloc(fil_strides);
   aitisa_default_cpu_allocator()->raw_dealloc(out_strides);
+}
+
+/*
+ * The implementation of the convolution operation. For now, it is only support
+ * the float data type.
+ */
+Status aitisa_conv(const Tensor input, const Tensor filter, const int *stride,
+                   const int *padding, const int *dilation, const int groups,
+                   Tensor *output_ptr) {
+  DataType dtype = aitisa_tensor_data_type(input);
+  switch (dtype.code) {
+    case TYPE_FLOAT:
+      CHECK_STATUS(aitisa_conv_float(input, filter, stride, padding, dilation,
+                                     groups, output_ptr));
+      break;
+    default:
+      return STATUS_NOT_SUPPORTED;
+  }
 }

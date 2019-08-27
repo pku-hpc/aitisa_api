@@ -6,6 +6,7 @@ project(aitisa_api VERSION 0.0.7 LANGUAGES C CXX)
 ##############################################
 option(AITISA_API_BUILD_SHARED_LIBS "Compiled as a shared library" ON)
 option(AITISA_API_BUILD_TESTING "Build with testing enabled" ON)
+option(AITISA_API_BUILD_DOCS "Generate documents with Doxygen" ON)
 option(AITISA_API_USE_GTEST_LOCAL "Download and build with GTest" ON)
 
 if(AITISA_API_BUILD_SHARED_LIBS)
@@ -92,4 +93,12 @@ if(AITISA_API_BUILD_TESTING)
     include(cmake/public/GTest.cmake)
   endif()
   add_subdirectory(test)
+endif()
+
+##############################################
+# Generate Documents
+##############################################
+if(AITISA_API_BUILD_DOCS)
+  set(Doxygen_dir "/home/amax107/hice/ayl/doxygen-1.8.16")
+  include(cmake/public/Doxygen.cmake)
 endif()
