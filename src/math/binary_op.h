@@ -6,14 +6,14 @@
 /**
  * @brief Enumeration type for all possible binary operation types
  * 
- * @detail Use to select the right operator in calculation
+ * @details Use to select the right operator in calculation
  */ 
 typedef enum {
   OP_ADD = 0U,
   OP_SUB,
   OP_MUL,
   OP_DIV,
-  OP_NOPS = 4U /* The total number of all possible operations */
+  OP_NOPS = 4U /**< The total number of all possible operations */
 } OpCode;
 
 typedef void (*BinaryOpFunc)(void *a, void *b, OpCode op, void *c);

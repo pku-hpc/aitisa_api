@@ -26,8 +26,7 @@
  *
  * @param tensor1 The first input.
  * @param tensor2 The second input.
- * @param output Pointer to the result tensor, the output will be resized
- * inside the function.
+ * @param output Pointer to the result tensor, the output will be resized inside the function.\
  * 
  * @return Status.
  * @retval STATUS_SUCCESS Success.

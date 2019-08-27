@@ -10,32 +10,32 @@
 /**
  * @brief Enumeration type for all possible layout types
  * 
- * @detail Use to select the right layout types for tensor
+ * @details Use to select the right layout types for tensor
  */ 
 typedef enum {
-  LAYOUT_DENSE = 0, /* Represent for dense tensor */
-  LAYOUT_SPARSE = 1, /* Represent for sparse tensor*/
+  LAYOUT_DENSE = 0, /**< Represent for dense tensor */
+  LAYOUT_SPARSE = 1, /**< Represent for sparse tensor*/
 } LayoutType;
 
 /**
  * @brief Attributes of Layout struct
  * 
- * @detail Layout structure contains all attributes which need to be known in a specific tensor
+ * @details Layout structure contains all attributes which need to be known in a specific tensor
  */
 typedef struct {
-  LayoutType type; /* The layout type, include sparse and dense */
-  int64_t *min2maj; /* The layout message, which indicate the visit order of tensor */
+  LayoutType type; /**< The layout type, include sparse and dense */
+  int64_t *min2maj; /**< The layout message, which indicate the visit order of tensor */
 } Layout;
 
 /**
  * @brief Attributes of Shape struct
  * 
- * @detail Shape structure contains all attributes which need to be known in a specific tensor
+ * @details Shape structure contains all attributes which need to be known in a specific tensor
  */
 typedef struct {
-  int64_t ndim; /* Number of dimensions */
-  int64_t *dims; /* Number of elements in each dimensions*/
-  Layout layout; /* The layout information of a tensor */
+  int64_t ndim; /**< Number of dimensions */
+  int64_t *dims; /**< Number of elements in each dimensions*/
+  Layout layout; /**< The layout information of a tensor */
 } Shape;
 
 /**
@@ -50,6 +50,7 @@ typedef struct {
  * Shape shape;
  * int64_t dims[3] = {2, 3, 4};
  * aitisa_create_shape(LAYOUT_DENSE, dims, 3, shape);
+ * @endcode
  * 
  * @return 
  * @retval STATUS_SUCCESS Successfully create a new Shape
@@ -61,7 +62,7 @@ Status aitisa_create_shape(LayoutType layout_type, int64_t *dims,
 /**
  * @brief Destroy an exist shape
  * 
- * @param input the shape to be destroy
+ * @param shape the shape to be destroy
  * 
  * @return 
  * @retval STATUS_SUCCESS Successfully destroy a shape

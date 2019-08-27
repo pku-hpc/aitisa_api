@@ -7,15 +7,17 @@
 #include "src/core/status.h"
 #include "src/core/types.h"
 
-/* The implementation of the storage hold by the tensor */
+/**
+ * @brief The implementation of the storage hold by the tensor
+ */
 struct _StorageImpl {
-  /* The data type of the elements in the storage */
+  /**< The data type of the elements in the storage */
   DataType dtype;
-  /* The device where the elements are stored */
+  /**< The device where the elements are stored */
   Device device;
-  /* The number of the elements hold by the storage */
+  /**< The number of the elements hold by the storage */
   int64_t size;
-  /* The raw data pointer pointing to the memory space */
+  /**< The raw data pointer pointing to the memory space */
   void *data;
 };
 
@@ -35,6 +37,7 @@ typedef struct _StorageImpl *Storage;
  * DataType dtype = {TYPE_INT32, sizeof(int)};
  * Device device = {DEVICE_CPU, 0};
  * aitisa_create_storage(dtype, device, 12, storage);
+ * @endcode
  * 
  * @return 
  * @retval STATUS_SUCCESS Successfully create a new storage
@@ -46,7 +49,7 @@ Status aitisa_create_storage(DataType dtype, Device device, int64_t size,
 /**
  * @brief Destroy an exist storage
  * 
- * @param input the storage to be destroy
+ * @param storage the storage to be destroy
  * 
  * @return 
  * @retval STATUS_SUCCESS Successfully destroy a storage
