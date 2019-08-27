@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
-project(aitisa_api VERSION 0.0.7 LANGUAGES C CXX)
+project(aitisa_api VERSION 0.4.0 LANGUAGES C CXX)
 
 ##############################################
 # General options
