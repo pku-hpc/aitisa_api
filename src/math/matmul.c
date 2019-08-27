@@ -6,10 +6,12 @@
 
 int64_t max_int64_(int64_t a, int64_t b) { return a > b ? a : b; }
 
+// get the strides of dims
 int64_t batch_strides(int64_t *dims, int64_t ndim, int64_t *strides,
                       int64_t nstride) {
   int64_t stride = 1;
   for (int64_t i = 0; i < nstride; ++i) {
+    // ndim - 1 - i >= 0 to make sure it is not out bound.
     if (ndim - 1 - i >= 0 && dims[ndim - 1 - i] != 1) {
       strides[nstride - 1 - i] = stride;
       stride *= dims[ndim - 1 - i];
@@ -19,57 +21,264 @@ int64_t batch_strides(int64_t *dims, int64_t ndim, int64_t *strides,
   }
 }
 
-void vv(void *X, void *Y, void *Z, int64_t L) {
-  for (int i = 0; i < L; ++i) {
-    ((float *)Z)[0] += ((float *)X)[i] * ((float *)Y)[i];
+// kernel of vector-vector multiply
+#define VV_KERNEL(typename, X, Y, Z, L)                            \
+  for (int i = 0; i < L; ++i) {                                    \
+    ((typename *)Z)[0] += ((typename *)X)[i] * ((typename *)Y)[i]; \
   }
-}
 
-void mv(void *A, void *X, void *B, int64_t M, int64_t N) {
-  for (int i = 0; i < M; ++i) {
-    for (int j = 0; j < N; ++j) {
-      ((float *)B)[i] += ((float *)A)[i * N + j] * ((float *)X)[j];
+// kernel of matrix-vector multiply
+#define MV_KERNEL(typename, A, X, B, M, N)                                   \
+  for (int i = 0; i < M; ++i) {                                              \
+    for (int j = 0; j < N; ++j) {                                            \
+      ((typename *)B)[i] += ((typename *)A)[i * N + j] * ((typename *)X)[j]; \
+    }                                                                        \
+  }
+
+// kernel of matrix-matrix multiply
+#define MM_KERNEL(typename, A, B, C, M, K, N)                        \
+  for (int i = 0; i < M; ++i) {                                      \
+    for (int j = 0; j < N; ++j) {                                    \
+      for (int q = 0; q < K; ++q) {                                  \
+        ((typename *)C)[i * N + j] +=                                \
+            ((typename *)A)[i * K + q] * ((typename *)B)[q * N + j]; \
+      }                                                              \
+    }                                                                \
+  }
+
+// kernel of batch matrix-matrix multiply
+#define BATCH_MM_KERNEL(typename, As, Bs, Cs, M, K, N, n_batch) \
+  for (int64_t bth = 0; bth < n_batch; ++bth) {                 \
+    typename *A = *((typename **)As + bth);                     \
+    typename *B = *((typename **)Bs + bth);                     \
+    typename *C = *((typename **)Cs + bth);                     \
+    MM_KERNEL(typename, A, B, C, M, K, N);                      \
+  }
+
+// choose vv kernel according to dtype.code
+void vv_template(DataType dtype, void *X, void *Y, void *Z, int64_t L,
+                 Status *status) {
+  *status = STATUS_SUCCESS;
+  switch (dtype.code) {
+    case TYPE_INT8: {
+      VV_KERNEL(int8_t, X, Y, Z, L);
+      break;
     }
-  }
-}
-
-void mm(void *A, void *B, void *C, int64_t M, int64_t K, int64_t N) {
-  for (int i = 0; i < M; ++i) {
-    for (int j = 0; j < N; ++j) {
-      for (int q = 0; q < K; ++q) {
-        ((float *)C)[i * N + j] +=
-            ((float *)A)[i * K + q] * ((float *)B)[q * N + j];
-      }
+    case TYPE_UINT8: {
+      VV_KERNEL(uint8_t, X, Y, Z, L);
+      break;
     }
+    case TYPE_INT16: {
+      VV_KERNEL(int16_t, X, Y, Z, L);
+      break;
+    }
+    case TYPE_UINT16: {
+      VV_KERNEL(uint16_t, X, Y, Z, L);
+      break;
+    }
+    case TYPE_INT32: {
+      VV_KERNEL(int32_t, X, Y, Z, L);
+      break;
+    }
+    case TYPE_UINT32: {
+      VV_KERNEL(uint32_t, X, Y, Z, L);
+      break;
+    }
+    case TYPE_INT64: {
+      VV_KERNEL(int64_t, X, Y, Z, L);
+      break;
+    }
+    case TYPE_UINT64: {
+      VV_KERNEL(uint64_t, X, Y, Z, L);
+      break;
+    }
+    case TYPE_FLOAT: {
+      VV_KERNEL(float, X, Y, Z, L);
+      break;
+    }
+    case TYPE_DOUBLE: {
+      VV_KERNEL(double, X, Y, Z, L);
+      break;
+    }
+    default:
+      *status = STATUS_NOT_SUPPORTED;
   }
 }
 
-void batch_mm(void **As, void **Bs, void **Cs, int64_t M, int64_t K, int64_t N,
-              int64_t n_batch) {
-  for (int64_t bth = 0; bth < n_batch; ++bth) {
-    float *A = *((float **)As + bth);
-    float *B = *((float **)Bs + bth);
-    float *C = *((float **)Cs + bth);
-    mm(A, B, C, M, K, N);
+// choose mv kernel according to dtype.code
+void mv_template(DataType dtype, void *A, void *X, void *B, int64_t M,
+                 int64_t N, Status *status) {
+  *status = STATUS_SUCCESS;
+  switch (dtype.code) {
+    case TYPE_INT8: {
+      MV_KERNEL(int8_t, A, X, B, M, N);
+      break;
+    }
+    case TYPE_UINT8: {
+      MV_KERNEL(uint8_t, A, X, B, M, N);
+      break;
+    }
+    case TYPE_INT16: {
+      MV_KERNEL(int16_t, A, X, B, M, N);
+      break;
+    }
+    case TYPE_UINT16: {
+      MV_KERNEL(uint16_t, A, X, B, M, N);
+      break;
+    }
+    case TYPE_INT32: {
+      MV_KERNEL(int32_t, A, X, B, M, N);
+      break;
+    }
+    case TYPE_UINT32: {
+      MV_KERNEL(uint32_t, A, X, B, M, N);
+      break;
+    }
+    case TYPE_INT64: {
+      MV_KERNEL(int64_t, A, X, B, M, N);
+      break;
+    }
+    case TYPE_UINT64: {
+      MV_KERNEL(uint64_t, A, X, B, M, N);
+      break;
+    }
+    case TYPE_FLOAT: {
+      MV_KERNEL(float, A, X, B, M, N);
+      break;
+    }
+    case TYPE_DOUBLE: {
+      MV_KERNEL(double, A, X, B, M, N);
+      break;
+    }
+    default:
+      *status = STATUS_NOT_SUPPORTED;
   }
 }
 
+// choose mm kernel according to dtype.code
+void mm_template(DataType dtype, void *A, void *B, void *C, int64_t M,
+                 int64_t K, int64_t N, Status *status) {
+  *status = STATUS_SUCCESS;
+  switch (dtype.code) {
+    case TYPE_INT8: {
+      MM_KERNEL(int8_t, A, B, C, M, K, N);
+      break;
+    }
+    case TYPE_UINT8: {
+      MM_KERNEL(uint8_t, A, B, C, M, K, N);
+      break;
+    }
+    case TYPE_INT16: {
+      MM_KERNEL(int16_t, A, B, C, M, K, N);
+      break;
+    }
+    case TYPE_UINT16: {
+      MM_KERNEL(uint16_t, A, B, C, M, K, N);
+      break;
+    }
+    case TYPE_INT32: {
+      MM_KERNEL(int32_t, A, B, C, M, K, N);
+      break;
+    }
+    case TYPE_UINT32: {
+      MM_KERNEL(uint32_t, A, B, C, M, K, N);
+      break;
+    }
+    case TYPE_INT64: {
+      MM_KERNEL(int64_t, A, B, C, M, K, N);
+      break;
+    }
+    case TYPE_UINT64: {
+      MM_KERNEL(uint64_t, A, B, C, M, K, N);
+      break;
+    }
+    case TYPE_FLOAT: {
+      MM_KERNEL(float, A, B, C, M, K, N);
+      break;
+    }
+    case TYPE_DOUBLE: {
+      MM_KERNEL(double, A, B, C, M, K, N);
+      break;
+    }
+    default:
+      *status = STATUS_NOT_SUPPORTED;
+  }
+}
+
+// choose batch_mm kernel according to dtype.code
+void batch_mm_template(DataType dtype, void **As, void **Bs, void **Cs,
+                       int64_t M, int64_t K, int64_t N, int64_t n_batch,
+                       Status *status) {
+  *status = STATUS_SUCCESS;
+  switch (dtype.code) {
+    case TYPE_INT8: {
+      BATCH_MM_KERNEL(int8_t, As, Bs, Cs, M, K, N, n_batch);
+      break;
+    }
+    case TYPE_UINT8: {
+      BATCH_MM_KERNEL(uint8_t, As, Bs, Cs, M, K, N, n_batch);
+      break;
+    }
+    case TYPE_INT16: {
+      BATCH_MM_KERNEL(int16_t, As, Bs, Cs, M, K, N, n_batch);
+      break;
+    }
+    case TYPE_UINT16: {
+      BATCH_MM_KERNEL(uint16_t, As, Bs, Cs, M, K, N, n_batch);
+      break;
+    }
+    case TYPE_INT32: {
+      BATCH_MM_KERNEL(int32_t, As, Bs, Cs, M, K, N, n_batch);
+      break;
+    }
+    case TYPE_UINT32: {
+      BATCH_MM_KERNEL(uint32_t, As, Bs, Cs, M, K, N, n_batch);
+      break;
+    }
+    case TYPE_INT64: {
+      BATCH_MM_KERNEL(int64_t, As, Bs, Cs, M, K, N, n_batch);
+      break;
+    }
+    case TYPE_UINT64: {
+      BATCH_MM_KERNEL(uint64_t, As, Bs, Cs, M, K, N, n_batch);
+      break;
+    }
+    case TYPE_FLOAT: {
+      BATCH_MM_KERNEL(float, As, Bs, Cs, M, K, N, n_batch);
+      break;
+    }
+    case TYPE_DOUBLE: {
+      BATCH_MM_KERNEL(double, As, Bs, Cs, M, K, N, n_batch);
+      break;
+    }
+    default:
+      *status = STATUS_NOT_SUPPORTED;
+  }
+}
+
+/**
+ * @brief Definition of aitisa_matmul.
+ * 
+ * @param tensor1 
+ * @param tensor2 
+ * @param output 
+ * @return Status 
+ */
 Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
                      Tensor *output) {
   if (aitisa_tensor_device(tensor1).type != DEVICE_CPU ||
-      aitisa_tensor_device(tensor2).type != DEVICE_CPU ||
-      aitisa_tensor_data_type(tensor1).code != TYPE_FLOAT) {
+      aitisa_tensor_device(tensor2).type != DEVICE_CPU) {
     return STATUS_NOT_SUPPORTED;
   }
   int64_t ndim_tensor1 = aitisa_tensor_ndim(tensor1);
   int64_t ndim_tensor2 = aitisa_tensor_ndim(tensor2);
-  Status status = STATUS_SUCCESS;
+  Status status;
   if (ndim_tensor1 == 1 && ndim_tensor2 == 1) {
     // vector-vector
     int64_t dim0_tensor1 = aitisa_tensor_dim(tensor1, 0);
     int64_t dim0_tensor2 = aitisa_tensor_dim(tensor2, 0);
     if (dim0_tensor1 != dim0_tensor2) {
-      return STATUS_INVALID_ARGUMENT;
+      return STATUS_DIMENSIONS_MISMATCH;
     }
     // create output
     int64_t ndim_out = 1;
@@ -78,16 +287,16 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
                              aitisa_tensor_device(tensor1), dims_out, ndim_out,
                              0.0, output));
     // call kernel
-    vv(aitisa_tensor_data(tensor1), aitisa_tensor_data(tensor2),
-       aitisa_tensor_data(*output), dim0_tensor1);
-
+    vv_template(aitisa_tensor_data_type(tensor1), aitisa_tensor_data(tensor1),
+                aitisa_tensor_data(tensor2), aitisa_tensor_data(*output),
+                dim0_tensor1, &status);
   } else if (ndim_tensor1 == 2 && ndim_tensor2 == 1) {
     // matrix-vector
     int64_t dim0_tensor1 = aitisa_tensor_dim(tensor1, 0);
     int64_t dim1_tensor1 = aitisa_tensor_dim(tensor1, 1);
     int64_t dim0_tensor2 = aitisa_tensor_dim(tensor2, 0);
     if (dim1_tensor1 != dim0_tensor2) {
-      return STATUS_INVALID_ARGUMENT;
+      return STATUS_DIMENSIONS_MISMATCH;
     }
     // create output
     int64_t ndim_out = 1;
@@ -96,8 +305,9 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
                              aitisa_tensor_device(tensor1), dims_out, ndim_out,
                              0.0, output));
     // call kernel
-    mv(aitisa_tensor_data(tensor1), aitisa_tensor_data(tensor2),
-       aitisa_tensor_data(*output), dim0_tensor1, dim1_tensor1);
+    mv_template(aitisa_tensor_data_type(tensor1), aitisa_tensor_data(tensor1),
+                aitisa_tensor_data(tensor2), aitisa_tensor_data(*output),
+                dim0_tensor1, dim1_tensor1, &status);
   } else if (ndim_tensor1 == 2 && ndim_tensor2 == 2) {
     // matrix-matrix
     int64_t dim0_tensor1 = aitisa_tensor_dim(tensor1, 0);
@@ -105,7 +315,7 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
     int64_t dim0_tensor2 = aitisa_tensor_dim(tensor2, 0);
     int64_t dim1_tensor2 = aitisa_tensor_dim(tensor2, 1);
     if (dim1_tensor1 != dim0_tensor2) {
-      return STATUS_INVALID_ARGUMENT;
+      return STATUS_DIMENSIONS_MISMATCH;
     }
     // create output
     int64_t ndim_out = 2;
@@ -114,8 +324,10 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
                              aitisa_tensor_device(tensor1), dims_out, ndim_out,
                              0.0, output));
     // call kernel
-    mm(aitisa_tensor_data(tensor1), aitisa_tensor_data(tensor2),
-       aitisa_tensor_data(*output), dim0_tensor1, dim1_tensor1, dim1_tensor2);
+    mm_template(aitisa_tensor_data_type(tensor1), aitisa_tensor_data(tensor1),
+                aitisa_tensor_data(tensor2), aitisa_tensor_data(*output),
+                dim0_tensor1, dim1_tensor1, dim1_tensor2, &status);
+
   } else if (ndim_tensor1 == 1 && ndim_tensor2 == 2) {
     // consider tensor1 as a matrix whose dim[0]=1;
     int64_t dim0_tensor1 = 1;
@@ -123,7 +335,7 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
     int64_t dim0_tensor2 = aitisa_tensor_dim(tensor2, 0);
     int64_t dim1_tensor2 = aitisa_tensor_dim(tensor2, 1);
     if (dim1_tensor1 != dim0_tensor2) {
-      return STATUS_INVALID_ARGUMENT;
+      return STATUS_DIMENSIONS_MISMATCH;
     }
     // create output
     int64_t ndim_out = 1;
@@ -132,8 +344,9 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
                              aitisa_tensor_device(tensor1), dims_out, ndim_out,
                              0.0, output));
     // call kernel
-    mm(aitisa_tensor_data(tensor1), aitisa_tensor_data(tensor2),
-       aitisa_tensor_data(*output), dim0_tensor1, dim1_tensor1, dim1_tensor2);
+    mm_template(aitisa_tensor_data_type(tensor1), aitisa_tensor_data(tensor1),
+                aitisa_tensor_data(tensor2), aitisa_tensor_data(*output),
+                dim0_tensor1, dim1_tensor1, dim1_tensor2, &status);
   } else if (ndim_tensor1 >= 3 && ndim_tensor2 == 1) {
     // consider tensor2 as a matrix whose dim[1]=1;
     int64_t dim0_tensor1 = aitisa_tensor_dim(tensor1, ndim_tensor1 - 2);
@@ -141,7 +354,7 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
     int64_t dim0_tensor2 = aitisa_tensor_dim(tensor2, 0);
     int64_t dim1_tensor2 = 1;
     if (dim1_tensor1 != dim0_tensor2) {
-      return STATUS_INVALID_ARGUMENT;
+      return STATUS_DIMENSIONS_MISMATCH;
     }
     // create output
     int64_t ndim_out = ndim_tensor1 - 1;
@@ -174,7 +387,9 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
       Cs[i] = data_output + i * size_mat3 * size_type;
     }
     // call kernel
-    batch_mm(As, Bs, Cs, dim0_tensor1, dim1_tensor1, dim1_tensor2, n_batch);
+    batch_mm_template(aitisa_tensor_data_type(tensor1), As, Bs, Cs,
+                      dim0_tensor1, dim1_tensor1, dim1_tensor2, n_batch,
+                      &status);
     // free memory
     aitisa_default_cpu_allocator()->raw_dealloc(Cs);
     aitisa_default_cpu_allocator()->raw_dealloc(Bs);
@@ -187,7 +402,7 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
     int64_t dim0_tensor2 = aitisa_tensor_dim(tensor2, ndim_tensor2 - 2);
     int64_t dim1_tensor2 = aitisa_tensor_dim(tensor2, ndim_tensor2 - 1);
     if (dim1_tensor1 != dim0_tensor2) {
-      return STATUS_INVALID_ARGUMENT;
+      return STATUS_DIMENSIONS_MISMATCH;
     }
     // create output
     int64_t ndim_out = ndim_tensor2 - 1;
@@ -221,7 +436,9 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
       Cs[i] = data_output + i * size_mat3 * size_type;
     }
     // call kernel
-    batch_mm(As, Bs, Cs, dim0_tensor1, dim1_tensor1, dim1_tensor2, n_batch);
+    batch_mm_template(aitisa_tensor_data_type(tensor1), As, Bs, Cs,
+                      dim0_tensor1, dim1_tensor1, dim1_tensor2, n_batch,
+                      &status);
     // free memory
     aitisa_default_cpu_allocator()->raw_dealloc(Cs);
     aitisa_default_cpu_allocator()->raw_dealloc(Bs);
@@ -235,7 +452,7 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
     int64_t dim0_tensor2 = aitisa_tensor_dim(tensor2, ndim_tensor2 - 2);
     int64_t dim1_tensor2 = aitisa_tensor_dim(tensor2, ndim_tensor2 - 1);
     if (dim1_tensor1 != dim0_tensor2) {
-      return STATUS_INVALID_ARGUMENT;
+      return STATUS_DIMENSIONS_MISMATCH;
     }
     // create output
     int64_t ndim_out = max_int64_(ndim_tensor1, ndim_tensor2);
@@ -294,7 +511,9 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
       Cs[i] = data_output + i * size_mat3 * size_type;
     }
     // call kernel
-    batch_mm(As, Bs, Cs, dim0_tensor1, dim1_tensor1, dim1_tensor2, n_batch);
+    batch_mm_template(aitisa_tensor_data_type(tensor1), As, Bs, Cs,
+                      dim0_tensor1, dim1_tensor1, dim1_tensor2, n_batch,
+                      &status);
     // free memory
     aitisa_default_cpu_allocator()->raw_dealloc(Cs);
     aitisa_default_cpu_allocator()->raw_dealloc(Bs);
