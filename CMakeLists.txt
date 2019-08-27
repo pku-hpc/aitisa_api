@@ -14,7 +14,7 @@ if(AITISA_API_BUILD_SHARED_LIBS)
 endif()
 
 # Show the detail of compile messages
-set(CMAKE_VERBOSE_MAKEFILE ON)
+set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(CMAKE_COLOR_MAKEFILE   ON)
 
 ##############################################
