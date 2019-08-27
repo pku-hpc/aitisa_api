@@ -7,18 +7,19 @@
 #include "src/core/status.h"
 #include "src/core/types.h"
 
-/**
- * @brief Attributes of storage struct
- * 
- * @detail Storage structure contains all attributes which need to be known in a specific storage
- */
+/* The implementation of the storage hold by the tensor */
 struct _StorageImpl {
-  DataType dtype; /* The data type of all elements */
-  Device device; /* The device type to put storage on */
-  int64_t size; /* The total memory size of elements in the tensor */
-  void *data; /* The actual data which put in this storage */
+  /* The data type of the elements in the storage */
+  DataType dtype;
+  /* The device where the elements are stored */
+  Device device;
+  /* The number of the elements hold by the storage */
+  int64_t size;
+  /* The raw data pointer pointing to the memory space */
+  void *data;
 };
 
+/* The storage handle for users without exposing the implementation details. */
 typedef struct _StorageImpl *Storage;
 
 /**

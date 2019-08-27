@@ -3,8 +3,9 @@
 
 #include <stdint.h>
 
-typedef double Scalar;
-
+/**
+ * @brief Supported Type code used by DataType
+ */
 typedef enum {
   TYPE_INT8 = 0U,
   TYPE_UINT8,
@@ -19,9 +20,12 @@ typedef enum {
   TYPE_NTYPES = 10U
 } TypeCode;
 
+/**
+ * @brief DataType hold by the tensor
+ */
 typedef struct {
-  TypeCode code;
-  uint8_t size;
+  TypeCode code; /**< TypeCode used by this DataType*/
+  uint8_t size;  /**< Number of bytes occupyied by this DataType */
 } DataType;
 
 typedef void (*GetTypedValueFunc)(void *addr, void *value);
