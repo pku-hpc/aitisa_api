@@ -22,14 +22,35 @@ struct _StorageImpl {
 /* The storage handle for users without exposing the implementation details. */
 typedef struct _StorageImpl *Storage;
 
-/*
- * Create a new storage based on the data type, the device, the size 
- * of elements.
+/**
+ * @brief Create a new storage using the specific parameters
+ * 
+ * @param dtype The data type of storage
+ * @param device The device to create storage on
+ * @param size The total number of elements that will put in this storage
+ * @param storage A new storage to be created
+ * 
+ * @code
+ * Storage storage;
+ * DataType dtype = {TYPE_INT32, sizeof(int)};
+ * Device device = {DEVICE_CPU, 0};
+ * aitisa_create_storage(dtype, device, 12, storage);
+ * 
+ * @return 
+ * @retval STATUS_SUCCESS Successfully create a new storage
+ * @retval STATUS_ALLOC_FAILED Failed when the storage already exists
  */
 Status aitisa_create_storage(DataType dtype, Device device, int64_t size,
                              Storage *storage);
 
-/* Destory the storage including all its members */
+/**
+ * @brief Destroy an exist storage
+ * 
+ * @param input the storage to be destroy
+ * 
+ * @return 
+ * @retval STATUS_SUCCESS Successfully destroy a storage
+ */
 Status aitisa_destroy_storage(Storage *storage);
 
 #endif

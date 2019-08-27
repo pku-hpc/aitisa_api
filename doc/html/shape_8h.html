@@ -69,8 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
 <div class="title">shape.h File Reference</div>  </div>
 </div><!--header-->
@@ -85,8 +84,10 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structLayout.html">Layout</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attributes of <a class="el" href="structLayout.html" title="Attributes of Layout struct.">Layout</a> struct.  <a href="structLayout.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structShape.html">Shape</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attributes of <a class="el" href="structShape.html" title="Attributes of Shape struct.">Shape</a> struct.  <a href="structShape.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -94,14 +95,8 @@ Enumerations</h2></td></tr>
 <tr class="memitem:aaf71c596602a7233419387100afbd329"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shape_8h.html#aaf71c596602a7233419387100afbd329">LayoutType</a> { <a class="el" href="shape_8h.html#aaf71c596602a7233419387100afbd329a6e6334dd6714385d912a1b76136c4c75">LAYOUT_DENSE</a> = 0, 
 <a class="el" href="shape_8h.html#aaf71c596602a7233419387100afbd329aeeef1756bde2af5168af007daf5b179a">LAYOUT_SPARSE</a> = 1
  }</td></tr>
+<tr class="memdesc:aaf71c596602a7233419387100afbd329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration type for all possible layout types.  <a href="shape_8h.html#aaf71c596602a7233419387100afbd329">More...</a><br /></td></tr>
 <tr class="separator:aaf71c596602a7233419387100afbd329"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a9cb4374f9ace27b0b4164bfcda34cc2e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shape_8h.html#a9cb4374f9ace27b0b4164bfcda34cc2e">aitisa_create_shape</a> (<a class="el" href="shape_8h.html#aaf71c596602a7233419387100afbd329">LayoutType</a> layout_type, int64_t *dims, int64_t ndim, <a class="el" href="structShape.html">Shape</a> *shape)</td></tr>
-<tr class="separator:a9cb4374f9ace27b0b4164bfcda34cc2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7614cf50c8247e5034f03fa346c759b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shape_8h.html#a7614cf50c8247e5034f03fa346c759b3">aitisa_destroy_shape</a> (<a class="el" href="structShape.html">Shape</a> *shape)</td></tr>
-<tr class="separator:a7614cf50c8247e5034f03fa346c759b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="aaf71c596602a7233419387100afbd329"></a>
@@ -115,69 +110,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Enumeration type for all possible layout types. </p>
+<p>@detail Use to select the right layout types for tensor </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aaf71c596602a7233419387100afbd329a6e6334dd6714385d912a1b76136c4c75"></a>LAYOUT_DENSE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aaf71c596602a7233419387100afbd329aeeef1756bde2af5168af007daf5b179a"></a>LAYOUT_SPARSE&#160;</td><td class="fielddoc"></td></tr>
 </table>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="a9cb4374f9ace27b0b4164bfcda34cc2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cb4374f9ace27b0b4164bfcda34cc2e">&#9670;&nbsp;</a></span>aitisa_create_shape()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> aitisa_create_shape </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="shape_8h.html#aaf71c596602a7233419387100afbd329">LayoutType</a>&#160;</td>
-          <td class="paramname"><em>layout_type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int64_t *&#160;</td>
-          <td class="paramname"><em>dims</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int64_t&#160;</td>
-          <td class="paramname"><em>ndim</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structShape.html">Shape</a> *&#160;</td>
-          <td class="paramname"><em>shape</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7614cf50c8247e5034f03fa346c759b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7614cf50c8247e5034f03fa346c759b3">&#9670;&nbsp;</a></span>aitisa_destroy_shape()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> aitisa_destroy_shape </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structShape.html">Shape</a> *&#160;</td>
-          <td class="paramname"><em>shape</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
