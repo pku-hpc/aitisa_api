@@ -67,10 +67,55 @@ $(function() {
 <div class="title">Developer Guide </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md0"></a>
+<div class="textblock"><p>AITISA_API is an open-source performance library for Standard APIs for AI operations. The library supports basic math operations beyond an unified data structure called Tensor and building blocks for neural networks. AITISA_API is also a baseline reference CPU version for High-performance Intelligent Compute Engine (HICE).</p>
+<h1><a class="anchor" id="autotoc_md0"></a>
 Class</h1>
 <ul>
-<li><a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> </li>
+<li><a class="el" href="structAllocator.html">Allocator</a></li>
+<li><a class="el" href="structDataType.html">DataType</a></li>
+<li><a class="el" href="structDevice.html">Device</a></li>
+<li><a class="el" href="structLayout.html">Layout</a></li>
+<li><a class="el" href="structShape.html">Shape</a></li>
+<li><a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a></li>
+<li><a class="el" href="struct__TensorImpl.html">_TensorImpl</a></li>
+<li><a class="el" href="struct__StorageImpl.html">_StorageImpl</a></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Basic Operations</h1>
+<ul>
+<li><a class="el" href="tensor_8h.html#a0470b364fe740b38d26680342038f6a3">aitisa_create</a></li>
+<li><a class="el" href="tensor_8h.html#ab0284621402c87d6fa9b2fc177d30aae">aitisa_destroy</a></li>
+<li><a class="el" href="factories_8h.html#ad33e2dce93eaa30638ba45ec2d1c1779">aitisa_full</a></li>
+<li><a class="el" href="tensor_8h.html#a95932d53ee0f3524e74c5fbe86d41129">aitisa_tensor_data</a></li>
+<li><a class="el" href="tensor_8h.html#a8722ecc0440e6f22a600e96290ef0ce2">aitisa_tensor_data_type</a></li>
+<li><a class="el" href="tensor_8h.html#a8a02ee0345b29916e1743584dd67f55b">aitisa_tensor_device</a></li>
+<li><a class="el" href="tensor_8h.html#ad6d0e4b06cc69d7c7fd72b7ee02795c9">aitisa_tensor_dim</a></li>
+<li><a class="el" href="tensor_8h.html#a62cd46ba6198d2eae644c13e1360a6b6">aitisa_tensor_dims</a></li>
+<li><a class="el" href="tensor_8h.html#a948dd10f62bcfd028843eec7eb21303d">aitisa_tensor_layout_type</a></li>
+<li><a class="el" href="tensor_8h.html#aa2c9fb70b559fad2575df964db3bf3c3">aitisa_tensor_ndim</a></li>
+<li><a class="el" href="tensor_8h.html#acace44cc18e9f3757b13a7601cce22ed">aitisa_tensor_set_item</a></li>
+<li><a class="el" href="tensor_8h.html#aca90cb2cc445185aa696159cb96c9676">aitisa_tensor_shape</a></li>
+<li><a class="el" href="tensor_8h.html#a0c25f593d04a46e26ad846ea4b628241">aitisa_tensor_size</a></li>
+<li><a class="el" href="tensor_8h.html#ae9f979b12b857430c00f46c517f2507b">aitisa_tensor_storage</a></li>
+<li><a class="el" href="index__utils_8h.html#a3c03ea60146777aaaf1088887bfbe4b7">aitisa_get_stride</a></li>
+<li><a class="el" href="index__utils_8h.html#a8928c0e90f7f86729ad814863e4bd7a7">aitisa_get_all_strides</a></li>
+<li><a class="el" href="index__utils_8h.html#a6525ed9c9b240b0eaded45684c04fce6">aitisa_coords_to_linidx</a></li>
+<li><a class="el" href="index__utils_8h.html#a75f7aa828cfc98ba13ed26aec706eba8">aitisa_linidx_to_coords</a></li>
+<li><a class="el" href="index__utils_8h.html#a76c69c5c07b7c759d3d6286624c56c72">aitisa_coords_to_offset</a></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Math Operations</h1>
+<ul>
+<li><a class="el" href="binary__op_8h.html#ac44e9a1e2d259534bffbe7de66fe02ef">aitisa_add</a></li>
+<li><a class="el" href="binary__op_8h.html#a79b324644fc08ec79f7126d4b35621e9">aitisa_sub</a></li>
+<li><a class="el" href="binary__op_8h.html#a923553bf65b29ae99bde66d552f59173">aitisa_mul</a></li>
+<li><a class="el" href="binary__op_8h.html#ab4d1e167b1d8ced6aa4edc938345b3c7">aitisa_div</a></li>
+<li><a class="el" href="matmul_8h.html#a004e7e1d896fc56f91a81230024deef8">aitisa_matmul</a></li>
+</ul>
+<h1><a class="anchor" id="autotoc_md3"></a>
+NN Operations</h1>
+<ul>
+<li><a class="el" href="conv_8h.html#a4f645ce2f2b1329ee42582335f1965b8">aitisa_conv</a> </li>
 </ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->

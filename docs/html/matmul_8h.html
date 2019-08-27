@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>aitisa_api: /home/amax107/hice/ayl/aitisa_api/src/math/matmul.h File Reference</title>
+<title>aitisa_api: /home/amax107/hice/likesen/aitisa_api/src/math/matmul.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -80,6 +80,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a004e7e1d896fc56f91a81230024deef8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="macros_8h.html#ac8b488663e34cddcd0952bc63ed91178">AITISA_API_PUBLIC</a> <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8h.html#a004e7e1d896fc56f91a81230024deef8">aitisa_matmul</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> tensor1, const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> tensor2, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
+<tr class="memdesc:a004e7e1d896fc56f91a81230024deef8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix multiplication of tensor1 and tensor2.  <a href="matmul_8h.html#a004e7e1d896fc56f91a81230024deef8">More...</a><br /></td></tr>
 <tr class="separator:a004e7e1d896fc56f91a81230024deef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -114,6 +115,38 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Matrix multiplication of tensor1 and tensor2. </p>
+<p>Apply different kernel(dot, gemv, gemm, batch_gemm) according the dim size of inputs: (0) ndim_tensor1 &lt; 1 &amp; ndim_tensor2 &lt; 1 ==&gt; INVALID ERROR. (1) ndim_tensor1 == 1 &amp; ndim_tensor2 == 1 ==&gt; output = dot(tensor1, tensor2); (2) ndim_tensor1 == 1 &amp; ndim_tensor2 == 2 ==&gt; tensor1 is considered as a one-row matrix, output = gemm(tensor1, tensor2); (3) ndim_tensor1 == 1 &amp; ndim_tensor2 &gt;= 3 ==&gt; tensor1 is considered as a one-row matrix, output = batch_gemm(tensor1, tensor2); (4) ndim_tensor1 == 2 &amp; ndim_tensor2 == 1 ==&gt; output = gemv(tensor1, tensor2); (5) ndim_tensor1 == 2 &amp; ndim_tensor2 == 2 ==&gt; output = gemm(tensor1, tensor2); (6) ndim_tensor1 == 2 &amp; ndim_tensor2 &gt;= 3 ==&gt; output = batch_gemm(tensor1, tensor2); (7) ndim_tensor1 &gt;= 3 &amp; ndim_tensor2 == 1 ==&gt; tensor2 is considered as a one-column matrix, output = batch_gemm(tensor1, tensor2); (8) ndim_tensor1 &gt;= 3 &amp; ndim_tensor2 &gt;= 2 ==&gt; output = batch_gemm(tensor1, tensor2);</p>
+<dl class="section note"><dt>Note</dt><dd>(1) Only CPU is supported for now. (2) before doing batch_gemm, the batch dims of tensor1 and tensor2 will be broadcasted.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tensor1</td><td>The first input. </td></tr>
+    <tr><td class="paramname">tensor2</td><td>The second input. </td></tr>
+    <tr><td class="paramname">output</td><td>Pointer to the result tensor, the output will be resized inside the function.\</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status. </dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">STATUS_SUCCESS</td><td>Success. </td></tr>
+    <tr><td class="paramname">STATUS_NOT_SUPPORTED</td><td>The device type or data type is not supported. </td></tr>
+    <tr><td class="paramname">STATUS_INVALID_ARGUMENT</td><td>The dims of inputs are invalid. </td></tr>
+    <tr><td class="paramname">STATUS_DIMENSIONS_MISMATCH</td><td>The dims of inputs are mismatched.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Matrix multiplication of tensor1 and tensor2.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tensor1</td><td></td></tr>
+    <tr><td class="paramname">tensor2</td><td></td></tr>
+    <tr><td class="paramname">output</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status </dd></dl>
 
 </div>
 </div>

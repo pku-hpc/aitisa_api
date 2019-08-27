@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>aitisa_api: /home/amax107/hice/ayl/aitisa_api/src/core/shape.c File Reference</title>
+<title>aitisa_api: /home/amax107/hice/likesen/aitisa_api/src/core/shape.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -84,8 +84,10 @@ Functions</h2></td></tr>
 <tr class="memitem:a378573ccdeaef74a2a93c1893ea76602"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shape_8c.html#a378573ccdeaef74a2a93c1893ea76602">aitisa_destroy_layout</a> (<a class="el" href="structLayout.html">Layout</a> *layout)</td></tr>
 <tr class="separator:a378573ccdeaef74a2a93c1893ea76602"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9cb4374f9ace27b0b4164bfcda34cc2e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shape_8c.html#a9cb4374f9ace27b0b4164bfcda34cc2e">aitisa_create_shape</a> (<a class="el" href="shape_8h.html#aaf71c596602a7233419387100afbd329">LayoutType</a> layout_type, int64_t *dims, int64_t ndim, <a class="el" href="structShape.html">Shape</a> *shape)</td></tr>
+<tr class="memdesc:a9cb4374f9ace27b0b4164bfcda34cc2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new shape using the specific parameters.  <a href="shape_8c.html#a9cb4374f9ace27b0b4164bfcda34cc2e">More...</a><br /></td></tr>
 <tr class="separator:a9cb4374f9ace27b0b4164bfcda34cc2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7614cf50c8247e5034f03fa346c759b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shape_8c.html#a7614cf50c8247e5034f03fa346c759b3">aitisa_destroy_shape</a> (<a class="el" href="structShape.html">Shape</a> *shape)</td></tr>
+<tr class="memdesc:a7614cf50c8247e5034f03fa346c759b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy an exist shape.  <a href="shape_8c.html#a7614cf50c8247e5034f03fa346c759b3">More...</a><br /></td></tr>
 <tr class="separator:a7614cf50c8247e5034f03fa346c759b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -161,6 +163,28 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Create a new shape using the specific parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">layout_type</td><td>The layout type of shape </td></tr>
+    <tr><td class="paramname">dims</td><td>The dimension detail of this shape </td></tr>
+    <tr><td class="paramname">ndim</td><td>Number of dimension of this shape </td></tr>
+    <tr><td class="paramname">shape</td><td>A new shape to be created</td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a class="code" href="structShape.html">Shape</a> shape;</div>
+<div class="line">int64_t dims[3] = {2, 3, 4};</div>
+<div class="line"><a class="code" href="shape_8c.html#a9cb4374f9ace27b0b4164bfcda34cc2e">aitisa_create_shape</a>(<a class="code" href="shape_8h.html#aaf71c596602a7233419387100afbd329a6e6334dd6714385d912a1b76136c4c75">LAYOUT_DENSE</a>, dims, 3, shape);</div>
+</div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">STATUS_SUCCESS</td><td>Successfully create a new <a class="el" href="structShape.html" title="Attributes of Shape struct.">Shape</a> </td></tr>
+    <tr><td class="paramname">STATUS_ALLOC_FAILED</td><td>Failed when the shape already exists </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a378573ccdeaef74a2a93c1893ea76602"></a>
@@ -197,9 +221,27 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Destroy an exist shape. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">shape</td><td>the shape to be destroy</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">STATUS_SUCCESS</td><td>Successfully destroy a shape </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 </div><!-- contents -->
+<div class="ttc" id="astructShape_html"><div class="ttname"><a href="structShape.html">Shape</a></div><div class="ttdoc">Attributes of Shape struct.</div><div class="ttdef"><b>Definition:</b> shape.h:35</div></div>
+<div class="ttc" id="ashape_8h_html_aaf71c596602a7233419387100afbd329a6e6334dd6714385d912a1b76136c4c75"><div class="ttname"><a href="shape_8h.html#aaf71c596602a7233419387100afbd329a6e6334dd6714385d912a1b76136c4c75">LAYOUT_DENSE</a></div><div class="ttdoc">Represent for dense tensor.</div><div class="ttdef"><b>Definition:</b> shape.h:16</div></div>
+<div class="ttc" id="ashape_8c_html_a9cb4374f9ace27b0b4164bfcda34cc2e"><div class="ttname"><a href="shape_8c.html#a9cb4374f9ace27b0b4164bfcda34cc2e">aitisa_create_shape</a></div><div class="ttdeci">Status aitisa_create_shape(LayoutType layout_type, int64_t *dims, int64_t ndim, Shape *shape)</div><div class="ttdoc">Create a new shape using the specific parameters.</div><div class="ttdef"><b>Definition:</b> shape.c:24</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

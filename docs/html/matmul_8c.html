@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>aitisa_api: /home/amax107/hice/ayl/aitisa_api/src/math/matmul.c File Reference</title>
+<title>aitisa_api: /home/amax107/hice/likesen/aitisa_api/src/math/matmul.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,6 +68,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">matmul.c File Reference</div>  </div>
@@ -79,23 +80,278 @@ $(function() {
 <code>#include &quot;<a class="el" href="allocator_8h_source.html">src/core/allocator.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="utils_8h_source.html">src/core/utils.h</a>&quot;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a90e27a189e7293ba5bfeb1b3fda52639"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a90e27a189e7293ba5bfeb1b3fda52639">VV_KERNEL</a>(typename,  X,  Y,  Z,  L)</td></tr>
+<tr class="separator:a90e27a189e7293ba5bfeb1b3fda52639"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8895e811548a6be6af233e1704ad0f6e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a8895e811548a6be6af233e1704ad0f6e">MV_KERNEL</a>(typename,  A,  X,  B,  M,  N)</td></tr>
+<tr class="separator:a8895e811548a6be6af233e1704ad0f6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a717d9a3c7022ffb9121cacb0f8281843"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a717d9a3c7022ffb9121cacb0f8281843">MM_KERNEL</a>(typename,  A,  B,  C,  M,  K,  N)</td></tr>
+<tr class="separator:a717d9a3c7022ffb9121cacb0f8281843"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e6bfd3b92a49050999180b7f395098b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a9e6bfd3b92a49050999180b7f395098b">BATCH_MM_KERNEL</a>(typename,  As,  Bs,  Cs,  M,  K,  N,  n_batch)</td></tr>
+<tr class="separator:a9e6bfd3b92a49050999180b7f395098b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a535d62f9b4aa6980eb461bd6d86f5c89"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a535d62f9b4aa6980eb461bd6d86f5c89">max_int64_</a> (int64_t a, int64_t b)</td></tr>
 <tr class="separator:a535d62f9b4aa6980eb461bd6d86f5c89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a294a6e1e7a068b708da8e0ae5a1e7642"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a294a6e1e7a068b708da8e0ae5a1e7642">batch_strides</a> (int64_t *dims, int64_t ndim, int64_t *strides, int64_t nstride)</td></tr>
 <tr class="separator:a294a6e1e7a068b708da8e0ae5a1e7642"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7fb3e7e7f44ec906a2d8eac7a21eedd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a7fb3e7e7f44ec906a2d8eac7a21eedd4">vv</a> (void *X, void *Y, void *Z, int64_t L)</td></tr>
-<tr class="separator:a7fb3e7e7f44ec906a2d8eac7a21eedd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8b1794d3e2b0e4ed9d160364a9a6bd0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#ae8b1794d3e2b0e4ed9d160364a9a6bd0">mv</a> (void *A, void *X, void *B, int64_t M, int64_t N)</td></tr>
-<tr class="separator:ae8b1794d3e2b0e4ed9d160364a9a6bd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed10ca85ababebdaa0db99f734c6bc37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#aed10ca85ababebdaa0db99f734c6bc37">mm</a> (void *A, void *B, void *C, int64_t M, int64_t K, int64_t N)</td></tr>
-<tr class="separator:aed10ca85ababebdaa0db99f734c6bc37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f698d5f818b4403cca8c14ba7faa44c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a5f698d5f818b4403cca8c14ba7faa44c">batch_mm</a> (void **As, void **Bs, void **Cs, int64_t M, int64_t K, int64_t N, int64_t n_batch)</td></tr>
-<tr class="separator:a5f698d5f818b4403cca8c14ba7faa44c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3515229dedded925abddd21165b49bdb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a3515229dedded925abddd21165b49bdb">vv_template</a> (<a class="el" href="structDataType.html">DataType</a> dtype, void *X, void *Y, void *Z, int64_t L, <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> *status)</td></tr>
+<tr class="separator:a3515229dedded925abddd21165b49bdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67f435bf6c27842213541b1904785604"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a67f435bf6c27842213541b1904785604">mv_template</a> (<a class="el" href="structDataType.html">DataType</a> dtype, void *A, void *X, void *B, int64_t M, int64_t N, <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> *status)</td></tr>
+<tr class="separator:a67f435bf6c27842213541b1904785604"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a82591e6d40473d4990b9376a76aa2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a2a82591e6d40473d4990b9376a76aa2a">mm_template</a> (<a class="el" href="structDataType.html">DataType</a> dtype, void *A, void *B, void *C, int64_t M, int64_t K, int64_t N, <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> *status)</td></tr>
+<tr class="separator:a2a82591e6d40473d4990b9376a76aa2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb5fdb83f0fa6dee2137cd28c7d9c062"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#acb5fdb83f0fa6dee2137cd28c7d9c062">batch_mm_template</a> (<a class="el" href="structDataType.html">DataType</a> dtype, void **As, void **Bs, void **Cs, int64_t M, int64_t K, int64_t N, int64_t n_batch, <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> *status)</td></tr>
+<tr class="separator:acb5fdb83f0fa6dee2137cd28c7d9c062"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96128f58a1132189851c3654b1beae70"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a96128f58a1132189851c3654b1beae70">aitisa_matmul</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> tensor1, const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> tensor2, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
+<tr class="memdesc:a96128f58a1132189851c3654b1beae70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of aitisa_matmul.  <a href="matmul_8c.html#a96128f58a1132189851c3654b1beae70">More...</a><br /></td></tr>
 <tr class="separator:a96128f58a1132189851c3654b1beae70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a9e6bfd3b92a49050999180b7f395098b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e6bfd3b92a49050999180b7f395098b">&#9670;&nbsp;</a></span>BATCH_MM_KERNEL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BATCH_MM_KERNEL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">typename, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">As, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Bs, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Cs, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">M, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">K, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">N, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">n_batch&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">for</span> (int64_t bth = 0; bth &lt; n_batch; ++bth) {                 \</div>
+<div class="line">    typename *A = *((<span class="keyword">typename</span> **)As + bth);                     \</div>
+<div class="line">    typename *B = *((<span class="keyword">typename</span> **)Bs + bth);                     \</div>
+<div class="line">    typename *C = *((<span class="keyword">typename</span> **)Cs + bth);                     \</div>
+<div class="line">    MM_KERNEL(<span class="keyword">typename</span>, A, B, C, M, K, N);                      \</div>
+<div class="line">  }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a717d9a3c7022ffb9121cacb0f8281843"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a717d9a3c7022ffb9121cacb0f8281843">&#9670;&nbsp;</a></span>MM_KERNEL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MM_KERNEL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">typename, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">A, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">B, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">C, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">M, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">K, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">N&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; M; ++i) {                                      \</div>
+<div class="line">    for (<span class="keywordtype">int</span> j = 0; j &lt; N; ++j) {                                    \</div>
+<div class="line">      for (<span class="keywordtype">int</span> q = 0; q &lt; K; ++q) {                                  \</div>
+<div class="line">        ((<span class="keyword">typename</span> *)C)[i * N + j] +=                                \</div>
+<div class="line">            ((<span class="keyword">typename</span> *)A)[i * K + q] * ((<span class="keyword">typename</span> *)B)[q * N + j]; \</div>
+<div class="line">      }                                                              \</div>
+<div class="line">    }                                                                \</div>
+<div class="line">  }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a8895e811548a6be6af233e1704ad0f6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8895e811548a6be6af233e1704ad0f6e">&#9670;&nbsp;</a></span>MV_KERNEL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MV_KERNEL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">typename, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">A, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">B, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">M, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">N&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; M; ++i) {                                              \</div>
+<div class="line">    for (<span class="keywordtype">int</span> j = 0; j &lt; N; ++j) {                                            \</div>
+<div class="line">      ((<span class="keyword">typename</span> *)B)[i] += ((<span class="keyword">typename</span> *)A)[i * N + j] * ((<span class="keyword">typename</span> *)X)[j]; \</div>
+<div class="line">    }                                                                        \</div>
+<div class="line">  }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a90e27a189e7293ba5bfeb1b3fda52639"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90e27a189e7293ba5bfeb1b3fda52639">&#9670;&nbsp;</a></span>VV_KERNEL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define VV_KERNEL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">typename, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Y, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Z, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">L&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; L; ++i) {                                    \</div>
+<div class="line">    ((<span class="keyword">typename</span> *)Z)[0] += ((<span class="keyword">typename</span> *)X)[i] * ((<span class="keyword">typename</span> *)Y)[i]; \</div>
+<div class="line">  }</div>
+</div><!-- fragment -->
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a96128f58a1132189851c3654b1beae70"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a96128f58a1132189851c3654b1beae70">&#9670;&nbsp;</a></span>aitisa_matmul()</h2>
@@ -129,17 +385,35 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Definition of aitisa_matmul. </p>
+<p>Matrix multiplication of tensor1 and tensor2.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tensor1</td><td></td></tr>
+    <tr><td class="paramname">tensor2</td><td></td></tr>
+    <tr><td class="paramname">output</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Status </dd></dl>
+
 </div>
 </div>
-<a id="a5f698d5f818b4403cca8c14ba7faa44c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f698d5f818b4403cca8c14ba7faa44c">&#9670;&nbsp;</a></span>batch_mm()</h2>
+<a id="acb5fdb83f0fa6dee2137cd28c7d9c062"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb5fdb83f0fa6dee2137cd28c7d9c062">&#9670;&nbsp;</a></span>batch_mm_template()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void batch_mm </td>
+          <td class="memname">void batch_mm_template </td>
           <td>(</td>
+          <td class="paramtype"><a class="el" href="structDataType.html">DataType</a>&#160;</td>
+          <td class="paramname"><em>dtype</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">void **&#160;</td>
           <td class="paramname"><em>As</em>, </td>
         </tr>
@@ -177,7 +451,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int64_t&#160;</td>
-          <td class="paramname"><em>n_batch</em>&#160;</td>
+          <td class="paramname"><em>n_batch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> *&#160;</td>
+          <td class="paramname"><em>status</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -257,15 +537,21 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aed10ca85ababebdaa0db99f734c6bc37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed10ca85ababebdaa0db99f734c6bc37">&#9670;&nbsp;</a></span>mm()</h2>
+<a id="a2a82591e6d40473d4990b9376a76aa2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a82591e6d40473d4990b9376a76aa2a">&#9670;&nbsp;</a></span>mm_template()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void mm </td>
+          <td class="memname">void mm_template </td>
           <td>(</td>
+          <td class="paramtype"><a class="el" href="structDataType.html">DataType</a>&#160;</td>
+          <td class="paramname"><em>dtype</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>A</em>, </td>
         </tr>
@@ -297,7 +583,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int64_t&#160;</td>
-          <td class="paramname"><em>N</em>&#160;</td>
+          <td class="paramname"><em>N</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> *&#160;</td>
+          <td class="paramname"><em>status</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -309,15 +601,21 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ae8b1794d3e2b0e4ed9d160364a9a6bd0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8b1794d3e2b0e4ed9d160364a9a6bd0">&#9670;&nbsp;</a></span>mv()</h2>
+<a id="a67f435bf6c27842213541b1904785604"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67f435bf6c27842213541b1904785604">&#9670;&nbsp;</a></span>mv_template()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void mv </td>
+          <td class="memname">void mv_template </td>
           <td>(</td>
+          <td class="paramtype"><a class="el" href="structDataType.html">DataType</a>&#160;</td>
+          <td class="paramname"><em>dtype</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>A</em>, </td>
         </tr>
@@ -343,7 +641,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int64_t&#160;</td>
-          <td class="paramname"><em>N</em>&#160;</td>
+          <td class="paramname"><em>N</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> *&#160;</td>
+          <td class="paramname"><em>status</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -355,15 +659,21 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a7fb3e7e7f44ec906a2d8eac7a21eedd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7fb3e7e7f44ec906a2d8eac7a21eedd4">&#9670;&nbsp;</a></span>vv()</h2>
+<a id="a3515229dedded925abddd21165b49bdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3515229dedded925abddd21165b49bdb">&#9670;&nbsp;</a></span>vv_template()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void vv </td>
+          <td class="memname">void vv_template </td>
           <td>(</td>
+          <td class="paramtype"><a class="el" href="structDataType.html">DataType</a>&#160;</td>
+          <td class="paramname"><em>dtype</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">void *&#160;</td>
           <td class="paramname"><em>X</em>, </td>
         </tr>
@@ -383,7 +693,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int64_t&#160;</td>
-          <td class="paramname"><em>L</em>&#160;</td>
+          <td class="paramname"><em>L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> *&#160;</td>
+          <td class="paramname"><em>status</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

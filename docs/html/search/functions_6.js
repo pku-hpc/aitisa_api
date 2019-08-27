@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vv_366',['vv',['../matmul_8c.html#a7fb3e7e7f44ec906a2d8eac7a21eedd4',1,'matmul.c']]]
+  ['vv_5ftemplate_378',['vv_template',['../matmul_8c.html#a3515229dedded925abddd21165b49bdb',1,'matmul.c']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['check_5fstatus_448',['CHECK_STATUS',['../status_8h.html#a411e44aa7bc3416e11a3d50d3c7b6a64',1,'status.h']]]
+  ['batch_5fmm_5fkernel_460',['BATCH_MM_KERNEL',['../matmul_8c.html#a9e6bfd3b92a49050999180b7f395098b',1,'matmul.c']]]
 ];

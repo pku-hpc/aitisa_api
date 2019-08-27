@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>aitisa_api: /home/amax107/hice/ayl/aitisa_api/src/core/storage.c File Reference</title>
+<title>aitisa_api: /home/amax107/hice/likesen/aitisa_api/src/core/storage.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,8 +79,10 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a611497a352ca7364075874fde19d0f98"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="storage_8c.html#a611497a352ca7364075874fde19d0f98">aitisa_create_storage</a> (<a class="el" href="structDataType.html">DataType</a> dtype, <a class="el" href="structDevice.html">Device</a> device, int64_t size, <a class="el" href="storage_8h.html#aab210a5a195f504ca982695e6dfcdccb">Storage</a> *storage)</td></tr>
+<tr class="memdesc:a611497a352ca7364075874fde19d0f98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new storage using the specific parameters.  <a href="storage_8c.html#a611497a352ca7364075874fde19d0f98">More...</a><br /></td></tr>
 <tr class="separator:a611497a352ca7364075874fde19d0f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add205ddf339c6a2a5f0dd04badcb6074"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="storage_8c.html#add205ddf339c6a2a5f0dd04badcb6074">aitisa_destroy_storage</a> (<a class="el" href="storage_8h.html#aab210a5a195f504ca982695e6dfcdccb">Storage</a> *storage)</td></tr>
+<tr class="memdesc:add205ddf339c6a2a5f0dd04badcb6074"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy an exist storage.  <a href="storage_8c.html#add205ddf339c6a2a5f0dd04badcb6074">More...</a><br /></td></tr>
 <tr class="separator:add205ddf339c6a2a5f0dd04badcb6074"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -122,6 +124,29 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Create a new storage using the specific parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dtype</td><td>The data type of storage </td></tr>
+    <tr><td class="paramname">device</td><td>The device to create storage on </td></tr>
+    <tr><td class="paramname">size</td><td>The total number of elements that will put in this storage </td></tr>
+    <tr><td class="paramname">storage</td><td>A new storage to be created</td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="fragment"><div class="line"><a class="code" href="struct__StorageImpl.html">Storage</a> storage;</div>
+<div class="line"><a class="code" href="structDataType.html">DataType</a> dtype = {<a class="code" href="types_8h.html#af14562a565b0f6fce9a146afe6dc0130a0af8d88efcdacad0adc8456ceabeaa09">TYPE_INT32</a>, <span class="keyword">sizeof</span>(int)};</div>
+<div class="line"><a class="code" href="structDevice.html">Device</a> device = {<a class="code" href="device_8h.html#ad258d4c51629346fceac4679b3209ad9aceb8917ff79ebd0849bded096aac3505">DEVICE_CPU</a>, 0};</div>
+<div class="line"><a class="code" href="storage_8c.html#a611497a352ca7364075874fde19d0f98">aitisa_create_storage</a>(dtype, device, 12, storage);</div>
+</div><!-- fragment --><dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">STATUS_SUCCESS</td><td>Successfully create a new storage </td></tr>
+    <tr><td class="paramname">STATUS_ALLOC_FAILED</td><td>Failed when the storage already exists </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="add205ddf339c6a2a5f0dd04badcb6074"></a>
@@ -140,9 +165,30 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Destroy an exist storage. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">storage</td><td>the storage to be destroy</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<dl class="retval"><dt>Return values</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">STATUS_SUCCESS</td><td>Successfully destroy a storage </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 </div><!-- contents -->
+<div class="ttc" id="astruct__StorageImpl_html"><div class="ttname"><a href="struct__StorageImpl.html">_StorageImpl</a></div><div class="ttdoc">The implementation of the storage hold by the tensor.</div><div class="ttdef"><b>Definition:</b> storage.h:13</div></div>
+<div class="ttc" id="astructDataType_html"><div class="ttname"><a href="structDataType.html">DataType</a></div><div class="ttdoc">DataType hold by the tensor.</div><div class="ttdef"><b>Definition:</b> types.h:26</div></div>
+<div class="ttc" id="adevice_8h_html_ad258d4c51629346fceac4679b3209ad9aceb8917ff79ebd0849bded096aac3505"><div class="ttname"><a href="device_8h.html#ad258d4c51629346fceac4679b3209ad9aceb8917ff79ebd0849bded096aac3505">DEVICE_CPU</a></div><div class="ttdoc">The tensor puts on CPU.</div><div class="ttdef"><b>Definition:</b> device.h:12</div></div>
+<div class="ttc" id="atypes_8h_html_af14562a565b0f6fce9a146afe6dc0130a0af8d88efcdacad0adc8456ceabeaa09"><div class="ttname"><a href="types_8h.html#af14562a565b0f6fce9a146afe6dc0130a0af8d88efcdacad0adc8456ceabeaa09">TYPE_INT32</a></div><div class="ttdef"><b>Definition:</b> types.h:14</div></div>
+<div class="ttc" id="astructDevice_html"><div class="ttname"><a href="structDevice.html">Device</a></div><div class="ttdoc">Attributes of Device struct.</div><div class="ttdef"><b>Definition:</b> device.h:21</div></div>
+<div class="ttc" id="astorage_8c_html_a611497a352ca7364075874fde19d0f98"><div class="ttname"><a href="storage_8c.html#a611497a352ca7364075874fde19d0f98">aitisa_create_storage</a></div><div class="ttdeci">Status aitisa_create_storage(DataType dtype, Device device, int64_t size, Storage *storage)</div><div class="ttdoc">Create a new storage using the specific parameters.</div><div class="ttdef"><b>Definition:</b> storage.c:4</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

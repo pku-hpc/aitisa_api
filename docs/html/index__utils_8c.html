@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.16"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>aitisa_api: /home/amax107/hice/ayl/aitisa_api/src/basic/index_utils.c File Reference</title>
+<title>aitisa_api: /home/amax107/hice/likesen/aitisa_api/src/basic/index_utils.c File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,16 +79,22 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad6d67849c78ae5607956b93f0db6c872"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="index__utils_8c.html#ad6d67849c78ae5607956b93f0db6c872">aitisa_get_stride</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> t, int64_t dimension)</td></tr>
+<tr class="memdesc:ad6d67849c78ae5607956b93f0db6c872"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the stride of specific dimension.  <a href="index__utils_8c.html#ad6d67849c78ae5607956b93f0db6c872">More...</a><br /></td></tr>
 <tr class="separator:ad6d67849c78ae5607956b93f0db6c872"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8be1fba2ab01af0c3679594203bd2028"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="index__utils_8c.html#a8be1fba2ab01af0c3679594203bd2028">aitisa_get_all_strides</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> t, int64_t *strides)</td></tr>
+<tr class="memdesc:a8be1fba2ab01af0c3679594203bd2028"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the strides of all dimensions.  <a href="index__utils_8c.html#a8be1fba2ab01af0c3679594203bd2028">More...</a><br /></td></tr>
 <tr class="separator:a8be1fba2ab01af0c3679594203bd2028"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad547ef57b5052caa0fbd07233f261c84"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="index__utils_8c.html#ad547ef57b5052caa0fbd07233f261c84">aitisa_coords_to_linidx</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> t, int64_t *coords, int64_t len)</td></tr>
+<tr class="memdesc:ad547ef57b5052caa0fbd07233f261c84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert the coordinates into linear index.  <a href="index__utils_8c.html#ad547ef57b5052caa0fbd07233f261c84">More...</a><br /></td></tr>
 <tr class="separator:ad547ef57b5052caa0fbd07233f261c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1609eb0cea2b2b4527060e674f833612"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="index__utils_8c.html#a1609eb0cea2b2b4527060e674f833612">aitisa_linidx_to_coords</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> t, int64_t linidx, int64_t *coords)</td></tr>
+<tr class="memdesc:a1609eb0cea2b2b4527060e674f833612"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert the coordinates into linear index.  <a href="index__utils_8c.html#a1609eb0cea2b2b4527060e674f833612">More...</a><br /></td></tr>
 <tr class="separator:a1609eb0cea2b2b4527060e674f833612"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3619d84bc7f8e3aea99d2ab94bcc4df9"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="index__utils_8c.html#a3619d84bc7f8e3aea99d2ab94bcc4df9">aitisa_coords_to_offset</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> t, int64_t *coords, int64_t len)</td></tr>
+<tr class="memdesc:a3619d84bc7f8e3aea99d2ab94bcc4df9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert the coordinates into offset of the underlying physical memory.  <a href="index__utils_8c.html#a3619d84bc7f8e3aea99d2ab94bcc4df9">More...</a><br /></td></tr>
 <tr class="separator:a3619d84bc7f8e3aea99d2ab94bcc4df9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46a77d8b6c53b48e3c1e180cd9c8457e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="index__utils_8c.html#a46a77d8b6c53b48e3c1e180cd9c8457e">aitisa_offset_to_coords</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> t, int64_t offset, int64_t *coords)</td></tr>
+<tr class="memdesc:a46a77d8b6c53b48e3c1e180cd9c8457e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert the offset of the underlying physical memory into coordinates.  <a href="index__utils_8c.html#a46a77d8b6c53b48e3c1e180cd9c8457e">More...</a><br /></td></tr>
 <tr class="separator:a46a77d8b6c53b48e3c1e180cd9c8457e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -124,6 +130,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Convert the coordinates into linear index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>Tensor </td></tr>
+    <tr><td class="paramname">coords</td><td>Coordinates array </td></tr>
+    <tr><td class="paramname">len</td><td>Length of coordinates </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int64_t Linear index </dd></dl>
+
 </div>
 </div>
 <a id="a3619d84bc7f8e3aea99d2ab94bcc4df9"></a>
@@ -158,6 +175,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Convert the coordinates into offset of the underlying physical memory. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>Tensor </td></tr>
+    <tr><td class="paramname">coords</td><td>Coordinates array </td></tr>
+    <tr><td class="paramname">len</td><td>Length of coordinates </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int64_t offset </dd></dl>
+
 </div>
 </div>
 <a id="a8be1fba2ab01af0c3679594203bd2028"></a>
@@ -186,6 +214,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Get the strides of all dimensions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>Tensor </td></tr>
+    <tr><td class="paramname">strides</td><td>Array to keep the strides </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="ad6d67849c78ae5607956b93f0db6c872"></a>
@@ -213,6 +250,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Get the stride of specific dimension. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>Tensor </td></tr>
+    <tr><td class="paramname">dimension</td><td>The specific dimension </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int64_t stride </dd></dl>
 
 </div>
 </div>
@@ -248,6 +295,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Convert the coordinates into linear index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>Tensor </td></tr>
+    <tr><td class="paramname">linidx</td><td>Linear index </td></tr>
+    <tr><td class="paramname">coords</td><td>Array to keep coordinates </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a id="a46a77d8b6c53b48e3c1e180cd9c8457e"></a>
@@ -281,6 +338,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Convert the offset of the underlying physical memory into coordinates. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>Tensor </td></tr>
+    <tr><td class="paramname">offset</td><td>Offset of the underlying physical memory </td></tr>
+    <tr><td class="paramname">coords</td><td>Array to keep coordinates </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
