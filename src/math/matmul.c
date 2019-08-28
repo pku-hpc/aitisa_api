@@ -256,14 +256,7 @@ void batch_mm_template(DataType dtype, void **As, void **Bs, void **Cs,
   }
 }
 
-/**
- * @brief Definition of aitisa_matmul.
- * 
- * @param tensor1 
- * @param tensor2 
- * @param output 
- * @return Status 
- */
+// Definition of aitisa_matmul.
 Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
                      Tensor *output) {
   if (aitisa_tensor_device(tensor1).type != DEVICE_CPU ||

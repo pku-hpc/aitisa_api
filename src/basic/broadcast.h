@@ -24,9 +24,9 @@
  * @param dims_out The output dims.
  * @param ndim_out The size of dims_out.
  *
- * @return The status code.
+ * @return Status.
  * @retval STATUS_SUCCESS Success.
- * @retval STATUS_DIMENSIONS_MISMATCH The dims of input are mismatched.
+ * @retval STATUS_DIMENSIONS_MISMATCH The dims of input are mismatched and can not be broadcasted.
  */
 AITISA_API_PUBLIC Status
 aitisa_broadcast_array(int64_t* dims_in1, int64_t ndim_in1, int64_t* dims_in2,

@@ -1,7 +1,7 @@
 Developer Guide {#dev_guide}
 ============================
 
-AITISA_API is an open-source library aiming to provide a reference implementation for the standard APIs proposed by AITISA, which are widely used by different AI applications. Base on the unified data structures, this library will provide the basic math operations, the neural network operations, and the machine leaning operations, etc. Besides, AITISA_API will also provide a testing framework to help other standard-compliant implementations to verify their correctness.
+AITISA_API is an open-source library aiming to provide a reference implementation for the standard APIs proposed by AITISA, which are widely used by different AI applications. Base on the unified data structures, this library will provide the basic math operations, the neural network operations, and the machine learning operations, etc. Besides, AITISA_API will also provide a testing framework to help other standard-compliant implementations to verify their correctness.
 
 # Data Structures 
 - @ref Allocator

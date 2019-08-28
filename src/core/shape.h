@@ -34,7 +34,7 @@ typedef struct {
  */
 typedef struct {
   int64_t ndim; /**< Number of dimensions */
-  int64_t *dims; /**< Number of elements in each dimensions*/
+  int64_t *dims; /**< Number of elements in each dimension*/
   Layout layout; /**< The layout information of a tensor */
 } Shape;
 

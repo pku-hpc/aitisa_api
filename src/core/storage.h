@@ -11,14 +11,10 @@
  * @brief The implementation of the storage hold by the tensor
  */
 struct _StorageImpl {
-  /**< The data type of the elements in the storage */
-  DataType dtype;
-  /**< The device where the elements are stored */
-  Device device;
-  /**< The number of the elements hold by the storage */
-  int64_t size;
-  /**< The raw data pointer pointing to the memory space */
-  void *data;
+  DataType dtype; /**< The data type of the elements in the storage */
+  Device device;  /**< The device where the elements are stored */
+  int64_t size;   /**< The number of the elements hold by the storage */
+  void *data;     /**< The raw data pointer pointing to the memory space */
 };
 
 /* The storage handle for users without exposing the implementation details. */
@@ -26,20 +22,20 @@ typedef struct _StorageImpl *Storage;
 
 /**
  * @brief Create a new storage using the specific parameters
- * 
+ *
  * @param dtype The data type of storage
  * @param device The device to create storage on
  * @param size The total number of elements that will put in this storage
  * @param storage A new storage to be created
- * 
+ *
  * @code
  * Storage storage;
  * DataType dtype = {TYPE_INT32, sizeof(int)};
  * Device device = {DEVICE_CPU, 0};
  * aitisa_create_storage(dtype, device, 12, storage);
  * @endcode
- * 
- * @return 
+ *
+ * @return
  * @retval STATUS_SUCCESS Successfully create a new storage
  * @retval STATUS_ALLOC_FAILED Failed when the storage already exists
  */
@@ -48,10 +44,10 @@ Status aitisa_create_storage(DataType dtype, Device device, int64_t size,
 
 /**
  * @brief Destroy an exist storage
- * 
+ *
  * @param storage the storage to be destroy
- * 
- * @return 
+ *
+ * @return
  * @retval STATUS_SUCCESS Successfully destroy a storage
  */
 Status aitisa_destroy_storage(Storage *storage);

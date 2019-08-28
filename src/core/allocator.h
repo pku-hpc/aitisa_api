@@ -12,8 +12,8 @@ typedef void (*RawDealloc)(void* ptr);
  * @brief Memory allocator, it keeps the allocator and de-allocator functions.
  */
 typedef struct {
-  RawAlloc raw_alloc;     /**< allocator functions*/
-  RawDealloc raw_dealloc; /**< de-allocator functions*/
+  RawAlloc raw_alloc;     /**< Allocator functions*/
+  RawDealloc raw_dealloc; /**< De-allocator functions*/
 } Allocator;
 
 extern Allocator _g_default_cpu_allocator;

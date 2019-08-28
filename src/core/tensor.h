@@ -132,9 +132,9 @@ AITISA_API_PUBLIC Status aitisa_create(DataType dtype, Device device,
                                        int64_t ndim, Tensor *output);
 
 /**
- * @brief Destroy the tensor by deallocate all related members.
+ * @brief Destroy the tensor by deallocating all related members.
  * 
- * @param input The tensor needed to be destoried. 
+ * @param input The tensor to be destoried. 
  * @return Status The status indicates whether the function launched   
  *                successfully. 
  */

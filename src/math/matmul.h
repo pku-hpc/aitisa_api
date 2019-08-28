@@ -21,18 +21,18 @@
  * one-column matrix, output = batch_gemm(tensor1, tensor2); 
  * (8) ndim_tensor1 >= 3 & ndim_tensor2 >= 2 ==> output = batch_gemm(tensor1, tensor2);
  *
- * @note (1) Only CPU is supported for now. (2) before doing batch_gemm, the batch dims
- * of tensor1 and tensor2 will be broadcasted.
- *
  * @param tensor1 The first input.
  * @param tensor2 The second input.
- * @param output Pointer to the result tensor, the output will be resized inside the function.\
+ * @param output Pointer to the result tensor, the output will be resized inside the function.
  * 
  * @return Status.
  * @retval STATUS_SUCCESS Success.
  * @retval STATUS_NOT_SUPPORTED The device type or data type is not supported.
  * @retval STATUS_INVALID_ARGUMENT The dims of inputs are invalid.
  * @retval STATUS_DIMENSIONS_MISMATCH The dims of inputs are mismatched.
+ *
+ * @note (1) Only CPU is supported for now. (2) before doing batch_gemm, the batch dims
+ * of tensor1 and tensor2 will be broadcasted.
  */
 AITISA_API_PUBLIC Status aitisa_matmul(const Tensor tensor1,
                                        const Tensor tensor2, Tensor *output);
