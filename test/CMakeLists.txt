@@ -5,6 +5,7 @@ list(APPEND aitisa_test_srcs
   matmul_test.cpp
   broadcast_test.cpp
   binary_test.cpp
+  pooling_test.cpp
 )
 
 # Build a exe for each test files
