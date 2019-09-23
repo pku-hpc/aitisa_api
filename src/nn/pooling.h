@@ -18,6 +18,7 @@
  * @return Status The Status enum indicates whether the routine is OK.
  */
 AITISA_API_PUBLIC Status aitisa_pooling(const Tensor input, const char *mode,
-                      const int *ksize, const int *stride,
-                      const int *padding, Tensor *output);
+										const int *ksize,   const int *stride,
+										const int *padding, const int *dilation,
+										Tensor *output);
 #endif
