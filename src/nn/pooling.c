@@ -903,6 +903,8 @@ Status aitisa_pooling(const Tensor input, const char *mode,
             status = pooling_3d(input, mode, ksize, stride, padding, dilation,output);
             break;
         }
+        default:
+            status = STATUS_NOT_SUPPORTED;
     }
     return status;
 }
