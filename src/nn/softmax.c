@@ -1,5 +1,6 @@
 #include "src/core/tensor.h"
 #include "src/core/allocator.h"
+#include "src/nn/softmax.h"
 #include <math.h>
 
 static Status softmax_create_output(const Tensor input, Tensor *output){
