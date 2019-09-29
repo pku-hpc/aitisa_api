@@ -7,6 +7,7 @@ list(APPEND aitisa_test_srcs
   binary_test.cpp
   pooling_test.cpp
   softmax_test.cpp
+  slice_test.cpp
 )
 
 # Build a exe for each test files
