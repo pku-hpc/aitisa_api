@@ -6,9 +6,13 @@ Status aitisa_create_default_layout(LayoutType layout_type, int64_t ndim,
                                     Layout *layout) {
   if (layout_type != LAYOUT_DENSE) return STATUS_NOT_SUPPORTED;
   layout->type = layout_type;
-  layout->min2maj = aitisa_default_cpu_allocator()->raw_alloc(
+  if(ndim == 0){
+    layout->min2maj = NULL;
+  }else{
+    layout->min2maj = aitisa_default_cpu_allocator()->raw_alloc(
       sizeof(*layout->min2maj) * ndim);
-  if (!layout->min2maj) return STATUS_ALLOC_FAILED;
+    if (!layout->min2maj) return STATUS_ALLOC_FAILED;
+  }
   for (int64_t i = 0; i < ndim; ++i) {
     layout->min2maj[i] = ndim - 1 - i;
   }
@@ -24,9 +28,13 @@ Status aitisa_destroy_layout(Layout *layout){
 Status aitisa_create_shape(LayoutType layout_type, int64_t *dims, int64_t ndim,
                            Shape *shape) {
   shape->ndim = ndim;
-  shape->dims =
+  if(ndim == 0){
+    shape->dims = NULL;
+  }else{
+    shape->dims =
       aitisa_default_cpu_allocator()->raw_alloc(sizeof(*shape->dims) * ndim);
-  if (!shape->dims) return STATUS_ALLOC_FAILED;
+    if (!shape->dims) return STATUS_ALLOC_FAILED;
+  }
   for (int64_t i = 0; i < ndim; ++i) {
     shape->dims[i] = dims[i];
   }
