@@ -375,9 +375,9 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
     int64_t size_mat3 = dim0_tensor1 * dim1_tensor2;
     int64_t size_type = aitisa_tensor_data_type(tensor1).size;
     for (int64_t i = 0; i < n_batch; ++i) {
-      As[i] = data_tensor1 + i * size_mat1 * size_type;
+      As[i] = (char *)data_tensor1 + i * size_mat1 * size_type;
       Bs[i] = data_tensor2;
-      Cs[i] = data_output + i * size_mat3 * size_type;
+      Cs[i] = (char*)data_output + i * size_mat3 * size_type;
     }
     // call kernel
     batch_mm_template(aitisa_tensor_data_type(tensor1), As, Bs, Cs,
@@ -425,8 +425,8 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
     int64_t size_type = aitisa_tensor_data_type(tensor1).size;
     for (int64_t i = 0; i < n_batch; ++i) {
       As[i] = data_tensor1;
-      Bs[i] = data_tensor2 + i * size_mat2 * size_type;
-      Cs[i] = data_output + i * size_mat3 * size_type;
+      Bs[i] = (char *)data_tensor2 + i * size_mat2 * size_type;
+      Cs[i] = (char *)data_output + i * size_mat3 * size_type;
     }
     // call kernel
     batch_mm_template(aitisa_tensor_data_type(tensor1), As, Bs, Cs,
@@ -499,9 +499,9 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
           break;
         }
       }
-      As[i] = data_tensor1 + offset_t1 * size_mat1 * size_type;
-      Bs[i] = data_tensor2 + offset_t2 * size_mat2 * size_type;
-      Cs[i] = data_output + i * size_mat3 * size_type;
+      As[i] = (char*)data_tensor1 + offset_t1 * size_mat1 * size_type;
+      Bs[i] = (char*)data_tensor2 + offset_t2 * size_mat2 * size_type;
+      Cs[i] = (char*)data_output + i * size_mat3 * size_type;
     }
     // call kernel
     batch_mm_template(aitisa_tensor_data_type(tensor1), As, Bs, Cs,
