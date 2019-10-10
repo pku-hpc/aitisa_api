@@ -2,10 +2,9 @@
 #include <math.h>
 #include <vector> 
 extern "C" {
+#include "src/math/dot.h"
 #include "src/basic/factories.h"
 #include "src/core/tensor.h"
-#include "src/math/dot.h"
-//#include "src/tool/tool.h"
 }
 
 void dot_assign_float(Tensor t) {

@@ -1,12 +1,11 @@
+#include "src/math/dot.h"
 #include <stdlib.h>
-#include "dot.h"
-#include "src/basic/broadcast.h"
-#include "src/basic/factories.h"
 #include "src/basic/slice.h"
-#include "src/core/allocator.h"
-#include "src/core/utils.h"
 #include "src/math/binary_op.h"
 #include "src/math/matmul.h"
+#include "src/basic/factories.h"
+#include "src/core/allocator.h"
+#include "src/core/utils.h"
 
 #define dot_kernel(typename, data1, data2, size, data_out)                            \
   ((typename *)data_out)[0] = 0;                                                      \
