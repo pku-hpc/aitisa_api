@@ -10,6 +10,7 @@ list(APPEND aitisa_test_srcs
   slice_test.cpp
   dot_test.cpp
   cast_test.cpp
+  duplicate_test.cpp
 )
 
 # Build a exe for each test files
