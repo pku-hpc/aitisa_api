@@ -412,6 +412,9 @@ Status aitisa_dot(const Tensor tensor1, const Tensor tensor2,
   // dimension of the first input and the second tensor
     status = tensor_vector_dot(tensor1, tensor2, output);
   }else if(ndim_tensor1 > 2 && ndim_tensor2 > 2){
+  // FIXME2: This is not consistent with the definition when ndim_tensor1 > 2 && ndim_tensor2 > 2, 
+  // check (https://docs.scipy.org/doc/numpy/reference/generated/numpy.dot.html?highlight=dot#numpy.dot) for details.
+  
   // both the dimensions of the two input are larger than 2, then calculate
   // the dot between the last dimension of the first input and the first
   // dimension of the second input

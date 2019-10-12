@@ -10,6 +10,8 @@
  * @param output The output tensor pointer.
  * @return Status The Status enum indicates whether the routine is OK.
  */
+
+// FIXME: Explain the rule of dot in the brief.
 AITISA_API_PUBLIC Status aitisa_dot(const Tensor tensor1, const Tensor tensor2,
                   Tensor *output);
 #endif // DOT_H

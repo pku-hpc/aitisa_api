@@ -10,6 +10,6 @@
  * @param output The output tensor pointer.
  * @return Status The Status enum indicates whether the routine is OK.
  */
-AITISA_API_PUBLIC Status aitisa_cast(const Tensor ipnut, DataType dtype,
+AITISA_API_PUBLIC Status aitisa_cast(const Tensor input, DataType dtype,
                                      Tensor *output);
 #endif

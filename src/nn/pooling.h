@@ -13,7 +13,7 @@
  * @param padding The padding of a shape [spatial_shapes] each of which is >=
  *                0. If the padding number of some dimension is non-zero, 
  *				  implicit zero padding is added to input on both sides. 
- * @param output The output tensor porinter of a shape [num_batches,
+ * @param output The output tensor pointer of a shape [num_batches,
  *               out_channels, * * out_spatial_shapes].
  * @return Status The Status enum indicates whether the routine is OK.
  */

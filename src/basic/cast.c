@@ -495,6 +495,7 @@ Status aitisa_cast(const Tensor input, DataType dtype,
   // then do nothing.
   DataType in_dtype = aitisa_tensor_data_type(input);
   if(in_dtype.code == dtype.code){
+    // FIXME: The output tensor should also be set when src.dtype = dst.dtype.
     return STATUS_SUCCESS;
   }
   // create output

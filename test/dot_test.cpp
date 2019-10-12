@@ -157,6 +157,9 @@ TEST(Dot, Dim4DotDim3) {
   aitisa_dot(tensor1, tensor2, &output);
   //tensor_printer2d(output);
 
+  // FIXME: In dot, output.dims is not same with inputs, so dims of output 
+  // should also be checked.
+
   float* out_data = (float*)aitisa_tensor_data(output);
   std::vector<float> test_data = { 0.10, 0.13, 0.28, 0.40, 0.46, 0.67,
                                    0.64, 0.94, 0.82, 1.21, 1.00, 1.48,
