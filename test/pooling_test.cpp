@@ -124,9 +124,11 @@ TEST(Pooling2D, AvgInt32K3S3P0D1) {
 	
 	int32_t* output_data = (int32_t*)aitisa_tensor_data(output);
 	int64_t output_size = aitisa_tensor_size(output);
-	ASSERT_THAT(std::vector<int32_t>(output_data, output_data + output_size),
-		::testing::ElementsAre( 10,  13,  16,  37,  40,  43,  64,  67,  70,
-							    91,  94,  97, 118, 121, 124, 145, 148, 151));
+  int32_t test_data[] = { 10,  13,  16,  37,  40,  43,  64,  67,  70,
+                  91,  94,  97, 118, 121, 124, 145, 148, 151 };
+  for (int i = 0; i < output_size; i++) {
+    EXPECT_TRUE(output_data[i] == test_data[i]);
+  }
 }
 
 TEST(Pooling2D, MaxDoubleK4S4P3D1) {
