@@ -47,7 +47,7 @@ TEST(Softmax, FloatAll) {
   //tensor_printer2d(output);
 
   float* out_data = (float*)aitisa_tensor_data(output);
-  std::vector<float> test_data = { 0.02870, 0.03506, 0.05230,
+  float test_data[] = { 0.02870, 0.03506, 0.05230,
 										 0.09530, 0.21210, 0.57654};
   int64_t size = aitisa_tensor_size(input);
   for (int64_t i = 0; i < size; i++) {
@@ -72,7 +72,7 @@ TEST(Softmax, DoubleAxis1) {
 
 	double* out_data = (double*)aitisa_tensor_data(output);
 		
-	std::vector<double> test_data = { 0.033064, 0.031908, 0.030789, 0.029706, 0.028659,
+	double test_data[] = { 0.033064, 0.031908, 0.030789, 0.029706, 0.028659,
 										                0.155782, 0.153369, 0.150980, 0.148614, 0.146272,
 										                0.811154, 0.814723, 0.818232, 0.821680, 0.825069,
 											              0.019208, 0.018514, 0.017843, 0.017196, 0.016571,

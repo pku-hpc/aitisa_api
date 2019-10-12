@@ -28,7 +28,7 @@ TEST(Duplicate, Float) {
   aitisa_duplicate(input, &output);
 
   float* out_data = (float*)aitisa_tensor_data(output);
-  std::vector<float> test_data = { 0, 0.1, 0.2, 0.3, 0.4, 0.5};
+  float test_data[] = { 0, 0.1, 0.2, 0.3, 0.4, 0.5};
   int64_t size = aitisa_tensor_size(output);
   for (int64_t i = 0; i < size; i++) {
 		EXPECT_TRUE(out_data[i] == test_data[i]);

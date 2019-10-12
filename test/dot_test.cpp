@@ -2,9 +2,10 @@
 #include <math.h>
 #include <vector> 
 extern "C" {
-#include "src/math/dot.h"
 #include "src/basic/factories.h"
 #include "src/core/tensor.h"
+#include "src/math/dot.h"
+//#include "src/tool/tool.h"
 }
 
 void dot_assign_float(Tensor t) {
@@ -39,7 +40,7 @@ TEST(Dot, Dim2DotDim2) {
   //tensor_printer2d(output);
   
   float* out_data = (float*)aitisa_tensor_data(output);
-  std::vector<float> test_data = { 0.15, 0.18, 0.21,
+  float test_data[] = { 0.15, 0.18, 0.21,
 										               0.42, 0.54, 0.66,
                                    0.69, 0.90, 1.11};
   int64_t size = aitisa_tensor_size(output);
@@ -69,7 +70,7 @@ TEST(Dot, Dim2DotDim0) {
   //tensor_printer2d(output);
 
   float* out_data = (float*)aitisa_tensor_data(output);
-  std::vector<float> test_data = { 0.00, 0.20, 0.40,
+  float test_data[] = { 0.00, 0.20, 0.40,
                                    0.60, 0.80, 1.00,
                                    1.20, 1.40, 1.60 };
   int64_t size = aitisa_tensor_size(output);
@@ -99,7 +100,7 @@ TEST(Dot, Dim1DotDim1) {
   //tensor_printer2d(output);
 
   float* out_data = (float*)aitisa_tensor_data(output);
-  std::vector<float> test_data = { 0.30 };
+  float test_data[] = { 0.30 };
   int64_t size = aitisa_tensor_size(output);
   for (int64_t i = 0; i < size; i++) {
     // Due to the problem of precision, consider the two numbers 
@@ -128,7 +129,7 @@ TEST(Dot, Dim3DotDim1) {
   //tensor_printer2d(output);
 
   float* out_data = (float*)aitisa_tensor_data(output);
-  std::vector<float> test_data = { 0.55, 1.45, 2.35, 3.25, 4.15,
+  float test_data[] = { 0.55, 1.45, 2.35, 3.25, 4.15,
                                    5.05, 5.95, 6.85, 7.75, 8.65 };
   int64_t size = aitisa_tensor_size(output);
   for (int64_t i = 0; i < size; i++) {
@@ -157,11 +158,8 @@ TEST(Dot, Dim4DotDim3) {
   aitisa_dot(tensor1, tensor2, &output);
   //tensor_printer2d(output);
 
-  // FIXME: In dot, output.dims is not same with inputs, so dims of output 
-  // should also be checked.
-
   float* out_data = (float*)aitisa_tensor_data(output);
-  std::vector<float> test_data = { 0.10, 0.13, 0.28, 0.40, 0.46, 0.67,
+  float test_data[] = { 0.10, 0.13, 0.28, 0.40, 0.46, 0.67,
                                    0.64, 0.94, 0.82, 1.21, 1.00, 1.48,
                                    1.18, 1.75, 1.36, 2.02, 1.54, 2.29,
                                    1.72, 2.56, 1.90, 2.83, 2.08, 3.10};

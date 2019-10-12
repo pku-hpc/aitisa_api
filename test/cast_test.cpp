@@ -1,6 +1,5 @@
 #include "gtest/gtest.h"
 #include <math.h>
-#include <vector> 
 extern "C" {
 #include "src/basic/factories.h"
 #include "src/core/tensor.h"
@@ -48,7 +47,7 @@ TEST(Cast, FloatToInt32) {
   status = aitisa_cast(input, out_dtype, &output);
 
   int32_t* out_data = (int32_t*)aitisa_tensor_data(output);
-  std::vector<int32_t> test_data = { 0, 0, 1, 2, 2, 3 };
+  int32_t test_data[] = { 0, 0, 1, 2, 2, 3 };
   int64_t size = aitisa_tensor_size(output);
   for (int64_t i = 0; i < size; i++) {
 		EXPECT_TRUE(out_data[i] == test_data[i]);
@@ -73,7 +72,7 @@ TEST(Cast, Int32ToDouble) {
   status = aitisa_cast(input, out_dtype, &output);
 
   double* out_data = (double*)aitisa_tensor_data(output);
-  std::vector<double> test_data = { 0, 2, 4, 6, 8, 10 };
+  double test_data[] = { 0, 2, 4, 6, 8, 10 };
   int64_t size = aitisa_tensor_size(output);
   for (int64_t i = 0; i < size; i++) {
     // Due to the problem of precision, consider the two numbers 

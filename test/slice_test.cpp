@@ -1,11 +1,9 @@
 #include "gtest/gtest.h"
 #include <math.h>
-#include <vector> 
 extern "C" {
 #include "src/basic/factories.h"
 #include "src/core/tensor.h"
 #include "src/basic/slice.h"
-//#include "src/tool/tool.h"
 }
 
 void slice_assign_int32(Tensor t) {
@@ -47,7 +45,7 @@ TEST(Slice, StepIsOne) {
 
   float* out_data = (float*)aitisa_tensor_data(output);
   int64_t out_size = aitisa_tensor_size(output);
-  std::vector<float> test_data = { 2.7, 2.8, 2.9,
+  float test_data[] = { 2.7, 2.8, 2.9,
 										               3.2, 3.3, 3.4};
   for (int64_t i = 0; i < out_size; i++) {
 	  /* Due to the problem of precision, consider the two numbers 
@@ -72,7 +70,7 @@ TEST(Slice, StepNotOne) {
   
   int32_t *out_data = (int32_t *)aitisa_tensor_data(output);
   int64_t out_size = aitisa_tensor_size(output);
-	std::vector<int32_t> test_data = { 12, 15, 32, 35, 62, 65, 82, 85};
+	int32_t test_data[] = { 12, 15, 32, 35, 62, 65, 82, 85};
 	for (int64_t i = 0; i < out_size; i++) {
 		EXPECT_EQ(out_data[i],  test_data[i]);
 	}

@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
-#include <vector> 
+#include <vector>
 #include <math.h>
 
 extern "C"{
@@ -62,7 +62,7 @@ TEST(Pooling1D, MaxFloatK2S3P0D2) {
 
 	float* output_data = (float*)aitisa_tensor_data(output);
 	int64_t output_size = aitisa_tensor_size(output);
-	std::vector<float> test_data = { 0.2, 0.4, 0.6, 0.8,
+	float test_data[] = { 0.2, 0.4, 0.6, 0.8,
 									                 1.1, 1.3, 1.5, 1.7,
 									                 2.0, 2.2, 2.4, 2.6,
 												                2.9, 3.1, 3.3, 3.5,
@@ -94,7 +94,7 @@ TEST(Pooling1D, AvgFloatK2S2P1D1) {
 	
 	float* output_data = (float*)aitisa_tensor_data(output);
 	int64_t output_size = aitisa_tensor_size(output);
-	std::vector<float> test_data = { 0.05, 0.25, 0.45, 0.65, 0.4,
+	float test_data[] = { 0.05, 0.25, 0.45, 0.65, 0.4,
 									                0.95, 1.15, 1.35, 1.55, 0.85,
 									                1.85, 2.05, 2.25, 2.45, 1.3,
 											                  2.75, 2.95, 3.15, 3.35, 1.75,
@@ -148,7 +148,7 @@ TEST(Pooling2D, MaxDoubleK4S4P3D1) {
 
 	double* output_data = (double*)aitisa_tensor_data(output);
 	int64_t output_size = aitisa_tensor_size(output);
-	std::vector<double> test_data = { 2,  2.4,  2.6,  5.6,  6.0,  6.2,  7.4,  7.8,  8.0,
+	double test_data[] = { 2,  2.4,  2.6,  5.6,  6.0,  6.2,  7.4,  7.8,  8.0,
 								   10.1, 10.5, 10.7, 13.7, 14.1, 14.3, 15.5, 15.9, 16.1 };
 	
 	for (int i = 0; i < output_size; i++) {
@@ -176,7 +176,7 @@ TEST(Pooling3D, MaxInt32K4S4P3D2) {
 	
 	int32_t* output_data = (int32_t*)aitisa_tensor_data(output);
 	int64_t output_size = aitisa_tensor_size(output);
-	std::vector<int32_t> test_data = { 400, 403, 445, 448,
+	int32_t test_data[] = { 400, 403, 445, 448,
 											850, 853, 895, 898};
 
 	for (int i = 0; i < output_size; i++) {

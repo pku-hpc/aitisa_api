@@ -72,7 +72,7 @@ else()
 endif()
 
 target_compile_features(aitisa_api PUBLIC c_std_99)
-
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++98")
 target_include_directories(aitisa_api
   PUBLIC
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
