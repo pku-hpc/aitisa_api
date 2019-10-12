@@ -266,8 +266,8 @@ static Status multidim_dot(const Tensor tensor1, const Tensor tensor2,
   int64_t *tensor1_dims = aitisa_tensor_dims(tensor1);
   int64_t *tensor2_dims = aitisa_tensor_dims(tensor2);
   // check whether the last dimension of tensor1 is equal to
-  // the first dimension of tensor2
-  if(tensor1_dims[ndim_tensor1-1] != tensor2_dims[0]){
+  // the second-to-last dimension of tensor2
+  if(tensor1_dims[ndim_tensor1-1] != tensor2_dims[ndim_tensor2-2]){
     return STATUS_INVALID_ARGUMENT;
   }
   // create output
@@ -280,8 +280,15 @@ static Status multidim_dot(const Tensor tensor1, const Tensor tensor2,
   for(int64_t i=0; i<ndim_tensor1-1; i++){
     out_dims[i] = tensor1_dims[i];
   }
-  for(int64_t i=ndim_tensor1-1; i<out_ndim; i++){
-    out_dims[i] = tensor2_dims[i-ndim_tensor1+2];
+  for(int64_t i=0; i<ndim_tensor2; i++){
+    if(i < ndim_tensor2-2){
+      out_dims[i+ndim_tensor1-1] = tensor2_dims[i];
+    }
+    else if(i == ndim_tensor2-2){
+      continue;
+    }else{
+      out_dims[i+ndim_tensor1-2] = tensor2_dims[i];
+    }
   }
   Tensor new_tensor;
   DataType dtype = aitisa_tensor_data_type(tensor1);
@@ -317,10 +324,10 @@ static Status multidim_dot(const Tensor tensor1, const Tensor tensor2,
     size_t1[i] = 0;
   }
   size_t1[ndim_tensor1-1] = tensor1_dims[ndim_tensor1-1];
-  size_t2[0] = tensor2_dims[0];
-  for(int64_t i=1; i<ndim_tensor2; i++){
+  for(int64_t i=0; i<ndim_tensor2; i++){
     size_t2[i] = 0;
   }
+  size_t2[ndim_tensor2-2] = tensor2_dims[ndim_tensor2-2];
     //step
   int *step_t1 =
     aitisa_default_cpu_allocator()->raw_alloc(sizeof(*step_t1)*ndim_tensor1);
@@ -336,8 +343,10 @@ static Status multidim_dot(const Tensor tensor1, const Tensor tensor2,
     step_t2[i] = 1;
   }
   // implement multidim dot
-  int64_t nvec_tensor1 = size_to_dim(ndim_tensor1-1, tensor1_dims, ndim_tensor1);
-  int64_t nvec_tensor2 = size_from_dim(1, tensor2_dims, ndim_tensor2);
+  int64_t nvec_tensor1 =
+    size_to_dim(ndim_tensor1-1, tensor1_dims, ndim_tensor1);
+  int64_t nvec_tensor2 =
+    size_of_dims(tensor2_dims, ndim_tensor2) / tensor2_dims[ndim_tensor2-2];
   Tensor vec2;
   Tensor vec1;
   Tensor result;
@@ -355,7 +364,8 @@ static Status multidim_dot(const Tensor tensor1, const Tensor tensor2,
       void *result_data = aitisa_tensor_data(result);
       memcpy((char*)out_data+(vec1_idx*nvec_tensor2+vec2_idx)*data_size, result_data, data_size);
       // update index_recorder_t2
-      for(int i=ndim_tensor2-1; i>=1; i--){
+      for(int i=ndim_tensor2-1; i>=0; i--){
+        if(i == ndim_tensor2-2) continue;
         index_recorder_t2[i] += 1;
         /* judge whether the index is out of boundary */
         if(index_recorder_t2[i] >= tensor2_dims[i]){
@@ -412,11 +422,8 @@ Status aitisa_dot(const Tensor tensor1, const Tensor tensor2,
   // dimension of the first input and the second tensor
     status = tensor_vector_dot(tensor1, tensor2, output);
   }else if(ndim_tensor1 > 2 && ndim_tensor2 > 2){
-  // FIXME2: This is not consistent with the definition when ndim_tensor1 > 2 && ndim_tensor2 > 2, 
-  // check (https://docs.scipy.org/doc/numpy/reference/generated/numpy.dot.html?highlight=dot#numpy.dot) for details.
-  
   // both the dimensions of the two input are larger than 2, then calculate
-  // the dot between the last dimension of the first input and the first
+  // the dot between the last dimension of the first input and the second-to-last
   // dimension of the second input
     status = multidim_dot(tensor1, tensor2, output);
   }else{
