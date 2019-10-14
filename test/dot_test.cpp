@@ -5,7 +5,7 @@ extern "C" {
 #include "src/basic/factories.h"
 #include "src/core/tensor.h"
 #include "src/math/dot.h"
-//#include "src/tool/tool.h"
+#include "src/tool/tool.h"
 }
 
 void dot_assign_float(Tensor t) {
@@ -146,7 +146,7 @@ TEST(Dot, Dim4DotDim3) {
   Device device = { DEVICE_CPU, 0 };
 
   int64_t dims1[4] = { 2,3,2,3 };
-  int64_t dims2[3] = { 3,1,2 };
+  int64_t dims2[3] = { 2,3,2 };
   aitisa_create(dtype, device, LAYOUT_DENSE, dims1, 4, &tensor1);
   aitisa_create(dtype, device, LAYOUT_DENSE, dims2, 3, &tensor2);
   dot_assign_float(tensor1);
@@ -156,13 +156,15 @@ TEST(Dot, Dim4DotDim3) {
 
   Tensor output;
   aitisa_dot(tensor1, tensor2, &output);
-  //tensor_printer2d(output);
-
+  
+  
   float* out_data = (float*)aitisa_tensor_data(output);
-  float test_data[] = { 0.10, 0.13, 0.28, 0.40, 0.46, 0.67,
-                                   0.64, 0.94, 0.82, 1.21, 1.00, 1.48,
-                                   1.18, 1.75, 1.36, 2.02, 1.54, 2.29,
-                                   1.72, 2.56, 1.90, 2.83, 2.08, 3.10};
+  float test_data[] = { 0.10, 0.13, 0.28, 0.31, 0.28, 0.40, 1.00, 1.12,
+                        0.46, 0.67, 1.72, 1.93, 0.64, 0.94, 2.44, 2.74,
+                        0.82, 1.21, 3.16, 3.55, 1.00, 1.48, 3.88, 4.36,
+                        1.18, 1.75, 4.60, 5.17, 1.36, 2.02, 5.32, 5.98,
+                        1.54, 2.29, 6.04, 6.79, 1.72, 2.56, 6.76, 7.60,
+                        1.90, 2.83, 7.48, 8.41, 2.08, 3.10, 8.20, 9.22};
   int64_t size = aitisa_tensor_size(output);
   for (int64_t i = 0; i < size; i++) {
     // Due to the problem of precision, consider the two numbers 
