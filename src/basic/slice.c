@@ -61,8 +61,8 @@ static Status slice_check_parameters(const Tensor input, int *begin,
 }
 
 #define slice_kernel(typename)                                            \
-  float *in_data = (float *)aitisa_tensor_data(input);                    \
-  float *out_data = (float *)aitisa_tensor_data(*output);                 \
+  typename *in_data = (typename *)aitisa_tensor_data(input);                    \
+  typename *out_data = (typename *)aitisa_tensor_data(*output);                 \
   int64_t out_size = aitisa_tensor_size(*output);                         \
   for(int out_linear_idx=0; out_linear_idx<out_size; out_linear_idx++){   \
     /* get the linear index of input data element */                      \
@@ -87,6 +87,7 @@ static Status slice_check_parameters(const Tensor input, int *begin,
 static Status slice_template(const Tensor input, int *begin,
                              int *size, int *step,
                              Tensor *output){
+  Status status = STATUS_SUCCESS;
   int64_t in_ndim = aitisa_tensor_ndim(input);
   int64_t *in_dims = aitisa_tensor_dims(input);
   /* make an index_recorder which records the index of present input
@@ -162,9 +163,12 @@ static Status slice_template(const Tensor input, int *begin,
       break;
     }
     default:
-      return STATUS_NOT_SUPPORTED;
+      status = STATUS_NOT_SUPPORTED;
   }
-  return STATUS_SUCCESS;
+  aitisa_default_cpu_allocator()->raw_dealloc(index_recorder);
+  aitisa_default_cpu_allocator()->raw_dealloc(offset_recorder);
+  aitisa_default_cpu_allocator()->raw_dealloc(boundary);
+  return status;
 }
 
 
