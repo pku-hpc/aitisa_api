@@ -35,6 +35,7 @@ static Status dropout_rand_array(int64_t begin, int64_t end,
       if(generated_amount > amount) break;
     }
   }
+  // make sure there are enough elements in recorder
   if(generated_amount < amount){
     int64_t gap = generated_amount;
     for(int64_t i=end-begin; i>=0; i--){
@@ -58,11 +59,11 @@ static Status dropout_rand_array(int64_t begin, int64_t end,
   return STATUS_SUCCESS;
 }
 
-#define dropout_kernel(typename)                              \
-  typename* data = (typename *)aitisa_tensor_data(*tensor);   \
-  for(int64_t i=0; i<amount; i++){                            \
-    int64_t idx = recorder[i];                                \
-    data[idx] = 0;                                            \
+#define dropout_kernel(typename)                                \
+  typename* data = (typename *)aitisa_tensor_data(*tensor);     \
+  for(int64_t i=0; i<amount; i++){                              \
+    int64_t idx = recorder[i];                                  \
+    data[idx] = 0;                                              \
   }
 
 static Status dropout_template(Tensor *tensor, const double rate){

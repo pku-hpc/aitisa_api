@@ -1,10 +1,10 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
-#include <math.h>
 
 extern "C" {
 #include "src/basic/factories.h"
 #include "src/nn/dropout.h"
+#include <math.h>
 }
 
 void dropout_assign_float(Tensor t) {
