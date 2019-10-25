@@ -61,8 +61,8 @@ static Status slice_check_parameters(const Tensor input, int *begin,
 }
 
 #define slice_kernel(typename)                                            \
-  typename *in_data = (typename *)aitisa_tensor_data(input);                    \
-  typename *out_data = (typename *)aitisa_tensor_data(*output);                 \
+  typename *in_data = (typename *)aitisa_tensor_data(input);              \
+  typename *out_data = (typename *)aitisa_tensor_data(*output);           \
   int64_t out_size = aitisa_tensor_size(*output);                         \
   for(int out_linear_idx=0; out_linear_idx<out_size; out_linear_idx++){   \
     /* get the linear index of input data element */                      \
