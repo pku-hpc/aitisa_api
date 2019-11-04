@@ -1,7 +1,7 @@
 #include "src/math/sqrt.h"
 #include <math.h>
 
-static sqrt_create_output(const Tensor input, Tensor *output){
+static Status sqrt_create_output(const Tensor input, Tensor *output){
   Status status;
   int64_t* dims = aitisa_tensor_dims(input);
   int64_t ndim = aitisa_tensor_ndim(input);
@@ -23,7 +23,7 @@ static sqrt_create_output(const Tensor input, Tensor *output){
     out_data[i] = (typename)sqrt(in_data[i]);                     \
   }
 
-static sqrt_template(const Tensor input, Tensor *output){
+static Status sqrt_template(const Tensor input, Tensor *output){
   Status status = STATUS_SUCCESS;
   int64_t size = aitisa_tensor_size(input);
   DataType dtype = aitisa_tensor_data_type(input);
