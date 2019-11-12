@@ -12,6 +12,9 @@ list(APPEND aitisa_test_srcs
   cast_test.cpp
   duplicate_test.cpp
   dropout_test.cpp
+  sqrt_test.cpp
+  squeeze_test.cpp
+  reshape_test.cpp
 )
 
 # Build a exe for each test files
