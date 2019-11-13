@@ -16,6 +16,7 @@ list(APPEND aitisa_test_srcs
   squeeze_test.cpp
   reshape_test.cpp
   batch_norm_test.cpp
+  sigmoid_test.cpp
 )
 
 # Build a exe for each test files
