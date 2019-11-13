@@ -17,11 +17,6 @@ AITISA_API is an open-source library aiming to provide a reference implementatio
 - @ref aitisa_create
 - @ref aitisa_destroy
 - @ref aitisa_full
-- @ref aitisa_reshape
-- @ref aitisa_slice
-- @ref aitisa_squeeze
-- @ref aitisa_duplicate
-- @ref aitisa_cast
 - @ref aitisa_tensor_data
 - @ref aitisa_tensor_data_type
 - @ref aitisa_tensor_device
@@ -44,13 +39,7 @@ AITISA_API is an open-source library aiming to provide a reference implementatio
 - @ref aitisa_sub
 - @ref aitisa_mul
 - @ref aitisa_div
-- @ref aitisa_dot
-- @ref aitisa_sqrt
 - @ref aitisa_matmul
 
 # NN Operations
 - @ref aitisa_conv
-- @ref aitisa_batch_norm
-- @ref aitisa_dropout
-- @ref aitisa_pooling
-- @ref aitisa_softmax
