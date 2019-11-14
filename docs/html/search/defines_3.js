@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['mm_5fkernel_454',['MM_KERNEL',['../matmul_8c.html#a717d9a3c7022ffb9121cacb0f8281843',1,'matmul.c']]],
-  ['mv_5fkernel_455',['MV_KERNEL',['../matmul_8c.html#a8895e811548a6be6af233e1704ad0f6e',1,'matmul.c']]]
+  ['dot_5fget_5fvalue_5fkernel_642',['dot_get_value_kernel',['../dot_8c.html#a0a250b6be17fcdb8ce468afea0525f66',1,'dot.c']]],
+  ['dot_5fkernel_643',['dot_kernel',['../dot_8c.html#a6601e154b958336c37b021149ad86bbd',1,'dot.c']]],
+  ['dropout_5fkernel_644',['dropout_kernel',['../dropout_8c.html#a9f6444adef722061a35f836489f0a4a1',1,'dropout.c']]]
 ];

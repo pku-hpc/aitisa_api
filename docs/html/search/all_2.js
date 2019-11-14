@@ -1,12 +1,19 @@
 var searchData=
 [
-  ['batch_5fmm_5fkernel_54',['BATCH_MM_KERNEL',['../matmul_8c.html#a9e6bfd3b92a49050999180b7f395098b',1,'matmul.c']]],
-  ['batch_5fmm_5ftemplate_55',['batch_mm_template',['../matmul_8c.html#acb5fdb83f0fa6dee2137cd28c7d9c062',1,'matmul.c']]],
-  ['batch_5fstrides_56',['batch_strides',['../matmul_8c.html#a294a6e1e7a068b708da8e0ae5a1e7642',1,'matmul.c']]],
-  ['binary_5fop_2ec_57',['binary_op.c',['../binary__op_8c.html',1,'']]],
-  ['binary_5fop_2eh_58',['binary_op.h',['../binary__op_8h.html',1,'']]],
-  ['binary_5fop_5ffunc_59',['binary_op_func',['../binary__op_8c.html#acb182e171577a5ca495c2b1313fb6d2c',1,'binary_op.c']]],
-  ['binaryopfunc_60',['BinaryOpFunc',['../binary__op_8h.html#a157c3482e834488e7428fa306bf97d3b',1,'binary_op.h']]],
-  ['broadcast_2ec_61',['broadcast.c',['../broadcast_8c.html',1,'']]],
-  ['broadcast_2eh_62',['broadcast.h',['../broadcast_8h.html',1,'']]]
+  ['batch_5fmm_5fkernel_73',['BATCH_MM_KERNEL',['../matmul_8c.html#a9e6bfd3b92a49050999180b7f395098b',1,'matmul.c']]],
+  ['batch_5fmm_5ftemplate_74',['batch_mm_template',['../matmul_8c.html#acb5fdb83f0fa6dee2137cd28c7d9c062',1,'matmul.c']]],
+  ['batch_5fnorm_2ec_75',['batch_norm.c',['../batch__norm_8c.html',1,'']]],
+  ['batch_5fnorm_2eh_76',['batch_norm.h',['../batch__norm_8h.html',1,'']]],
+  ['batch_5fnorm_5fcheck_5fparameters_77',['batch_norm_check_parameters',['../batch__norm_8c.html#a32bf41836a81bd231e8f591cc82ebade',1,'batch_norm.c']]],
+  ['batch_5fnorm_5fcreate_5foutput_78',['batch_norm_create_output',['../batch__norm_8c.html#ae095829f42a51bb289fcfd1a03054ea1',1,'batch_norm.c']]],
+  ['batch_5fnorm_5ftransport_79',['batch_norm_transport',['../batch__norm_8c.html#aa10f16f910b2f914fe93f189d8129dee',1,'batch_norm.c']]],
+  ['batch_5fnorm_5fwith_5fchannel_80',['batch_norm_with_channel',['../batch__norm_8c.html#a3402ed9ac4ebd013c46b12da2203d60e',1,'batch_norm.c']]],
+  ['batch_5fnorm_5fwithout_5fchannel_81',['batch_norm_without_channel',['../batch__norm_8c.html#a07be96467f0fd22adb53f4d5d2e2d8a2',1,'batch_norm.c']]],
+  ['batch_5fstrides_82',['batch_strides',['../matmul_8c.html#a294a6e1e7a068b708da8e0ae5a1e7642',1,'matmul.c']]],
+  ['binary_5fop_2ec_83',['binary_op.c',['../binary__op_8c.html',1,'']]],
+  ['binary_5fop_2eh_84',['binary_op.h',['../binary__op_8h.html',1,'']]],
+  ['binary_5fop_5ffunc_85',['binary_op_func',['../binary__op_8c.html#acb182e171577a5ca495c2b1313fb6d2c',1,'binary_op.c']]],
+  ['binaryopfunc_86',['BinaryOpFunc',['../binary__op_8h.html#a157c3482e834488e7428fa306bf97d3b',1,'binary_op.h']]],
+  ['broadcast_2ec_87',['broadcast.c',['../broadcast_8c.html',1,'']]],
+  ['broadcast_2eh_88',['broadcast.h',['../broadcast_8h.html',1,'']]]
 ];

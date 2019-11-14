@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['batch_5fmm_5fkernel_452',['BATCH_MM_KERNEL',['../matmul_8c.html#a9e6bfd3b92a49050999180b7f395098b',1,'matmul.c']]]
+  ['batch_5fmm_5fkernel_639',['BATCH_MM_KERNEL',['../matmul_8c.html#a9e6bfd3b92a49050999180b7f395098b',1,'matmul.c']]]
 ];
