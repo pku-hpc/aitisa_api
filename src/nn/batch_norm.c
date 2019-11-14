@@ -279,6 +279,8 @@ static Status batch_norm_with_channel(const Tensor input, const int axis,
       // destroy temp1
       CHECK_STATUS(
         aitisa_destroy(&temp1));
+      /// FIXME: deallocate of array begin[], step[], size[]
+
     }
   }
   return STATUS_SUCCESS;

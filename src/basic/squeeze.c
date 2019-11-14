@@ -14,6 +14,9 @@ Status aitisa_squeeze(const Tensor input, int64_t *axis,
   for(int64_t i=0; i<in_ndim; i++){
     processed_in_dims[i] = in_dims[i];
   }
+  /// FIXME: Not consistence with standard docs.
+  /// If in_dims[axis[i]] == 1, delete it.
+  /// If in_dims[axis[i]] != 1, do nothing.
   for(int64_t i=0; i<num_axis; i++){
     if(in_dims[axis[i]] != 1){
       return STATUS_INVALID_ARGUMENT;
