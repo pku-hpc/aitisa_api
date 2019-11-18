@@ -211,7 +211,7 @@ static Status batch_norm_with_channel(const Tensor input, const int axis,
   for(int64_t i=0; i<ndim; i++){
     begin[i] = 0;
     step[i] = 1;
-    size[i] = (dims[i]);
+    size[i] = (int)(dims[i]);
   }
   size[0] = 1;
   size[axis] = 1;
@@ -239,7 +239,7 @@ static Status batch_norm_with_channel(const Tensor input, const int axis,
   for(int i=ndim-2; i>=0 ;i--){
     offset_recorder[i] = offset_recorder[i+1] * dims[i+1];
   }
-  // implement batch norm 1d
+  // implement batch norm 
   for(int64_t s=0; s<batch_size; s++){
     // set begin
     begin[0] = (int)s;
@@ -270,19 +270,22 @@ static Status batch_norm_with_channel(const Tensor input, const int axis,
         aitisa_destroy(&temp1));
       CHECK_STATUS(
         aitisa_add(temp0, bias_array[c], &temp1));
-      CHECK_STATUS(
-        aitisa_destroy(&temp0));
       // transport data of temp1 to output
       index_recorder[axis] = c;// set index_recorder
       batch_norm_transport(temp1, output, index_recorder,
                            offset_recorder, axis);
-      // destroy temp1
+      // destroy temp0 and temp1
+      CHECK_STATUS(
+        aitisa_destroy(&temp0));
       CHECK_STATUS(
         aitisa_destroy(&temp1));
-      /// FIXME: deallocate of array begin[], step[], size[]
-
     }
   }
+  // destroy parameters for slice and squeeze
+  aitisa_default_cpu_allocator()->raw_dealloc(begin);
+  aitisa_default_cpu_allocator()->raw_dealloc(size);
+  aitisa_default_cpu_allocator()->raw_dealloc(step);
+  aitisa_default_cpu_allocator()->raw_dealloc(squeeze_axis);
   return STATUS_SUCCESS;
 }
 
