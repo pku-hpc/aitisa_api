@@ -2,6 +2,7 @@
 #include "src/core/allocator.h"
 #include "src/basic/index_utils.h"
 #include "src/nn/pooling.h"
+#include <math.h>
 
 #define max_pooling_1d_kernel(typename)                                             \
   typename *turned_in_data = (typename *)in_data;                                   \
@@ -64,6 +65,7 @@ static Status max_pooling_1d(const Tensor input, const int *ksize,
   int64_t nchannels_within_batch = out_dims[0] * out_dims[1];
   int64_t out_feature_size = out_dims[2];
   int left_padding = padding[0] / 2;
+  //printf("left padding is %d",left_padding);
   //int right_padding = padding[0] / 2 + (padding[0] % 2);
 
   switch(aitisa_tensor_data_type(input).code){

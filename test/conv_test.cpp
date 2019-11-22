@@ -5,6 +5,7 @@
 extern "C" {
 #include "src/basic/factories.h"
 #include "src/nn/conv.h"
+//#include "src/tool/tool.h"
 }
 
 namespace aitisa_api {
@@ -26,7 +27,11 @@ TEST(Conv2D, P0S1D1) {
   int ndim = aitisa_tensor_ndim(input);
 
   aitisa_conv(input, filter, stride, padding, dilation, groups, &output);
-
+  /*
+  tensor_printer2d(input);
+  tensor_printer2d(filter);
+  tensor_printer2d(output);
+  */
   //int64_t *output_dims = aitisa_tensor_dims(output);
   //for (int i = 0; i < ndim; ++i) {
   //  std::cout << output_dims[i] << ", ";
@@ -76,7 +81,11 @@ TEST(Conv2D, P2S1D1) {
   int ndim = aitisa_tensor_ndim(input);
 
   aitisa_conv(input, filter, stride, padding, dilation, groups, &output);
-
+  /*
+  tensor_printer2d(input);
+  tensor_printer2d(filter);
+  tensor_printer2d(output);
+  */
   float *output_data = (float *)aitisa_tensor_data(output);
   int64_t output_size = aitisa_tensor_size(output);
   ASSERT_THAT(std::vector<float>(output_data, output_data + output_size), 
@@ -103,7 +112,11 @@ TEST(Conv3D, P0S1D1) {
   int ndim = aitisa_tensor_ndim(input);
 
   aitisa_conv(input, filter, stride, padding, dilation, groups, &output);
-
+  /*
+  tensor_printer2d(input);
+  tensor_printer2d(filter);
+  tensor_printer2d(output);
+  */
   int64_t *output_dims = aitisa_tensor_dims(output);
   //for (int i = 0; i < ndim; ++i) {
   //  std::cout << output_dims[i] << ", ";

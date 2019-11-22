@@ -7,14 +7,14 @@ Status aitisa_create_storage(DataType dtype, Device device, int64_t size,
   new_storage =
       aitisa_default_cpu_allocator()->raw_alloc(
           sizeof(*new_storage));
-  if (!new_storage) return STATUS_ALLOC_FAILED; 
+  if (!new_storage) return STATUS_ALLOC_FAILED;
   new_storage->dtype = dtype;
   new_storage->device = device;
   new_storage->size = size;
   new_storage->data =
       aitisa_default_cpu_allocator()->raw_alloc(
           dtype.size * size);
-  if (!new_storage->data) return STATUS_ALLOC_FAILED; 
+  if (!new_storage->data) return STATUS_ALLOC_FAILED;
   *storage = new_storage;
   return STATUS_SUCCESS;
 }

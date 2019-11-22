@@ -495,7 +495,6 @@ Status aitisa_cast(const Tensor input, DataType dtype,
   // then do nothing.
   DataType in_dtype = aitisa_tensor_data_type(input);
   if(in_dtype.code == dtype.code){
-    *output = input;
     return STATUS_SUCCESS;
   }
   // create output

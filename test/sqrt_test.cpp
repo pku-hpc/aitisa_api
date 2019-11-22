@@ -2,6 +2,7 @@
 extern "C" {
 #include "src/basic/factories.h"
 #include "src/math/sqrt.h"
+//#include "src/tool/tool.h"
 }
 
 void sqrt_assign_int32(Tensor t) {
@@ -49,6 +50,9 @@ TEST(Sqrt, Float) {
        are equal when their difference is less than 0.000001*/
     EXPECT_TRUE(abs(out_data[i] - test_data[i]) < 0.000001);
   }
+
+  aitisa_destroy(&input);
+  aitisa_destroy(&output);
 }
 
 TEST(Sqrt, Int32) {
@@ -70,6 +74,9 @@ TEST(Sqrt, Int32) {
   for (int64_t i = 0; i < size; i++) {
     EXPECT_EQ(out_data[i], test_data[i]);
   }
+
+  aitisa_destroy(&input);
+  aitisa_destroy(&output);
 }
 }//namespace
 }//namespace aitisa_api

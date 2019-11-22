@@ -240,7 +240,7 @@ Status aitisa_add(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   void *data_tensor2 = aitisa_tensor_data(tensor2);
   void *data_output = aitisa_tensor_data(*output);
   DataType dtype = aitisa_tensor_data_type(tensor1);
-  void *a = malloc(dtype.size), *b = malloc(dtype.size), *c = malloc(dtype.size); 
+  void *a = malloc(dtype.size), *b = malloc(dtype.size), *c = malloc(dtype.size);
   for (int i = 0; i < size; i++) {
     aitisa_get_typed_array_value_func(dtype)(data_tensor1, i, a);
     aitisa_get_typed_array_value_func(dtype)(data_tensor2, i, b);
@@ -250,7 +250,7 @@ Status aitisa_add(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   free(a);
   free(b);
   free(c);
-  return STATUS_SUCCESS; 
+  return STATUS_SUCCESS;
 }
 
 Status aitisa_sub(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
@@ -284,7 +284,7 @@ Status aitisa_sub(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   void *data_tensor2 = aitisa_tensor_data(tensor2);
   void *data_output = aitisa_tensor_data(*output);
   DataType dtype = aitisa_tensor_data_type(tensor1);
-  void *a = malloc(dtype.size), *b = malloc(dtype.size), *c = malloc(dtype.size); 
+  void *a = malloc(dtype.size), *b = malloc(dtype.size), *c = malloc(dtype.size);
   for (int i = 0; i < size; i++) {
     aitisa_get_typed_array_value_func(dtype)(data_tensor1, i, a);
     aitisa_get_typed_array_value_func(dtype)(data_tensor2, i, b);
@@ -294,7 +294,7 @@ Status aitisa_sub(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   free(a);
   free(b);
   free(c);
-  return STATUS_SUCCESS; 
+  return STATUS_SUCCESS;
 }
 
 Status aitisa_mul(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
@@ -328,7 +328,7 @@ Status aitisa_mul(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   void *data_tensor2 = aitisa_tensor_data(tensor2);
   void *data_output = aitisa_tensor_data(*output);
   DataType dtype = aitisa_tensor_data_type(tensor1);
-  void *a = malloc(dtype.size), *b = malloc(dtype.size), *c = malloc(dtype.size); 
+  void *a = malloc(dtype.size), *b = malloc(dtype.size), *c = malloc(dtype.size);
   for (int i = 0; i < size; i++) {
     aitisa_get_typed_array_value_func(dtype)(data_tensor1, i, a);
     aitisa_get_typed_array_value_func(dtype)(data_tensor2, i, b);
@@ -338,7 +338,7 @@ Status aitisa_mul(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   free(a);
   free(b);
   free(c);
-  return STATUS_SUCCESS; 
+  return STATUS_SUCCESS;
 }
 
 Status aitisa_div(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
@@ -372,7 +372,7 @@ Status aitisa_div(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   void *data_tensor2 = aitisa_tensor_data(tensor2);
   void *data_output = aitisa_tensor_data(*output);
   DataType dtype = aitisa_tensor_data_type(tensor1);
-  void *a = malloc(dtype.size), *b = malloc(dtype.size), *c = malloc(dtype.size); 
+  void *a = malloc(dtype.size), *b = malloc(dtype.size), *c = malloc(dtype.size);
   for (int i = 0; i < size; i++) {
     aitisa_get_typed_array_value_func(dtype)(data_tensor1, i, a);
     aitisa_get_typed_array_value_func(dtype)(data_tensor2, i, b);
@@ -382,5 +382,5 @@ Status aitisa_div(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   free(a);
   free(b);
   free(c);
-  return STATUS_SUCCESS; 
+  return STATUS_SUCCESS;
 }

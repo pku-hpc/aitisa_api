@@ -1,7 +1,7 @@
 #ifndef BROADCAST_H
 #define BROADCAST_H
 
-#include "src/core/tensor.h"
+#include "../../src/core/tensor.h"
 
 /**
  * @brief Do broadcast and save result into dims_out.
@@ -10,7 +10,7 @@
  * reverse order.
  * Suppose that k and m are the i_th last elements of dims_in1 and
  * dims_in2. (1) k == m, then dim_out[i_th last] = k; (2) k == 1 or m ==1, then
- * dim_out[i_th last] = max(k, m); (3) k != m and k != 1 and m !=1, mismatched error. 
+ * dim_out[i_th last] = max(k, m); (3) k != m and k != 1 and m !=1, mismatched error.
  * For example: dims_in1 = {3, 2, 3, 1, 5}, dims_in2 = {1, 3, 4, 5}, then
  * dims_out = {3, 2, 3, 4, 5}
  *

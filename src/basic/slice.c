@@ -2,6 +2,7 @@
 #include "src/core/allocator.h"
 #include "src/basic/slice.h"
 #include <math.h>
+#include <inttypes.h>
 
 static Status slice_create_output(const Tensor input, int *begin,
                                   int *size, int *step,
@@ -48,13 +49,13 @@ static Status slice_check_parameters(const Tensor input, int *begin,
   int64_t *in_dims = aitisa_tensor_dims(input);
   for(int i=0; i<in_ndim; i++){
     if(begin[i]<0 || begin[i]>=in_dims[i]){
-      return STATUS_INTERNAL_ERROR;
+      return STATUS_INVALID_ARGUMENT;
     }
     if(size[i]<0 || begin[i]+size[i]>in_dims[i]){
-      return STATUS_INTERNAL_ERROR;
+      return STATUS_INVALID_ARGUMENT;
     }
     if(step[i]<1){
-      return STATUS_INTERNAL_ERROR;
+      return STATUS_INVALID_ARGUMENT;
     }
   }
   return STATUS_SUCCESS;
@@ -87,7 +88,6 @@ static Status slice_check_parameters(const Tensor input, int *begin,
 static Status slice_template(const Tensor input, int *begin,
                              int *size, int *step,
                              Tensor *output){
-  Status status = STATUS_SUCCESS;
   int64_t in_ndim = aitisa_tensor_ndim(input);
   int64_t *in_dims = aitisa_tensor_dims(input);
   /* make an index_recorder which records the index of present input
@@ -107,7 +107,7 @@ static Status slice_template(const Tensor input, int *begin,
     return STATUS_ALLOC_FAILED;
   }
   for(int i=0; i<in_ndim; i++){
-    boundary[i] = begin[i] + size[i] - 1;
+    boundary[i] = (int64_t)begin[i] + (int64_t)size[i] - 1;
   }
   /* make an offset_recorder which records every linear offset of each dimension*/
   int64_t *offset_recorder =
@@ -163,12 +163,9 @@ static Status slice_template(const Tensor input, int *begin,
       break;
     }
     default:
-      status = STATUS_NOT_SUPPORTED;
+      return STATUS_NOT_SUPPORTED;
   }
-  aitisa_default_cpu_allocator()->raw_dealloc(index_recorder);
-  aitisa_default_cpu_allocator()->raw_dealloc(offset_recorder);
-  aitisa_default_cpu_allocator()->raw_dealloc(boundary);
-  return status;
+  return STATUS_SUCCESS;
 }
 
 

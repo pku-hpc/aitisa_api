@@ -52,6 +52,9 @@ TEST(Slice, StepIsOne) {
 			 are equal when their difference is less than 0.00001*/
 		EXPECT_TRUE(abs(out_data[i] - test_data[i]) < 0.00001);
 	}
+
+  aitisa_destroy(&input);
+  aitisa_destroy(&output);
 }
 
 TEST(Slice, StepNotOne) {
@@ -74,6 +77,9 @@ TEST(Slice, StepNotOne) {
 	for (int64_t i = 0; i < out_size; i++) {
 		EXPECT_EQ(out_data[i],  test_data[i]);
 	}
+
+  aitisa_destroy(&input);
+  aitisa_destroy(&output);
 }
 
 }//namespace

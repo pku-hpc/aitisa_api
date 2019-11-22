@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 
-#include "src/core/macros.h"
+#include "../../src/core/macros.h"
 
 typedef void* (*RawAlloc)(size_t size);
 typedef void (*RawDealloc)(void* ptr);

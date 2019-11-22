@@ -41,6 +41,9 @@ TEST(Dropout, Rate40percent) {
   }
   double actual_rate = (double)num_zero / (double)output_size;
   EXPECT_TRUE(abs(actual_rate-rate)<0.2);
+
+  aitisa_destroy(&input);
+  aitisa_destroy(&output);
 }
 }//namespace
 }//namespace aitisa_api

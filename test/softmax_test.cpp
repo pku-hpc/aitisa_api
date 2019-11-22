@@ -55,6 +55,9 @@ TEST(Softmax, FloatAll) {
 			 are equal when their difference is less than 0.00001*/
 		EXPECT_TRUE(abs(out_data[i] - test_data[i]) < 0.00001);
 	}
+
+  aitisa_destroy(&input);
+  aitisa_destroy(&output);
 }
 
 TEST(Softmax, DoubleAxis1) {
@@ -84,6 +87,9 @@ TEST(Softmax, DoubleAxis1) {
 			 are equal when their difference is less than 0.000001*/
 		EXPECT_TRUE(abs(out_data[i] - test_data[i]) < 0.000001);
 	}
+
+  aitisa_destroy(&input);
+  aitisa_destroy(&output);
 }
 
 }//namespace

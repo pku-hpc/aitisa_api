@@ -14,11 +14,11 @@
  * @param padding The padding of a shape [spatial_shapes] each of which is >=
  *                0. The left and right of each dimension use the same padding *
  *                width.
- * @param dilation The dilation of a shape [spatial_shapes] each of which is
+ * @param dilation The dialtion of a shape [spatial_shapes] each of which is
  *                 >= 1. This is a regular convolution if all values are 1.
  * @param groups An integer used to split input into groups, in_channels should
  *               be divisible by the number of groups.
- * @param output The output tensor pointer of a shape [num_batches,
+ * @param output The output tensor porinter of a shape [num_batches,
  *               out_channels, * * out_spatial_shapes].
  * @return Status The Status enum indicates whether the routine is OK.
  */

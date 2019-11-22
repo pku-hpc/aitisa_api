@@ -28,8 +28,8 @@ TEST(Sigmoid, Float) {
 
   Tensor output;
   aitisa_sigmoid(input, &output);
-  //tensor_printer(input);
-  //tensor_printer(output);
+  //tensor_printer2d(input);
+  //tensor_printer2d(output);
   
   float test_data[] = { 0.500000, 0.524979, 0.549834,
                         0.574443, 0.598688, 0.622459 };
@@ -37,6 +37,9 @@ TEST(Sigmoid, Float) {
   for (int64_t i = 0; i < size; i++) {
     EXPECT_TRUE(abs(test_data[i]-out_data[i])<0.00001);
   }
+
+  aitisa_destroy(&input);
+  aitisa_destroy(&output);
 }
 }//namespace
 }//namespace aitisa_api

@@ -3,11 +3,11 @@
 
 #include <stdint.h>
 
-#include "src/core/tensor.h"
+#include "../../src/core/tensor.h"
 
 /**
  * @brief Get the stride of specific dimension.
- * 
+ *
  * @param t Tensor
  * @param dimension The specific dimension
  * @return int64_t stride
@@ -16,7 +16,7 @@ AITISA_API_PUBLIC int64_t aitisa_get_stride(const Tensor t, int64_t dimension);
 
 /**
  * @brief Get the strides of all dimensions.
- * 
+ *
  * @param t Tensor
  * @param strides Array to keep the strides
  */
@@ -24,7 +24,7 @@ AITISA_API_PUBLIC void aitisa_get_all_strides(const Tensor t, int64_t *strides);
 
 /**
  * @brief Convert the coordinates into linear index.
- * 
+ *
  * @param t Tensor
  * @param coords Coordinates array
  * @param len Length of coordinates
@@ -35,7 +35,7 @@ AITISA_API_PUBLIC int64_t aitisa_coords_to_linidx(const Tensor t,
 
 /**
  * @brief Convert the coordinates into linear index.
- * 
+ *
  * @param t Tensor
  * @param linidx Linear index
  * @param coords Array to keep coordinates
@@ -45,7 +45,7 @@ AITISA_API_PUBLIC void aitisa_linidx_to_coords(const Tensor t, int64_t linidx,
 
 /**
  * @brief Convert the coordinates into offset of the underlying physical memory.
- * 
+ *
  * @param t Tensor
  * @param coords Coordinates array
  * @param len Length of coordinates
@@ -56,7 +56,7 @@ AITISA_API_PUBLIC int64_t aitisa_coords_to_offset(const Tensor t,
 
 /**
  * @brief Convert the offset of the underlying physical memory into coordinates.
- * 
+ *
  * @param t Tensor
  * @param offset Offset of the underlying physical memory
  * @param coords Array to keep coordinates

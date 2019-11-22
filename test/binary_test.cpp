@@ -2,6 +2,7 @@
 extern "C" {
 #include "src/basic/factories.h"
 #include "src/math/binary_op.h"
+//#include "src/tool/tool.h"
 }
 
 void natural_assign1(Tensor t) {
@@ -43,8 +44,13 @@ TEST(Binary, add) {
   natural_assign1(tensor2);
   Tensor output;
   aitisa_add(tensor1, tensor2, &output);
+  /*
+  tensor_printer(tensor1);
+  tensor_printer(tensor2);
+  tensor_printer(output);
+  */
   int64_t expected_ndim = 1;
-  int64_t expected_dims[expected_ndim] = {4};
+  int64_t expected_dims[1] = {4};
   EXPECT_EQ(expected_ndim, aitisa_tensor_ndim(output));
   for (int i = 0; i< expected_ndim; ++i) {
     EXPECT_EQ(expected_dims[i], aitisa_tensor_dim(output, i));
@@ -71,8 +77,13 @@ TEST(Binary, sub) {
   natural_assign1(tensor2);
   Tensor output;
   aitisa_sub(tensor1, tensor2, &output);
+  /*
+  tensor_printer(tensor1);
+  tensor_printer(tensor2);
+  tensor_printer(output);
+  */
   int64_t expected_ndim = 1;
-  int64_t expected_dims[expected_ndim] = {4};
+  int64_t expected_dims[1] = {4};
   EXPECT_EQ(expected_ndim, aitisa_tensor_ndim(output));
   for (int i = 0; i< expected_ndim; ++i) {
     EXPECT_EQ(expected_dims[i], aitisa_tensor_dim(output, i));
@@ -99,8 +110,13 @@ TEST(Binary, mul) {
   natural_assign1(tensor2);
   Tensor output;
   aitisa_mul(tensor1, tensor2, &output);
+  /*
+  tensor_printer(tensor1);
+  tensor_printer(tensor2);
+  tensor_printer(output);
+  */
   int64_t expected_ndim = 1;
-  int64_t expected_dims[expected_ndim] = {4};
+  int64_t expected_dims[1] = {4};
   EXPECT_EQ(expected_ndim, aitisa_tensor_ndim(output));
   for (int i = 0; i< expected_ndim; ++i) {
     EXPECT_EQ(expected_dims[i], aitisa_tensor_dim(output, i));

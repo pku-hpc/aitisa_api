@@ -29,10 +29,21 @@ TEST(Duplicate, Float) {
 
   float* out_data = (float*)aitisa_tensor_data(output);
   float test_data[] = { 0, 0.1, 0.2, 0.3, 0.4, 0.5};
+  int64_t in_ndim = aitisa_tensor_ndim(input);
+  int64_t out_ndim = aitisa_tensor_ndim(output);
+  int64_t* in_dims = aitisa_tensor_dims(input);
+  int64_t* out_dims = aitisa_tensor_dims(output);
+  EXPECT_EQ(in_ndim, out_ndim);
+  for (int64_t i = 0; i < in_ndim; i++) {
+    EXPECT_EQ(in_dims[i], out_dims[i]);
+  }
   int64_t size = aitisa_tensor_size(output);
   for (int64_t i = 0; i < size; i++) {
 		EXPECT_TRUE(out_data[i] == test_data[i]);
 	}
+
+  aitisa_destroy(&input);
+  aitisa_destroy(&output);
 }
 }//namespace
 }//namespace aitisa_api

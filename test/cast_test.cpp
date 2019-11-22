@@ -46,12 +46,20 @@ TEST(Cast, FloatToInt32) {
   status = aitisa_cast(input, out_dtype, &output);
   status = aitisa_cast(input, out_dtype, &output);
 
+  DataType in_dtype_test = aitisa_tensor_data_type(input);
+  DataType out_dtype_test = aitisa_tensor_data_type(output);
+  EXPECT_EQ(in_dtype_test.code, TYPE_FLOAT);
+  EXPECT_EQ(out_dtype_test.code, TYPE_INT32);
   int32_t* out_data = (int32_t*)aitisa_tensor_data(output);
   int32_t test_data[] = { 0, 0, 1, 2, 2, 3 };
   int64_t size = aitisa_tensor_size(output);
   for (int64_t i = 0; i < size; i++) {
 		EXPECT_TRUE(out_data[i] == test_data[i]);
 	}
+
+  aitisa_destroy(&factor);
+  aitisa_destroy(&input);
+  aitisa_destroy(&output);
 }
 
 TEST(Cast, Int32ToDouble) {
@@ -71,6 +79,10 @@ TEST(Cast, Int32ToDouble) {
   status = aitisa_cast(input, out_dtype, &output);
   status = aitisa_cast(input, out_dtype, &output);
 
+  DataType in_dtype_test = aitisa_tensor_data_type(input);
+  DataType out_dtype_test = aitisa_tensor_data_type(output);
+  EXPECT_EQ(in_dtype_test.code, TYPE_INT32);
+  EXPECT_EQ(out_dtype_test.code, TYPE_DOUBLE);
   double* out_data = (double*)aitisa_tensor_data(output);
   double test_data[] = { 0, 2, 4, 6, 8, 10 };
   int64_t size = aitisa_tensor_size(output);
@@ -79,6 +91,10 @@ TEST(Cast, Int32ToDouble) {
     // are equal when their difference is less than 0.00001
     EXPECT_TRUE(abs(out_data[i] - test_data[i]) < 0.00001);
   }
+
+  aitisa_destroy(&factor);
+  aitisa_destroy(&input);
+  aitisa_destroy(&output);
 }
 }//namespace
 }//namespace aitisa_api

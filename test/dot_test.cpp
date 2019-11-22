@@ -49,6 +49,10 @@ TEST(Dot, Dim2DotDim2) {
 		// are equal when their difference is less than 0.00001
 		EXPECT_TRUE(abs(out_data[i] - test_data[i]) < 0.00001);
 	}
+
+  aitisa_destroy(&tensor1);
+  aitisa_destroy(&tensor2);
+  aitisa_destroy(&output);
 }
 
 TEST(Dot, Dim2DotDim0) {
@@ -63,7 +67,7 @@ TEST(Dot, Dim2DotDim0) {
   aitisa_full(dtype, device, dims2, 0, 2, &tensor2);
   dot_assign_float(tensor1);
   //tensor_printer2d(tensor1);
-  //tensor_printer2d(tensor2);
+  //tensor_printer(tensor2);
 
   Tensor output;
   aitisa_dot(tensor1, tensor2, &output);
@@ -79,6 +83,10 @@ TEST(Dot, Dim2DotDim0) {
     // are equal when their difference is less than 0.00001
     EXPECT_TRUE(abs(out_data[i] - test_data[i]) < 0.00001);
   }
+
+  aitisa_destroy(&tensor1);
+  aitisa_destroy(&tensor2);
+  aitisa_destroy(&output);
 }
 
 TEST(Dot, Dim1DotDim1) {
@@ -92,12 +100,12 @@ TEST(Dot, Dim1DotDim1) {
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 1, &tensor2);
   dot_assign_float(tensor1);
   dot_assign_float(tensor2);
-  //tensor_printer2d(tensor1);
-  //tensor_printer2d(tensor2);
+  //tensor_printer(tensor1);
+  //tensor_printer(tensor2);
 
   Tensor output;
   aitisa_dot(tensor1, tensor2, &output);
-  //tensor_printer2d(output);
+  //tensor_printer(output);
 
   float* out_data = (float*)aitisa_tensor_data(output);
   float test_data[] = { 0.30 };
@@ -107,6 +115,10 @@ TEST(Dot, Dim1DotDim1) {
     // are equal when their difference is less than 0.00001
     EXPECT_TRUE(abs(out_data[i] - test_data[i]) < 0.00001);
   }
+
+  aitisa_destroy(&tensor1);
+  aitisa_destroy(&tensor2);
+  aitisa_destroy(&output);
 }
 
 TEST(Dot, Dim3DotDim1) {
@@ -121,8 +133,10 @@ TEST(Dot, Dim3DotDim1) {
   aitisa_create(dtype, device, LAYOUT_DENSE, dims2, 1, &tensor2);
   dot_assign_float(tensor1);
   dot_assign_float(tensor2);
+  //printf("tensor1:\n");
   //tensor_printer2d(tensor1);
-  //tensor_printer2d(tensor2);
+  //printf("tensor2:\n");
+  //tensor_printer(tensor2);
 
   Tensor output;
   aitisa_dot(tensor1, tensor2, &output);
@@ -130,13 +144,17 @@ TEST(Dot, Dim3DotDim1) {
 
   float* out_data = (float*)aitisa_tensor_data(output);
   float test_data[] = { 0.55, 1.45, 2.35, 3.25, 4.15,
-                                   5.05, 5.95, 6.85, 7.75, 8.65 };
+                        5.05, 5.95, 6.85, 7.75, 8.65 };
   int64_t size = aitisa_tensor_size(output);
   for (int64_t i = 0; i < size; i++) {
     // Due to the problem of precision, consider the two numbers 
     // are equal when their difference is less than 0.00001
     EXPECT_TRUE(abs(out_data[i] - test_data[i]) < 0.00001);
   }
+
+  aitisa_destroy(&tensor1);
+  aitisa_destroy(&tensor2);
+  aitisa_destroy(&output);
 }
 
 TEST(Dot, Dim4DotDim3) {
@@ -151,12 +169,13 @@ TEST(Dot, Dim4DotDim3) {
   aitisa_create(dtype, device, LAYOUT_DENSE, dims2, 3, &tensor2);
   dot_assign_float(tensor1);
   dot_assign_float(tensor2);
-  //tensor_printer2d(tensor1);
-  //tensor_printer2d(tensor2);
+  
 
   Tensor output;
   aitisa_dot(tensor1, tensor2, &output);
-  
+  //tensor_printer2d(tensor1);
+  //tensor_printer2d(tensor2);
+  //tensor_printer2d(output);
   
   float* out_data = (float*)aitisa_tensor_data(output);
   float test_data[] = { 0.10, 0.13, 0.28, 0.31, 0.28, 0.40, 1.00, 1.12,
@@ -171,6 +190,10 @@ TEST(Dot, Dim4DotDim3) {
     // are equal when their difference is less than 0.00001
     EXPECT_TRUE(abs(out_data[i] - test_data[i]) < 0.00001);
   }
+
+  aitisa_destroy(&tensor1);
+  aitisa_destroy(&tensor2);
+  aitisa_destroy(&output);
 }
 
 }//namespace

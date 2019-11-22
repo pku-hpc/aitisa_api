@@ -3,25 +3,23 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "src/core/shape.h"
-#include "src/core/storage.h"
-#include "src/core/status.h"
-#include "src/core/macros.h"
-#include "src/core/types.h"
+#include "../../src/core/shape.h"
+#include "../../src/core/storage.h"
+#include "../../src/core/status.h"
+#include "../../src/core/macros.h"
+#include "../../src/core/types.h"
 
-/**
- * @brief The implementation for Tensor
- */
+/* The implementation for Tensor */
 struct _TensorImpl {
-  /**< The total number of the elements in the tensor */
-  int64_t size; 
-  /**< the offset of elements to the beginning pointer to data */
+  /* The total number of the elements in the tensor */
+  int64_t size;
+  /* the offset of elements to the beginning pointer to data */
   int64_t offset;
-  /**<
+  /*
    * The shape of the tensor includes the dimensions and the layout information.
    */
   Shape shape;
-  /**<
+  /*
    * The Storage of the tensor includes the data type, the device, the size, and
    * the raw data porinter.
    */
@@ -29,7 +27,7 @@ struct _TensorImpl {
 };
 
 /**
- * @brief The tensor handle for users without exposing the implementation     
+ * @brief The tensor handle for users without exposing the implementation
  *        details.
  */
 typedef struct _TensorImpl* Tensor;
@@ -84,7 +82,7 @@ static inline Storage aitisa_tensor_storage(const Tensor t) {
 }
 
 /**
- * @brief Get the the data type of the tensor. 
+ * @brief Get the the data type of the tensor.
  */
 static inline DataType aitisa_tensor_data_type(const Tensor t) {
   return t->storage->dtype;
@@ -126,8 +124,8 @@ static inline void aitisa_tensor_set_item(const Tensor t, int64_t idx,
  * @param dims The dimensions of the tensor
  * @param ndim The number of dimensions of the tensor
  * @param output The created tensor pointer
- * @return Status The status indicates whether the function launched   
- *                successfully. 
+ * @return Status The status indicates whether the function launched
+ *                successfully.
  */
 AITISA_API_PUBLIC Status aitisa_create(DataType dtype, Device device,
                                        LayoutType layout_type, int64_t *dims,
@@ -135,10 +133,10 @@ AITISA_API_PUBLIC Status aitisa_create(DataType dtype, Device device,
 
 /**
  * @brief Destroy the tensor by deallocating all related members.
- * 
- * @param input The tensor to be destoried. 
- * @return Status The status indicates whether the function launched   
- *                successfully. 
+ *
+ * @param input The tensor to be destoried.
+ * @return Status The status indicates whether the function launched
+ *                successfully.
  */
 AITISA_API_PUBLIC Status aitisa_destroy(Tensor *input);
 

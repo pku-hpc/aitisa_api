@@ -20,6 +20,7 @@ static Status sqrt_create_output(const Tensor input, Tensor *output){
   typename *in_data = (typename *)aitisa_tensor_data(input);      \
   typename *out_data = (typename *)aitisa_tensor_data(*output);   \
   for(int64_t i=0; i<size; i++){                                  \
+    if(in_data[i] < 0) return STATUS_MATH_ERROR;                  \
     out_data[i] = (typename)sqrt(in_data[i]);                     \
   }
 

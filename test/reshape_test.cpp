@@ -37,6 +37,9 @@ TEST(Reshape, Int32) {
   for (int64_t i = 0; i < out_ndim; i++) {
     EXPECT_EQ(test_out_dims[i], out_dims[i]);
   }
+
+  aitisa_destroy(&input);
+  aitisa_destroy(&output);
 }
   }//namespace
 }//namespace aitisa_api

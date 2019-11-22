@@ -5,8 +5,8 @@
 Status aitisa_create(DataType dtype, Device device, LayoutType layout_type,
             int64_t *dims, int64_t ndim, Tensor *output) {
   Tensor tensor;
-  tensor = aitisa_default_cpu_allocator()->raw_alloc(sizeof(*tensor)); 
-  if (!tensor) return STATUS_ALLOC_FAILED; 
+  tensor = aitisa_default_cpu_allocator()->raw_alloc(sizeof(*tensor));
+  if (!tensor) return STATUS_ALLOC_FAILED;
   tensor->size = size_of_dims(dims, ndim);
   tensor->offset = 0;
   CHECK_STATUS(aitisa_create_shape(layout_type, dims, ndim, &tensor->shape));

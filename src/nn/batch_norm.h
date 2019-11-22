@@ -5,7 +5,7 @@
 
 /**
  * @brief Applies a batch normalization over an input along axis which is
-          actually the dimension of channel. The data type of input, scale,
+          actually the axis of channel. The data type of input, scale,
           bias, mean and variance should be identical. The shape of output
           is same as the shape of input.
  * @param input The input tensor, whose shape should be [N,L], [N,C,L],

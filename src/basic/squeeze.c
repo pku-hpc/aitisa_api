@@ -9,12 +9,13 @@ Status aitisa_squeeze(const Tensor input, int64_t *axis,
   // check if axis and num_axis are valid
   if (num_axis < 0) {
     return STATUS_INVALID_ARGUMENT;
-  }
-  for (int64_t i = 0; i < num_axis; i++) {
-    if (axis[i] < 0) {
-      return STATUS_INVALID_ARGUMENT;
+  }else if (num_axis > 0) {
+    for (int64_t i = 0; i < num_axis; i++) {
+      if (axis[i] < 0) {
+        return STATUS_INVALID_ARGUMENT;
+      }
     }
-  }
+  } 
   // make the intermediate dimensions
   int64_t *processed_in_dims =
     aitisa_default_cpu_allocator()->raw_alloc(sizeof(*processed_in_dims)*in_ndim);
@@ -28,6 +29,7 @@ Status aitisa_squeeze(const Tensor input, int64_t *axis,
     for (int64_t i = 0; i < in_ndim; i++) {
       if (in_dims[i] == 1) {
         processed_in_dims[i] = 0;
+        out_ndim--;
       }
     }
   }else if (num_axis > 0) {
@@ -41,7 +43,7 @@ Status aitisa_squeeze(const Tensor input, int64_t *axis,
     return STATUS_NOT_SUPPORTED;
   }
  
-  // create dims of output
+  // create dims and ndim of output
   int64_t *out_dims =
     aitisa_default_cpu_allocator()->raw_alloc(sizeof(*out_dims)*out_ndim);
   if(!out_dims) return STATUS_ALLOC_FAILED;
