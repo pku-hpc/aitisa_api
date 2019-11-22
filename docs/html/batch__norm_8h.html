@@ -80,7 +80,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:addfc2a58b6b31650da454450a0169a0c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="macros_8h.html#ac8b488663e34cddcd0952bc63ed91178">AITISA_API_PUBLIC</a> <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="batch__norm_8h.html#addfc2a58b6b31650da454450a0169a0c">aitisa_batch_norm</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> input, const int axis, const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> scale, const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> bias, const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> mean, const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> variance, const double epsilon, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
-<tr class="memdesc:addfc2a58b6b31650da454450a0169a0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a batch normalization over an input along axis which is actually the dimension of channel.  <a href="batch__norm_8h.html#addfc2a58b6b31650da454450a0169a0c">More...</a><br /></td></tr>
+<tr class="memdesc:addfc2a58b6b31650da454450a0169a0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a batch normalization over an input along axis which is actually the axis of channel.  <a href="batch__norm_8h.html#addfc2a58b6b31650da454450a0169a0c">More...</a><br /></td></tr>
 <tr class="separator:addfc2a58b6b31650da454450a0169a0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -146,7 +146,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Applies a batch normalization over an input along axis which is actually the dimension of channel. </p>
+<p>Applies a batch normalization over an input along axis which is actually the axis of channel. </p>
 <p>The data type of input, scale, bias, mean and variance should be identical. The shape of output is same as the shape of input. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">input</td><td>The input tensor, whose shape should be [N,L], [N,C,L], [N,L,C], [N,C,H,W], [N,H,W,C], [N,C,D,H,W] or [N,D,H,W,C]. </td></tr>

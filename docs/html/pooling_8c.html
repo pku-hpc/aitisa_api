@@ -78,6 +78,7 @@ $(function() {
 <code>#include &quot;<a class="el" href="allocator_8h_source.html">src/core/allocator.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="index__utils_8h_source.html">src/basic/index_utils.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="pooling_8h_source.html">src/nn/pooling.h</a>&quot;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -291,8 +292,8 @@ Functions</h2></td></tr>
     <tr><td class="paramname">mode</td><td>The pooling mode including "max" and "avg". </td></tr>
     <tr><td class="paramname">ksize</td><td>The window size of a shape each of which is &gt;= 1. </td></tr>
     <tr><td class="paramname">stride</td><td>The stride of a shape [spatial_shapes] each of which is &gt;= 1. </td></tr>
-    <tr><td class="paramname">padding</td><td>The padding of a shape [spatial_shapes] each of which is &gt;= 0. If the padding number of some dimension is non-zero, implicit zero padding is added to input on both sides. </td></tr>
-    <tr><td class="paramname">output</td><td>The output tensor pointer of a shape [num_batches, out_channels, * * out_spatial_shapes]. </td></tr>
+    <tr><td class="paramname">padding</td><td>The padding of a shape [spatial_shapes] each of which is &gt;= 0. If the padding number of some axis is non-zero, implicit zero padding is added to input on both sides. If the padding number of some axis is odd, then the rest zeros will be placed on the high-dimension side. </td></tr>
+    <tr><td class="paramname">output</td><td>The output tensor porinter of a shape [num_batches, out_channels, * * out_spatial_shapes]. </td></tr>
   </table>
   </dd>
 </dl>

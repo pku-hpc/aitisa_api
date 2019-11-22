@@ -80,7 +80,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a13d46e05d1ea0bc0e96f0ce128fdc06e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="macros_8h.html#ac8b488663e34cddcd0952bc63ed91178">AITISA_API_PUBLIC</a> <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="squeeze_8h.html#a13d46e05d1ea0bc0e96f0ce128fdc06e">aitisa_squeeze</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> input, int64_t *axis, int64_t num_axis, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
-<tr class="memdesc:a13d46e05d1ea0bc0e96f0ce128fdc06e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a squeeze over an input tensor along specified axises, deleting the dimensions of 1.  <a href="squeeze_8h.html#a13d46e05d1ea0bc0e96f0ce128fdc06e">More...</a><br /></td></tr>
+<tr class="memdesc:a13d46e05d1ea0bc0e96f0ce128fdc06e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a squeeze over an input tensor along specified axises, deleting dimensions of 1.  <a href="squeeze_8h.html#a13d46e05d1ea0bc0e96f0ce128fdc06e">More...</a><br /></td></tr>
 <tr class="separator:a13d46e05d1ea0bc0e96f0ce128fdc06e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -122,12 +122,12 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Applies a squeeze over an input tensor along specified axises, deleting the dimensions of 1. </p>
+<p>Applies a squeeze over an input tensor along specified axises, deleting dimensions of 1. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">input</td><td>The input tensor. </td></tr>
-    <tr><td class="paramname">axis</td><td>The axis array to point out which dimension to delete. </td></tr>
-    <tr><td class="paramname">num_axis</td><td>The length of array axis. </td></tr>
+    <tr><td class="paramname">axis</td><td>The axis array to point out which dimension to delete. If axis[i]==0, then do nothing along the ith axis. </td></tr>
+    <tr><td class="paramname">num_axis</td><td>The length of array axis. If num_axis==0, then deal with all dimensions of 1. </td></tr>
     <tr><td class="paramname">output</td><td>The output tensor pointer. </td></tr>
   </table>
   </dd>

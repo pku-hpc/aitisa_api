@@ -62,11 +62,12 @@ var searchData=
   ['status_5fdimensions_5fmismatch_282',['STATUS_DIMENSIONS_MISMATCH',['../status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70bab6636398039065ea97dcca37cd4bbe05',1,'status.h']]],
   ['status_5finternal_5ferror_283',['STATUS_INTERNAL_ERROR',['../status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70badbee399e52770145a726e8bf2a7d6c83',1,'status.h']]],
   ['status_5finvalid_5fargument_284',['STATUS_INVALID_ARGUMENT',['../status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70ba5b98786751fa3cebde33511b7c4c3c3f',1,'status.h']]],
-  ['status_5fnot_5fsupported_285',['STATUS_NOT_SUPPORTED',['../status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70bac075ead6a2244bc726b2211b3f9b1e56',1,'status.h']]],
-  ['status_5fout_5fof_5frange_286',['STATUS_OUT_OF_RANGE',['../status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70ba74e940f0ee3a35f6d7c060b67bc9e272',1,'status.h']]],
-  ['status_5fsuccess_287',['STATUS_SUCCESS',['../status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70ba83da0606125c0dc2fe0544cb2c383cb9',1,'status.h']]],
-  ['status_5ftype_5fmismatch_288',['STATUS_TYPE_MISMATCH',['../status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70baaccc028dd6373eb2e162645b940159be',1,'status.h']]],
-  ['storage_289',['storage',['../struct__TensorImpl.html#a8db26a6de11743716a00484aec6401c0',1,'_TensorImpl::storage()'],['../storage_8h.html#aab210a5a195f504ca982695e6dfcdccb',1,'Storage():&#160;storage.h']]],
-  ['storage_2ec_290',['storage.c',['../storage_8c.html',1,'']]],
-  ['storage_2eh_291',['storage.h',['../storage_8h.html',1,'']]]
+  ['status_5fmath_5ferror_285',['STATUS_MATH_ERROR',['../status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70ba6ff9b2dddb3104d9245c28892950acc0',1,'status.h']]],
+  ['status_5fnot_5fsupported_286',['STATUS_NOT_SUPPORTED',['../status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70bac075ead6a2244bc726b2211b3f9b1e56',1,'status.h']]],
+  ['status_5fout_5fof_5frange_287',['STATUS_OUT_OF_RANGE',['../status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70ba74e940f0ee3a35f6d7c060b67bc9e272',1,'status.h']]],
+  ['status_5fsuccess_288',['STATUS_SUCCESS',['../status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70ba83da0606125c0dc2fe0544cb2c383cb9',1,'status.h']]],
+  ['status_5ftype_5fmismatch_289',['STATUS_TYPE_MISMATCH',['../status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70baaccc028dd6373eb2e162645b940159be',1,'status.h']]],
+  ['storage_290',['storage',['../struct__TensorImpl.html#a8db26a6de11743716a00484aec6401c0',1,'_TensorImpl::storage()'],['../storage_8h.html#aab210a5a195f504ca982695e6dfcdccb',1,'Storage():&#160;storage.h']]],
+  ['storage_2ec_291',['storage.c',['../storage_8c.html',1,'']]],
+  ['storage_2eh_292',['storage.h',['../storage_8h.html',1,'']]]
 ];

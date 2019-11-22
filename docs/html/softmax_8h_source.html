@@ -71,17 +71,17 @@ $(function() {
 <div class="title">softmax.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="softmax_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef POOLING_H</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define POOLING_H</span></div>
+<a href="softmax_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef SOFTMAX_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define SOFTMAX_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="tensor_8h.html">src/core/tensor.h</a>&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<a class="code" href="macros_8h.html#ac8b488663e34cddcd0952bc63ed91178">AITISA_API_PUBLIC</a> <a class="code" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> <a class="code" href="softmax_8h.html#a02c7c1b8d1149d830d0c4a4f10553d31">aitisa_softmax</a>(<span class="keyword">const</span> <a class="code" href="struct__TensorImpl.html">Tensor</a> input, <span class="keyword">const</span> <span class="keywordtype">int</span> axis,</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                                                            <a class="code" href="struct__TensorImpl.html">Tensor</a> *output);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<a class="code" href="macros_8h.html#ac8b488663e34cddcd0952bc63ed91178">AITISA_API_PUBLIC</a> <a class="code" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> <a class="code" href="softmax_8h.html#a02c7c1b8d1149d830d0c4a4f10553d31">aitisa_softmax</a>(<span class="keyword">const</span> <a class="code" href="struct__TensorImpl.html">Tensor</a> input, <span class="keyword">const</span> <span class="keywordtype">int</span> axis,</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                                        <a class="code" href="struct__TensorImpl.html">Tensor</a> *output);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="amacros_8h_html_ac8b488663e34cddcd0952bc63ed91178"><div class="ttname"><a href="macros_8h.html#ac8b488663e34cddcd0952bc63ed91178">AITISA_API_PUBLIC</a></div><div class="ttdeci">#define AITISA_API_PUBLIC</div><div class="ttdef"><b>Definition:</b> macros.h:38</div></div>
-<div class="ttc" id="astruct__TensorImpl_html"><div class="ttname"><a href="struct__TensorImpl.html">_TensorImpl</a></div><div class="ttdoc">The implementation for Tensor.</div><div class="ttdef"><b>Definition:</b> tensor.h:15</div></div>
+<div class="ttc" id="astruct__TensorImpl_html"><div class="ttname"><a href="struct__TensorImpl.html">_TensorImpl</a></div><div class="ttdef"><b>Definition:</b> tensor.h:13</div></div>
 <div class="ttc" id="astatus_8h_html_a67a0db04d321a74b7e7fcfd3f1a3f70b"><div class="ttname"><a href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a></div><div class="ttdeci">Status</div><div class="ttdef"><b>Definition:</b> status.h:4</div></div>
 <div class="ttc" id="asoftmax_8h_html_a02c7c1b8d1149d830d0c4a4f10553d31"><div class="ttname"><a href="softmax_8h.html#a02c7c1b8d1149d830d0c4a4f10553d31">aitisa_softmax</a></div><div class="ttdeci">AITISA_API_PUBLIC Status aitisa_softmax(const Tensor input, const int axis, Tensor *output)</div><div class="ttdoc">Applies a softmax over an input signal along a specified axis.</div><div class="ttdef"><b>Definition:</b> softmax.c:215</div></div>
 <div class="ttc" id="atensor_8h_html"><div class="ttname"><a href="tensor_8h.html">tensor.h</a></div></div>
