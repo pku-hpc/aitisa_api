@@ -28,7 +28,7 @@ foreach(test_src ${aitisa_test_srcs})
 endforeach()
 
 # Build a exe including all test files 
-set(AITISA_BUILD_TEST_MAIN OFF)
+set(AITISA_BUILD_TEST_MAIN ON)
 if(${AITISA_BUILD_TEST_MAIN})
   add_executable(main main.cpp ${aitisa_test_srcs})
   target_link_libraries(main "aitisa_api::aitisa_api" "aitisa_api::gmock")
