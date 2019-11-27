@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#include "../../src/core/tensor.h"
+#include "src/core/tensor.h"
 
 /**
  * @brief Get the stride of specific dimension.

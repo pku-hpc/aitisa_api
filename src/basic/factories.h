@@ -1,7 +1,7 @@
 #ifndef FACTORIES_H
 #define FACTORIES_H
 
-#include "../../src/core/tensor.h"
+#include "src/core/tensor.h"
 
 /**
  * @brief Full a tensor with specific value.

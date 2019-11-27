@@ -1,7 +1,7 @@
 #ifndef DEVICE_H
 #define DEVICE_H
 
-#include "../../src/core/macros.h"
+#include "src/core/macros.h"
 
 /**
  * @brief Enumeration type for all possible device types

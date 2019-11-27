@@ -3,9 +3,9 @@
 
 #include <stdint.h>
 #include <stdlib.h>
-#include "../../src/core/device.h"
-#include "../../src/core/status.h"
-#include "../../src/core/types.h"
+#include "src/core/device.h"
+#include "src/core/status.h"
+#include "src/core/types.h"
 
 /**
  * @brief The implementation of the storage hold by the tensor

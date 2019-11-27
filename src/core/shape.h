@@ -4,8 +4,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#include "../../src/core/macros.h"
-#include "../../src/core/status.h"
+#include "src/core/macros.h"
+#include "src/core/status.h"
 
 /**
  * @brief Enumeration type for all possible layout types

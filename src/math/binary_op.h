@@ -1,7 +1,7 @@
 #ifndef BINARYOP_H
 #define BINARYOP_H
 
-#include "../../src/core/tensor.h"
+#include "src/core/tensor.h"
 
 /**
  * @brief Enumeration type for all possible binary operation types

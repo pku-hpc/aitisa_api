@@ -3,11 +3,11 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "../../src/core/shape.h"
-#include "../../src/core/storage.h"
-#include "../../src/core/status.h"
-#include "../../src/core/macros.h"
-#include "../../src/core/types.h"
+#include "src/core/shape.h"
+#include "src/core/storage.h"
+#include "src/core/status.h"
+#include "src/core/macros.h"
+#include "src/core/types.h"
 
 /* The implementation for Tensor */
 struct _TensorImpl {

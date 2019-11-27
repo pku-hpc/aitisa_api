@@ -1,7 +1,7 @@
 #ifndef BROADCAST_H
 #define BROADCAST_H
 
-#include "../../src/core/tensor.h"
+#include "src/core/tensor.h"
 
 /**
  * @brief Do broadcast and save result into dims_out.
