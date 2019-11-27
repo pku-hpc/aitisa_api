@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['natural_5fassign_5fdouble_508',['natural_assign_double',['../tool_8c.html#aefda672193d671953200d4b339f66abf',1,'natural_assign_double(Tensor t):&#160;tool.c'],['../tool_8h.html#a9fe7e3b62f0c709a490f4fa49b5502e0',1,'natural_assign_double(Tensor t):&#160;tool.c']]],
-  ['natural_5fassign_5ffloat_509',['natural_assign_float',['../tool_8c.html#ae768b59acda2036bec290fc5e675ae4a',1,'natural_assign_float(Tensor t):&#160;tool.c'],['../tool_8h.html#a1d014fb36dc9813625a74c09fe4e561a',1,'natural_assign_float(Tensor t):&#160;tool.c']]],
-  ['natural_5fassign_5fint32_510',['natural_assign_int32',['../tool_8c.html#ade4f8624c598a9a27928f763bb5e201b',1,'natural_assign_int32(Tensor t):&#160;tool.c'],['../tool_8h.html#a670275e4c6b2d58b4687988cbec2f860',1,'natural_assign_int32(Tensor t):&#160;tool.c']]]
+  ['pooling_5f1d_489',['pooling_1d',['../pooling_8c.html#a5eef8f5b4ee7710b16ed8e55e29b14a6',1,'pooling.c']]],
+  ['pooling_5f2d_490',['pooling_2d',['../pooling_8c.html#a8b0b986f77b10ee84cca4fc39fdcf7a7',1,'pooling.c']]],
+  ['pooling_5f3d_491',['pooling_3d',['../pooling_8c.html#a4274f72a2a853072b3a67e496a546d06',1,'pooling.c']]]
 ];

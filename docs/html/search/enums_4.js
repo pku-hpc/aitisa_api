@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['status_599',['Status',['../status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b',1,'status.h']]]
+  ['typecode_575',['TypeCode',['../types_8h.html#af14562a565b0f6fce9a146afe6dc0130',1,'types.h']]]
 ];

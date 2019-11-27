@@ -15,7 +15,9 @@
  *                zero padding is added to input on both sides. If the padding 
  *                number of some axis is odd, then the rest zeros will be placed
  *                on the high-dimension side.
- * @param output The output tensor porinter of a shape [num_batches,
+ * @param dilation The dilation of a shape [spatial_shapes] each of which is
+ *                 >= 1. This is a regular pooling if all values are 1.
+ * @param output The output tensor pointer of a shape [num_batches,
  *               out_channels, * * out_spatial_shapes].
  * @return Status The Status enum indicates whether the routine is OK.
  */

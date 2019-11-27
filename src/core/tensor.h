@@ -9,19 +9,19 @@
 #include "src/core/macros.h"
 #include "src/core/types.h"
 
-/* The implementation for Tensor */
+/**  @brief The implementation for Tensor */
 struct _TensorImpl {
-  /* The total number of the elements in the tensor */
+  /**< The total number of the elements in the tensor */
   int64_t size;
-  /* the offset of elements to the beginning pointer to data */
+  /**< the offset of elements to the beginning pointer to data */
   int64_t offset;
-  /*
+  /**<
    * The shape of the tensor includes the dimensions and the layout information.
    */
   Shape shape;
-  /*
+  /**<
    * The Storage of the tensor includes the data type, the device, the size, and
-   * the raw data porinter.
+   * the raw data pointer.
    */
   Storage storage;
 };

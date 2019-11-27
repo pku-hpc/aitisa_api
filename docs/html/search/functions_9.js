@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['tensor_5fprinter_547',['tensor_printer',['../tool_8c.html#a928babdc5e703f91498329aba61ec114',1,'tensor_printer(Tensor t):&#160;tool.c'],['../tool_8h.html#ab8835e36bffc974997af024e8093d348',1,'tensor_printer(Tensor t):&#160;tool.c']]],
-  ['tensor_5fprinter2d_548',['tensor_printer2d',['../tool_8c.html#a725743e96b6b72873f4339a5e9c8f18b',1,'tensor_printer2d(Tensor t):&#160;tool.c'],['../tool_8h.html#afab01d203bd7c5f59e283cb85064a055',1,'tensor_printer2d(Tensor t):&#160;tool.c']]],
-  ['tensor_5fvector_5fdot_549',['tensor_vector_dot',['../dot_8c.html#a0aef3df54d57506830b2a3e8f1a76f2d',1,'dot.c']]]
+  ['vector_5fvector_5fdot_526',['vector_vector_dot',['../dot_8c.html#a1c133d9ea65ee7c55292e818b630679d',1,'dot.c']]],
+  ['vv_5ftemplate_527',['vv_template',['../matmul_8c.html#a3515229dedded925abddd21165b49bdb',1,'matmul.c']]]
 ];

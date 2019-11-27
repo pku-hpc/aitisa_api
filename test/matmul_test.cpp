@@ -2,7 +2,7 @@
 extern "C" {
 #include "src/basic/factories.h"
 #include "src/math/matmul.h"
-#include "src/tool/tool.h"
+// #include "src/tool/tool.h"
 }
 
 void natural_assign(Tensor t) {
