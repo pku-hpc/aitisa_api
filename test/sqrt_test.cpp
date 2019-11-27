@@ -30,20 +30,20 @@ namespace {
 
 TEST(Sqrt, Float) {
   Tensor input;
-  DataType dtype = { TYPE_FLOAT, sizeof(float) };
-  Device device = { DEVICE_CPU, 0 };
-  int64_t dims[2] = { 2, 3 };
+  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  Device device = {DEVICE_CPU, 0};
+  int64_t dims[2] = {2, 3};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, &input);
   sqrt_assign_float(input);
-  //tensor_printer2d(input);
+  // tensor_printer2d(input);
 
   Tensor output;
   aitisa_sqrt(input, &output);
-  //tensor_printer2d(output);
+  // tensor_printer2d(output);
 
   float* out_data = (float*)aitisa_tensor_data(output);
-  float test_data[] = { 0.000000, 1.414214, 2.000000,
-                        2.449490, 2.828427, 3.162278 };
+  float test_data[] = {0.000000, 1.414214, 2.000000,
+                       2.449490, 2.828427, 3.162278};
   int64_t size = aitisa_tensor_size(input);
   for (int64_t i = 0; i < size; i++) {
     /* Due to the problem of precision, consider the two numbers
@@ -57,19 +57,19 @@ TEST(Sqrt, Float) {
 
 TEST(Sqrt, Int32) {
   Tensor input;
-  DataType dtype = { TYPE_INT32, sizeof(int32_t) };
-  Device device = { DEVICE_CPU, 0 };
-  int64_t dims[2] = { 2, 3 };
+  DataType dtype = {TYPE_INT32, sizeof(int32_t)};
+  Device device = {DEVICE_CPU, 0};
+  int64_t dims[2] = {2, 3};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, &input);
   sqrt_assign_int32(input);
-  //tensor_printer2d(input);
+  // tensor_printer2d(input);
 
   Tensor output;
   aitisa_sqrt(input, &output);
-  //tensor_printer2d(output);
+  // tensor_printer2d(output);
 
   int32_t* out_data = (int32_t*)aitisa_tensor_data(output);
-  int32_t test_data[] = { 0, 2, 2, 3, 4, 4 };
+  int32_t test_data[] = {0, 2, 2, 3, 4, 4};
   int64_t size = aitisa_tensor_size(input);
   for (int64_t i = 0; i < size; i++) {
     EXPECT_EQ(out_data[i], test_data[i]);
@@ -78,5 +78,5 @@ TEST(Sqrt, Int32) {
   aitisa_destroy(&input);
   aitisa_destroy(&output);
 }
-}//namespace
-}//namespace aitisa_api
+}  // namespace
+}  // namespace aitisa_api

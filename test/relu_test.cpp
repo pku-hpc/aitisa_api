@@ -19,29 +19,28 @@ namespace {
 
 TEST(Relu, Float) {
   Tensor input;
-  DataType dtype = { TYPE_FLOAT, sizeof(float) };
-  Device device = { DEVICE_CPU, 0 };
-  int64_t dims[2] = { 2, 3 };
+  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  Device device = {DEVICE_CPU, 0};
+  int64_t dims[2] = {2, 3};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, &input);
   relu_assign_float(input);
-  //tensor_printer2d(input);
+  // tensor_printer2d(input);
 
   Tensor output;
   aitisa_relu(input, &output);
-  //tensor_printer2d(output);
+  // tensor_printer2d(output);
 
   float* out_data = (float*)aitisa_tensor_data(output);
-  float test_data[] = { 0, 0,   0,
-                        0, 0.1, 0.2 };
+  float test_data[] = {0, 0, 0, 0, 0.1, 0.2};
   int64_t size = aitisa_tensor_size(input);
   for (int64_t i = 0; i < size; i++) {
-  /* Due to the problem of precision, consider the two numbers
-     are equal when their difference is less than 0.000001*/
+    /* Due to the problem of precision, consider the two numbers
+       are equal when their difference is less than 0.000001*/
     EXPECT_TRUE(abs(out_data[i] - test_data[i]) < 0.000001);
   }
 
   aitisa_destroy(&input);
   aitisa_destroy(&output);
 }
-}//namespace
-}//namespace aitisa_api
+}  // namespace
+}  // namespace aitisa_api

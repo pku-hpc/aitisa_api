@@ -193,17 +193,9 @@ void calc_double_value(void *a, void *b, OpCode op, void *c) {
 }
 
 BinaryOpFunc binary_op_func[TYPE_NTYPES] = {
-  calc_int8_value,
-  calc_uint8_value,
-  calc_int16_value,
-  calc_uint16_value,
-  calc_int32_value,
-  calc_uint32_value,
-  calc_int64_value,
-  calc_uint64_value,
-  calc_float_value,
-  calc_double_value
-};
+    calc_int8_value,  calc_uint8_value,  calc_int16_value, calc_uint16_value,
+    calc_int32_value, calc_uint32_value, calc_int64_value, calc_uint64_value,
+    calc_float_value, calc_double_value};
 
 BinaryOpFunc aitisa_binary_op_func(DataType dtype) {
   return binary_op_func[dtype.code];
@@ -220,7 +212,8 @@ Status aitisa_add(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   }
   int64_t ndim_tensor1 = aitisa_tensor_ndim(tensor1);
   int64_t ndim_tensor2 = aitisa_tensor_ndim(tensor2);
-  // The dimension of two operators should be consistent, broadcast is not support yet
+  // The dimension of two operators should be consistent, broadcast is not
+  // support yet
   if (ndim_tensor1 != ndim_tensor2) {
     return STATUS_INVALID_ARGUMENT;
   }
@@ -240,7 +233,8 @@ Status aitisa_add(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   void *data_tensor2 = aitisa_tensor_data(tensor2);
   void *data_output = aitisa_tensor_data(*output);
   DataType dtype = aitisa_tensor_data_type(tensor1);
-  void *a = malloc(dtype.size), *b = malloc(dtype.size), *c = malloc(dtype.size);
+  void *a = malloc(dtype.size), *b = malloc(dtype.size),
+       *c = malloc(dtype.size);
   for (int i = 0; i < size; i++) {
     aitisa_get_typed_array_value_func(dtype)(data_tensor1, i, a);
     aitisa_get_typed_array_value_func(dtype)(data_tensor2, i, b);
@@ -264,7 +258,8 @@ Status aitisa_sub(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   }
   int64_t ndim_tensor1 = aitisa_tensor_ndim(tensor1);
   int64_t ndim_tensor2 = aitisa_tensor_ndim(tensor2);
-  // The dimension of two operators should be consistent, broadcast is not support yet
+  // The dimension of two operators should be consistent, broadcast is not
+  // support yet
   if (ndim_tensor1 != ndim_tensor2) {
     return STATUS_INVALID_ARGUMENT;
   }
@@ -284,7 +279,8 @@ Status aitisa_sub(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   void *data_tensor2 = aitisa_tensor_data(tensor2);
   void *data_output = aitisa_tensor_data(*output);
   DataType dtype = aitisa_tensor_data_type(tensor1);
-  void *a = malloc(dtype.size), *b = malloc(dtype.size), *c = malloc(dtype.size);
+  void *a = malloc(dtype.size), *b = malloc(dtype.size),
+       *c = malloc(dtype.size);
   for (int i = 0; i < size; i++) {
     aitisa_get_typed_array_value_func(dtype)(data_tensor1, i, a);
     aitisa_get_typed_array_value_func(dtype)(data_tensor2, i, b);
@@ -308,7 +304,8 @@ Status aitisa_mul(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   }
   int64_t ndim_tensor1 = aitisa_tensor_ndim(tensor1);
   int64_t ndim_tensor2 = aitisa_tensor_ndim(tensor2);
-  // The dimension of two operators should be consistent, broadcast is not support yet
+  // The dimension of two operators should be consistent, broadcast is not
+  // support yet
   if (ndim_tensor1 != ndim_tensor2) {
     return STATUS_INVALID_ARGUMENT;
   }
@@ -328,7 +325,8 @@ Status aitisa_mul(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   void *data_tensor2 = aitisa_tensor_data(tensor2);
   void *data_output = aitisa_tensor_data(*output);
   DataType dtype = aitisa_tensor_data_type(tensor1);
-  void *a = malloc(dtype.size), *b = malloc(dtype.size), *c = malloc(dtype.size);
+  void *a = malloc(dtype.size), *b = malloc(dtype.size),
+       *c = malloc(dtype.size);
   for (int i = 0; i < size; i++) {
     aitisa_get_typed_array_value_func(dtype)(data_tensor1, i, a);
     aitisa_get_typed_array_value_func(dtype)(data_tensor2, i, b);
@@ -352,7 +350,8 @@ Status aitisa_div(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   }
   int64_t ndim_tensor1 = aitisa_tensor_ndim(tensor1);
   int64_t ndim_tensor2 = aitisa_tensor_ndim(tensor2);
-  // The dimension of two operators should be consistent, broadcast is not support yet
+  // The dimension of two operators should be consistent, broadcast is not
+  // support yet
   if (ndim_tensor1 != ndim_tensor2) {
     return STATUS_INVALID_ARGUMENT;
   }
@@ -372,7 +371,8 @@ Status aitisa_div(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   void *data_tensor2 = aitisa_tensor_data(tensor2);
   void *data_output = aitisa_tensor_data(*output);
   DataType dtype = aitisa_tensor_data_type(tensor1);
-  void *a = malloc(dtype.size), *b = malloc(dtype.size), *c = malloc(dtype.size);
+  void *a = malloc(dtype.size), *b = malloc(dtype.size),
+       *c = malloc(dtype.size);
   for (int i = 0; i < size; i++) {
     aitisa_get_typed_array_value_func(dtype)(data_tensor1, i, a);
     aitisa_get_typed_array_value_func(dtype)(data_tensor2, i, b);

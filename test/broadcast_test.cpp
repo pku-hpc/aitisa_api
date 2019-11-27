@@ -1,14 +1,14 @@
 #include "gtest/gtest.h"
 extern "C" {
-#include "src/basic/factories.h"
 #include "src/basic/broadcast.h"
+#include "src/basic/factories.h"
 }
 
 namespace aitisa_api {
 namespace {
 
 TEST(Broadcast, 4D_6D) {
-  int64_t dims_in1[4] = {      1, 3, 4, 2};
+  int64_t dims_in1[4] = {1, 3, 4, 2};
   int64_t dims_in2[6] = {5, 1, 2, 3, 1, 2};
   int64_t dims_out[6] = {0, 0, 0, 0, 0, 0};
 
@@ -21,5 +21,5 @@ TEST(Broadcast, 4D_6D) {
   // printf("\n");
 }
 
-} // namespace anonymous
-} // namespace aitisa_api
+}  // namespace
+}  // namespace aitisa_api

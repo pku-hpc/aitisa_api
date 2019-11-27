@@ -1,6 +1,6 @@
-#include "gtest/gtest.h"
 #include <math.h>
-#include <vector> 
+#include <vector>
+#include "gtest/gtest.h"
 extern "C" {
 #include "src/basic/duplicate.h"
 }
@@ -19,16 +19,16 @@ namespace aitisa_api {
 namespace {
 TEST(Duplicate, Float) {
   Tensor input;
-  int64_t dims[2] = { 3,2 };
-  Device device = { DEVICE_CPU, 0 };
-  DataType dtype = { TYPE_FLOAT, sizeof(float) };
+  int64_t dims[2] = {3, 2};
+  Device device = {DEVICE_CPU, 0};
+  DataType dtype = {TYPE_FLOAT, sizeof(float)};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, &input);
   duplicate_assign_float(input);
   Tensor output;
   aitisa_duplicate(input, &output);
 
   float* out_data = (float*)aitisa_tensor_data(output);
-  float test_data[] = { 0, 0.1, 0.2, 0.3, 0.4, 0.5};
+  float test_data[] = {0, 0.1, 0.2, 0.3, 0.4, 0.5};
   int64_t in_ndim = aitisa_tensor_ndim(input);
   int64_t out_ndim = aitisa_tensor_ndim(output);
   int64_t* in_dims = aitisa_tensor_dims(input);
@@ -39,11 +39,11 @@ TEST(Duplicate, Float) {
   }
   int64_t size = aitisa_tensor_size(output);
   for (int64_t i = 0; i < size; i++) {
-		EXPECT_TRUE(out_data[i] == test_data[i]);
-	}
+    EXPECT_TRUE(out_data[i] == test_data[i]);
+  }
 
   aitisa_destroy(&input);
   aitisa_destroy(&output);
 }
-}//namespace
-}//namespace aitisa_api
+}  // namespace
+}  // namespace aitisa_api

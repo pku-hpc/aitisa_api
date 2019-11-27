@@ -1,6 +1,6 @@
-#include "gtest/gtest.h"
-#include "gmock/gmock.h"
 #include <math.h>
+#include "gmock/gmock.h"
+#include "gtest/gtest.h"
 
 extern "C" {
 #include "src/basic/factories.h"
@@ -21,16 +21,16 @@ namespace aitisa_api {
 namespace {
 TEST(Dropout, Rate40percent) {
   Tensor input;
-  int64_t dims[2] = { 30,20 };
-  Device device = { DEVICE_CPU, 0 };
-  DataType dtype = { TYPE_FLOAT, sizeof(float) };
+  int64_t dims[2] = {30, 20};
+  Device device = {DEVICE_CPU, 0};
+  DataType dtype = {TYPE_FLOAT, sizeof(float)};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, &input);
   dropout_assign_float(input);
-  
+
   Tensor output;
   double rate = 0.4;
   aitisa_dropout(input, rate, &output);
-  
+
   float* output_data = (float*)aitisa_tensor_data(output);
   int64_t output_size = aitisa_tensor_size(output);
   int64_t num_zero = 0;
@@ -40,11 +40,10 @@ TEST(Dropout, Rate40percent) {
     }
   }
   double actual_rate = (double)num_zero / (double)output_size;
-  EXPECT_TRUE(abs(actual_rate-rate)<0.2);
+  EXPECT_TRUE(abs(actual_rate - rate) < 0.2);
 
   aitisa_destroy(&input);
   aitisa_destroy(&output);
 }
-}//namespace
-}//namespace aitisa_api
-
+}  // namespace
+}  // namespace aitisa_api

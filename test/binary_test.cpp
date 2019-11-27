@@ -52,7 +52,7 @@ TEST(Binary, add) {
   int64_t expected_ndim = 1;
   int64_t expected_dims[1] = {4};
   EXPECT_EQ(expected_ndim, aitisa_tensor_ndim(output));
-  for (int i = 0; i< expected_ndim; ++i) {
+  for (int i = 0; i < expected_ndim; ++i) {
     EXPECT_EQ(expected_dims[i], aitisa_tensor_dim(output, i));
   }
   float *data = (float *)aitisa_tensor_data(output);
@@ -85,7 +85,7 @@ TEST(Binary, sub) {
   int64_t expected_ndim = 1;
   int64_t expected_dims[1] = {4};
   EXPECT_EQ(expected_ndim, aitisa_tensor_ndim(output));
-  for (int i = 0; i< expected_ndim; ++i) {
+  for (int i = 0; i < expected_ndim; ++i) {
     EXPECT_EQ(expected_dims[i], aitisa_tensor_dim(output, i));
   }
   float *data = (float *)aitisa_tensor_data(output);
@@ -118,7 +118,7 @@ TEST(Binary, mul) {
   int64_t expected_ndim = 1;
   int64_t expected_dims[1] = {4};
   EXPECT_EQ(expected_ndim, aitisa_tensor_ndim(output));
-  for (int i = 0; i< expected_ndim; ++i) {
+  for (int i = 0; i < expected_ndim; ++i) {
     EXPECT_EQ(expected_dims[i], aitisa_tensor_dim(output, i));
   }
   float *data = (float *)aitisa_tensor_data(output);

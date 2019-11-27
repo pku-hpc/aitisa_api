@@ -1,5 +1,5 @@
-#include<stdbool.h>
 #include "src/basic/broadcast.h"
+#include <stdbool.h>
 #include "src/core/allocator.h"
 
 // assume dims_out has been allocated memory.

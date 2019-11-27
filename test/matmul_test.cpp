@@ -40,7 +40,7 @@ TEST(Matmul, vector_vector) {
   int64_t expected_ndim = 1;
   int64_t expected_dims[1] = {1};
   EXPECT_EQ(expected_ndim, aitisa_tensor_ndim(output));
-  for (int i = 0; i< expected_ndim; ++i) {
+  for (int i = 0; i < expected_ndim; ++i) {
     EXPECT_EQ(expected_dims[i], aitisa_tensor_dim(output, i));
   }
   float *data = (float *)aitisa_tensor_data(output);
@@ -74,7 +74,7 @@ TEST(Matmul, matrix_vector) {
   int64_t expected_ndim = 1;
   int64_t expected_dims[1] = {5};
   EXPECT_EQ(expected_ndim, aitisa_tensor_ndim(output));
-  for (int i = 0; i< expected_ndim; ++i) {
+  for (int i = 0; i < expected_ndim; ++i) {
     EXPECT_EQ(expected_dims[i], aitisa_tensor_dim(output, i));
   }
   float *data = (float *)aitisa_tensor_data(output);
@@ -108,7 +108,7 @@ TEST(Matmul, matrix_matrix) {
   int64_t expected_ndim = 2;
   int64_t expected_dims[2] = {5, 3};
   EXPECT_EQ(expected_ndim, aitisa_tensor_ndim(output));
-  for (int i = 0; i< expected_ndim; ++i) {
+  for (int i = 0; i < expected_ndim; ++i) {
     EXPECT_EQ(expected_dims[i], aitisa_tensor_dim(output, i));
   }
   float *data = (float *)aitisa_tensor_data(output);
@@ -143,7 +143,7 @@ TEST(Matmul, vector_matrix) {
   int64_t expected_ndim = 1;
   int64_t expected_dims[1] = {4};
   EXPECT_EQ(expected_ndim, aitisa_tensor_ndim(output));
-  for (int i = 0; i< expected_ndim; ++i) {
+  for (int i = 0; i < expected_ndim; ++i) {
     EXPECT_EQ(expected_dims[i], aitisa_tensor_dim(output, i));
   }
   float *data = (float *)aitisa_tensor_data(output);
@@ -177,7 +177,7 @@ TEST(Matmul, cube_vector) {
   int64_t expected_ndim = 2;
   int64_t expected_dims[2] = {5, 4};
   EXPECT_EQ(expected_ndim, aitisa_tensor_ndim(output));
-  for (int i = 0; i< expected_ndim; ++i) {
+  for (int i = 0; i < expected_ndim; ++i) {
     EXPECT_EQ(expected_dims[i], aitisa_tensor_dim(output, i));
   }
   float *data = (float *)aitisa_tensor_data(output);
@@ -213,7 +213,7 @@ TEST(Matmul, vector_cube) {
   int64_t expected_ndim = 2;
   int64_t expected_dims[2] = {5, 4};
   EXPECT_EQ(expected_ndim, aitisa_tensor_ndim(output));
-  for (int i = 0; i< expected_ndim; ++i) {
+  for (int i = 0; i < expected_ndim; ++i) {
     EXPECT_EQ(expected_dims[i], aitisa_tensor_dim(output, i));
   }
   float *data = (float *)aitisa_tensor_data(output);
@@ -249,7 +249,7 @@ TEST(Matmul, tensor_tensor) {
   int64_t expected_ndim = 4;
   int64_t expected_dims[4] = {2, 2, 3, 2};
   EXPECT_EQ(expected_ndim, aitisa_tensor_ndim(output));
-  for (int i = 0; i< expected_ndim; ++i) {
+  for (int i = 0; i < expected_ndim; ++i) {
     EXPECT_EQ(expected_dims[i], aitisa_tensor_dim(output, i));
   }
   float *data = (float *)aitisa_tensor_data(output);
