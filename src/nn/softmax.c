@@ -32,7 +32,7 @@ static Status softmax_create_output(const Tensor input, Tensor *output){
   }
 
 static Status softmax_with_all(const Tensor input, Tensor *output){
-  // choose the right data type
+  // Choose the right data type
   DataType dtype = aitisa_tensor_data_type(input);
   switch(dtype.code){
     case TYPE_INT8: {
@@ -132,7 +132,7 @@ static Status softmax_along_axis(const Tensor input, const int axis,
                                  Tensor *output){
   int64_t* dims = aitisa_tensor_dims(input);
   int64_t ndim = aitisa_tensor_ndim(input);
-  /*get the size of batch*/
+  // Get the size of batch
   int64_t batch_size = 1;
   for(int64_t i=0; i<ndim; i++){
     if(i == axis){
@@ -140,7 +140,7 @@ static Status softmax_along_axis(const Tensor input, const int axis,
     }
     batch_size *= dims[i];
   }
-  /*make an index-recorder of each sample*/
+  // Make an index-recorder of each sample
   int64_t *index_recorder =
     aitisa_default_cpu_allocator()->raw_alloc(sizeof(*index_recorder) * ndim);
   if(!index_recorder){
@@ -149,7 +149,7 @@ static Status softmax_along_axis(const Tensor input, const int axis,
   for(int64_t i=0; i<ndim; i++){
     index_recorder[i] = 0;
   }
-  /*make an offset-recorder of each sample*/
+  // Make an offset-recorder of each sample
   int64_t *offset_recorder =
     aitisa_default_cpu_allocator()->raw_alloc(sizeof(*index_recorder) * ndim);
   if(!offset_recorder){
@@ -159,11 +159,11 @@ static Status softmax_along_axis(const Tensor input, const int axis,
   for(int64_t i=ndim-2; i>=0; i--){
     offset_recorder[i] = dims[i+1] * offset_recorder[i+1];
   }
-  /*offset_recorder[axis] records the distance of
-    a pair of near element in the same sample*/
+  // offset_recorder[axis] records the distance of
+  // a pair of near element in the same sample
   int64_t element_offset = offset_recorder[axis];
 
-  /* choose the right data type*/
+  // Choose the right data type
   DataType dtype = aitisa_tensor_data_type(input);
   switch(dtype.code){
     case TYPE_INT8: {
@@ -221,7 +221,7 @@ Status aitisa_softmax(const Tensor input, const int axis,
     return status;
   }
 
-  // create output tensor
+  // Create output tensor
   CHECK_STATUS(
     softmax_create_output(input, output));
 

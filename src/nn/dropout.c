@@ -13,7 +13,7 @@
 
 static Status dropout_template(Tensor *tensor, const double rate) {
   int64_t size = aitisa_tensor_size(*tensor);
-  // implement dropout kernel
+  // Implement dropout kernel
   DataType dtype = aitisa_tensor_data_type(*tensor);
   Status status = STATUS_SUCCESS;
   srand(time(NULL));
@@ -66,14 +66,14 @@ static Status dropout_template(Tensor *tensor, const double rate) {
 }
 
 Status aitisa_dropout(const Tensor input, const double rate, Tensor *output) {
-  // check if rate satisfy 0 <= rate <= 1
+  // Check if rate satisfy 0 <= rate <= 1
   if (rate < 0 || rate > 1) {
     return STATUS_INVALID_ARGUMENT;
   }
-  // copy input
+  // Copy input
   Tensor new_tensor;
   CHECK_STATUS(aitisa_duplicate(input, &new_tensor));
-  // implement dropout
+  // Implement dropout
   CHECK_STATUS(dropout_template(&new_tensor, rate));
   *output = new_tensor;
   return STATUS_SUCCESS;

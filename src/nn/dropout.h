@@ -5,7 +5,8 @@
 
 /**
  * @brief Applies a dropout over an input signal with a rate specifying
-          probability of an element to be zeroed.
+ *        probability of an element to be zeroed.
+ *
  * @param input The input tensor.
  * @param rate probability of an element to be zeroed.
  * @param output The output tensor pointer.

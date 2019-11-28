@@ -224,14 +224,14 @@ static Status pooling_1d(const Tensor input, const char *mode, const int *ksize,
                          const int *dilation, Tensor *output) {
   Status status;
   int64_t *in_dims = aitisa_tensor_dims(input);
-  // calculate the dimensions of output
+  // Calculate the dimensions of output
   int64_t out_dims[3];
   out_dims[0] = in_dims[0];
   out_dims[1] = in_dims[1];
   out_dims[2] = 1 + (in_dims[2] + padding[0] - ksize[0] -
                      (dilation[0] - 1) * (ksize[0] - 1)) /
                         stride[0];
-  // create output
+  // Create output
   CHECK_STATUS(
       aitisa_create(aitisa_tensor_data_type(input), aitisa_tensor_device(input),
                     aitisa_tensor_layout_type(input), out_dims, 3, output));
@@ -514,7 +514,7 @@ static Status pooling_2d(const Tensor input, const char *mode, const int *ksize,
                          const int *dilation, Tensor *output) {
   Status status;
   int64_t *in_dims = aitisa_tensor_dims(input);
-  // calculate the dimensions of output
+  // Calculate the dimensions of output
   int64_t out_dims[4];
   out_dims[0] = in_dims[0];
   out_dims[1] = in_dims[1];
@@ -524,7 +524,7 @@ static Status pooling_2d(const Tensor input, const char *mode, const int *ksize,
   out_dims[3] = 1 + (in_dims[3] + padding[1] - ksize[1] -
                      (dilation[1] - 1) * (ksize[1] - 1)) /
                         stride[1];
-  // create output
+  // Create output
   CHECK_STATUS(
       aitisa_create(aitisa_tensor_data_type(input), aitisa_tensor_device(input),
                     aitisa_tensor_layout_type(input), out_dims, 4, output));
@@ -877,7 +877,7 @@ static Status pooling_3d(const Tensor input, const char *mode, const int *ksize,
                          const int *dilation, Tensor *output) {
   Status status;
   int64_t *in_dims = aitisa_tensor_dims(input);
-  // calculate the dimensions of output
+  // Calculate the dimensions of output
   int64_t out_dims[5];
   out_dims[0] = in_dims[0];
   out_dims[1] = in_dims[1];
@@ -890,7 +890,7 @@ static Status pooling_3d(const Tensor input, const char *mode, const int *ksize,
   out_dims[4] = 1 + (in_dims[4] + padding[2] - ksize[2] -
                      (dilation[2] - 1) * (ksize[2] - 1)) /
                         stride[2];
-  // create output
+  // Create output
   CHECK_STATUS(
       aitisa_create(aitisa_tensor_data_type(input), aitisa_tensor_device(input),
                     aitisa_tensor_layout_type(input), out_dims, 5, output));

@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include "src/core/allocator.h"
 
-// assume dims_out has been allocated memory.
+// Assume dims_out has been allocated memory.
 Status aitisa_broadcast_array(int64_t* dims_in1, int64_t ndim_in1,
                               int64_t* dims_in2, int64_t ndim_in2,
                               int64_t* dims_out, int64_t ndim_out) {

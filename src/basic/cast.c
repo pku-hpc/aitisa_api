@@ -491,13 +491,13 @@ static Status cast_template(const Tensor input, DataType dtype,
 
 Status aitisa_cast(const Tensor input, DataType dtype,
                    Tensor *output){
-  // if the DataType of input and the DataType to cast to are identical,
+  // If the DataType of input and the DataType to cast to are identical,
   // then do nothing.
   DataType in_dtype = aitisa_tensor_data_type(input);
   if(in_dtype.code == dtype.code){
     return STATUS_SUCCESS;
   }
-  // create output
+  // Create output
   Tensor new_tensor;
   Device device = aitisa_tensor_device(input);
   LayoutType layout_type = aitisa_tensor_layout_type(input);
@@ -506,7 +506,7 @@ Status aitisa_cast(const Tensor input, DataType dtype,
   CHECK_STATUS(
     aitisa_create(dtype, device, layout_type, out_dims, out_ndim, &new_tensor));
   *output = new_tensor;
-  //implement cast
+  // Implement cast
   Status status;
   status = cast_template(input, dtype, output);
   return status;

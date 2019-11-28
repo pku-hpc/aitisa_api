@@ -5,6 +5,7 @@
 
 /**
  * @brief Applies a cast over an input signal with specified DataType.
+ *
  * @param input The input tensor to be casted.
  * @param dtype The DataType to cast to.
  * @param output The output tensor pointer.

@@ -12,13 +12,13 @@ static Status batch_norm_check_parameters(const Tensor input, const int axis,
                                           const Tensor mean,
                                           const Tensor variance,
                                           const double epsilon) {
-  // check input
+  // Check input
   DataType in_dtype = aitisa_tensor_data_type(input);
   int64_t ndim = aitisa_tensor_ndim(input);
   if (ndim < 2 || ndim > 5) {
     return STATUS_DIMENSIONS_MISMATCH;
   }
-  // check axis
+  // Check axis
   if (ndim == 2) {
     if (axis != 1) return STATUS_INVALID_ARGUMENT;
   } else if (ndim > 2 && ndim < 6) {
@@ -28,7 +28,7 @@ static Status batch_norm_check_parameters(const Tensor input, const int axis,
   } else {
     return STATUS_DIMENSIONS_MISMATCH;
   }
-  // check scale and bias
+  // Check scale and bias
   DataType scale_dtype = aitisa_tensor_data_type(scale);
   if (scale_dtype.code != in_dtype.code) return STATUS_TYPE_MISMATCH;
   DataType bias_dtype = aitisa_tensor_data_type(bias);
@@ -44,7 +44,7 @@ static Status batch_norm_check_parameters(const Tensor input, const int axis,
   if (scale_ndim != 1 || bias_ndim != 1) {
     return STATUS_DIMENSIONS_MISMATCH;
   }
-  // check mean and variance
+  // Check mean and variance
   DataType mean_dtype = aitisa_tensor_data_type(mean);
   if (mean_dtype.code != in_dtype.code) return STATUS_TYPE_MISMATCH;
   DataType var_dtype = aitisa_tensor_data_type(variance);
@@ -59,7 +59,7 @@ static Status batch_norm_check_parameters(const Tensor input, const int axis,
   if (mean_ndim != 1 || var_ndim != 1) {
     return STATUS_DIMENSIONS_MISMATCH;
   }
-  // check epsilon
+  // Check epsilon
   if (epsilon < 0) {
     return STATUS_INVALID_ARGUMENT;
   }
@@ -82,8 +82,10 @@ static Status batch_norm_create_output(const Tensor input, Tensor *output) {
   return status;
 }
 
-// This function would transport the data the source tensor
-// to destination tensor
+/* 
+ * This function would transport the data the source tensor
+ * to destination tensor
+ */
 static void batch_norm_transport(const Tensor source, Tensor *destination,
                                  int64_t *index_recorder,
                                  int64_t *offset_recorder, int64_t axis) {
@@ -95,18 +97,18 @@ static void batch_norm_transport(const Tensor source, Tensor *destination,
   char *src_data = aitisa_tensor_data(source);
   char *des_data = aitisa_tensor_data(*destination);
   for (int64_t i = 0; i < src_size; i++) {
-    // get linear index of current element
+    // Get linear index of current element
     linear_idx = 0;
     for (int j = 0; j < des_ndim; j++) {
       linear_idx += index_recorder[j] * offset_recorder[j];
     }
-    // transport data to output
+    // Transport data to output
     memcpy(des_data + linear_idx * ele_size, src_data + i * ele_size, ele_size);
-    // update index_recorder
+    // Update index_recorder
     for (int j = des_ndim - 1; j > 0; j--) {
       if (j == axis) continue;
       index_recorder[j] += 1;
-      /* judge whether the index is out of boundary */
+      // Judge whether the index is out of boundary
       if (index_recorder[j] >= des_dims[j]) {
         index_recorder[j] = 0;
       } else {
@@ -123,7 +125,7 @@ static Status batch_norm_without_channel(const Tensor input, const Tensor scale,
   int64_t *dims = aitisa_tensor_dims(input);
   int64_t batch_size = dims[0];
   int64_t ndim = 2;
-  // make parameters for slice
+  // Make parameters for slice
   int *begin = aitisa_default_cpu_allocator()->raw_alloc(sizeof(*begin) * ndim);
   int *size = aitisa_default_cpu_allocator()->raw_alloc(sizeof(*size) * ndim);
   int *step = aitisa_default_cpu_allocator()->raw_alloc(sizeof(*step) * ndim);
@@ -134,13 +136,13 @@ static Status batch_norm_without_channel(const Tensor input, const Tensor scale,
     step[i] = 1;
   }
   size[0] = 1;
-  // make parameters for squeeze
+  // Make parameters for squeeze
   int64_t num_axis = 1;
   int64_t *axis =
       aitisa_default_cpu_allocator()->raw_alloc(sizeof(*axis) * num_axis);
   if (!axis) return STATUS_ALLOC_FAILED;
   axis[0] = 0;
-  // implement 1d batch normalization without channel
+  // Implement 1d batch normalization without channel
   uint8_t ele_size = aitisa_tensor_data_type(input).size;
   char *out_data = aitisa_tensor_data(*output);
   for (int64_t s = 0; s < batch_size; s++) {
@@ -156,7 +158,7 @@ static Status batch_norm_without_channel(const Tensor input, const Tensor scale,
     CHECK_STATUS(aitisa_destroy(&temp1));
     CHECK_STATUS(aitisa_add(temp0, bias, &temp1));
     CHECK_STATUS(aitisa_destroy(&temp0));
-    // transport data to output
+    // Transport data to output
     int64_t size = aitisa_tensor_size(temp1);
     char *temp1_data = aitisa_tensor_data(temp1);
     for (int64_t ele = 0; ele < size; ele++) {
@@ -164,10 +166,10 @@ static Status batch_norm_without_channel(const Tensor input, const Tensor scale,
              temp1_data + ele * ele_size, ele_size);
     }
     CHECK_STATUS(aitisa_destroy(&temp1));
-    // update begin
+    // Update begin
     begin[0]++;
   }
-  // destroy parameters for slice and squeeze
+  // Destroy parameters for slice and squeeze
   aitisa_default_cpu_allocator()->raw_dealloc(begin);
   aitisa_default_cpu_allocator()->raw_dealloc(size);
   aitisa_default_cpu_allocator()->raw_dealloc(step);
@@ -186,7 +188,7 @@ static Status batch_norm_with_channel(const Tensor input, const int axis,
   int64_t *dims = aitisa_tensor_dims(input);
   int64_t batch_size = dims[0];
   int64_t channel_size = dims[axis];
-  // make parameters for slice
+  // Make parameters for slice
   int *begin = aitisa_default_cpu_allocator()->raw_alloc(sizeof(*begin) * ndim);
   int *size = aitisa_default_cpu_allocator()->raw_alloc(sizeof(*size) * ndim);
   int *step = aitisa_default_cpu_allocator()->raw_alloc(sizeof(*step) * ndim);
@@ -198,13 +200,13 @@ static Status batch_norm_with_channel(const Tensor input, const int axis,
   }
   size[0] = 1;
   size[axis] = 1;
-  // make parameters for squeeze
+  // Make parameters for squeeze
   int64_t num_saxis = 2;
   int64_t *squeeze_axis = aitisa_default_cpu_allocator()->raw_alloc(
       sizeof(*squeeze_axis) * num_saxis);
   squeeze_axis[0] = 0;
   squeeze_axis[1] = axis;
-  // make parameters for data transportation
+  // Make parameters for data transportation
   int64_t *index_recorder =
       aitisa_default_cpu_allocator()->raw_alloc(sizeof(*index_recorder) * ndim);
   int64_t *offset_recorder = aitisa_default_cpu_allocator()->raw_alloc(
@@ -219,20 +221,20 @@ static Status batch_norm_with_channel(const Tensor input, const int axis,
   for (int i = ndim - 2; i >= 0; i--) {
     offset_recorder[i] = offset_recorder[i + 1] * dims[i + 1];
   }
-  // implement batch norm
+  // Implement batch norm
   for (int64_t s = 0; s < batch_size; s++) {
-    // set begin
+    // Set begin
     begin[0] = (int)s;
-    // set index_recorder
+    // Set index_recorder
     index_recorder[0] = s;
     for (int64_t c = 0; c < channel_size; c++) {
       Tensor temp0, temp1;
-      // slice to get a channel
+      // Slice to get a channel
       begin[axis] = (int)c;  // set begin
       CHECK_STATUS(aitisa_slice(input, begin, size, step, &temp0));
       CHECK_STATUS(aitisa_squeeze(temp0, squeeze_axis, num_saxis, &temp1));
       CHECK_STATUS(aitisa_destroy(&temp0));
-      // implement the equation
+      // Implement the equation
       CHECK_STATUS(aitisa_sub(temp1, mean_array[c], &temp0));
       CHECK_STATUS(aitisa_destroy(&temp1));
       CHECK_STATUS(aitisa_div(temp0, denominator[c], &temp1));
@@ -240,16 +242,16 @@ static Status batch_norm_with_channel(const Tensor input, const int axis,
       CHECK_STATUS(aitisa_mul(scale_array[c], temp1, &temp0));
       CHECK_STATUS(aitisa_destroy(&temp1));
       CHECK_STATUS(aitisa_add(temp0, bias_array[c], &temp1));
-      // transport data of temp1 to output
-      index_recorder[axis] = c;  // set index_recorder
+      // Transport data of temp1 to output
+      index_recorder[axis] = c;
       batch_norm_transport(temp1, output, index_recorder, offset_recorder,
                            axis);
-      // destroy temp0 and temp1
+      // Destroy temp0 and temp1
       CHECK_STATUS(aitisa_destroy(&temp0));
       CHECK_STATUS(aitisa_destroy(&temp1));
     }
   }
-  // destroy parameters for slice and squeeze
+  // Destroy parameters for slice and squeeze
   aitisa_default_cpu_allocator()->raw_dealloc(begin);
   aitisa_default_cpu_allocator()->raw_dealloc(size);
   aitisa_default_cpu_allocator()->raw_dealloc(step);
@@ -273,24 +275,24 @@ static Status get_intermediate_tensors(const Tensor input, const int axis,
     *scale_array = NULL;
     *bias_array = NULL;
     *mean_array = NULL;
-    // get epsilon tensor
+    // Get epsilon tensor
     Tensor eps_tensor, temp;
     int64_t *eps_dims = aitisa_tensor_dims(variance);
     int64_t eps_ndim = aitisa_tensor_ndim(variance);
     CHECK_STATUS(
         aitisa_full(dtype, device, eps_dims, eps_ndim, epsilon, &eps_tensor));
-    // get sqrt(variance+epsilon), denoted by denominator
+    // Get sqrt(variance+epsilon), denoted by denominator
     CHECK_STATUS(aitisa_add(variance, eps_tensor, &temp));
     CHECK_STATUS(aitisa_sqrt(temp, *denominator));
-    // destroy epsilon and temp tensor
+    // Destroy epsilon and temp tensor
     aitisa_destroy(&eps_tensor);
     aitisa_destroy(&temp);
   } else if (in_ndim > 2) {
-    // the case with channel
+    // The case with channel
     int64_t *in_dims = aitisa_tensor_dims(input);
     int64_t num_channels = aitisa_tensor_dim(input, axis);
-    /* get dimensions of parameters including scale_array,
-     mean_array, bias_array and denominator */
+    // Get dimensions of parameters including scale_array,
+    // mean_array, bias_array and denominator
     int64_t param_ndim = in_ndim - 2;
     int64_t *param_dims = aitisa_default_cpu_allocator()->raw_alloc(
         sizeof(*param_dims) * param_ndim);
@@ -304,11 +306,11 @@ static Status get_intermediate_tensors(const Tensor input, const int axis,
         param_dims[i - 1] = in_dims[i];
       }
     }
-    // get epsilon tensor
+    // Get epsilon tensor
     Tensor eps_tensor;
     CHECK_STATUS(aitisa_full(dtype, device, param_dims, param_ndim, epsilon,
                              &eps_tensor));
-    // get mean_array, scale_array, bias_array, denominator
+    // Get mean_array, scale_array, bias_array, denominator
     int64_t tensor_size = size_of_dims(param_dims, param_ndim);
     uint8_t ele_size = dtype.size;
     *mean_array = aitisa_default_cpu_allocator()->raw_alloc(
@@ -338,7 +340,7 @@ static Status get_intermediate_tensors(const Tensor input, const int axis,
                                  &(var_array[c])));
       CHECK_STATUS(aitisa_create(dtype, device, layout, param_dims, param_ndim,
                                  &((*denominator)[c])));
-      // repeatedly copy data to array
+      // Repeatedly copy data to array
       char *mean_array_c_data = aitisa_tensor_data((*mean_array)[c]);
       char *mean_data = aitisa_tensor_data(mean);
       char *scale_array_c_data = aitisa_tensor_data((*scale_array)[c]);
@@ -371,17 +373,17 @@ Status aitisa_batch_norm(const Tensor input, const int axis, const Tensor scale,
                          const Tensor bias, const Tensor mean,
                          const Tensor variance, const double epsilon,
                          Tensor *output) {
-  // check whether parameters are matched
+  // Check whether parameters are matched
   CHECK_STATUS(batch_norm_check_parameters(input, axis, scale, bias, mean,
                                            variance, epsilon));
-  // create output
+  // Create output
   CHECK_STATUS(batch_norm_create_output(input, output));
-  // implement batch normalization
+  // Implement batch normalization
   Status status;
   int64_t ndim = aitisa_tensor_ndim(input);
   Tensor *scale_array, *bias_array, *mean_array, *denominators;
   if (ndim == 2) {
-    // get denominator which is sqrt(variance+epsilon)
+    // Get denominator which is sqrt(variance+epsilon)
     Tensor denominator;
     Tensor *denominator_ptr = &denominator;
     CHECK_STATUS(get_intermediate_tensors(input, axis, scale, &scale_array,

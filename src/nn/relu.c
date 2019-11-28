@@ -12,7 +12,7 @@
   }
 
 Status aitisa_relu(const Tensor input, Tensor *output) {
-  // create output
+  // Create output
   int64_t *dims = aitisa_tensor_dims(input);
   int64_t ndim = aitisa_tensor_ndim(input);
   Tensor new_tensor;
@@ -22,7 +22,7 @@ Status aitisa_relu(const Tensor input, Tensor *output) {
   CHECK_STATUS(
       aitisa_create(dtype, device, layout_type, dims, ndim, &new_tensor));
   *output = new_tensor;
-  // implement relu
+  // Implement relu
   int64_t size = aitisa_tensor_size(input);
   Status status = STATUS_SUCCESS;
   switch (dtype.code) {

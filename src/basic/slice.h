@@ -5,6 +5,7 @@
 
 /**
  * @brief Applies a slice over an input tensor within a specified range.
+ *
  * @param input The input tensor.
  * @param begin The beginning site of each dimension.
  * @param size The size of slice range.

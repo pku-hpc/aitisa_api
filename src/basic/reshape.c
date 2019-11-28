@@ -3,13 +3,13 @@
 
 Status aitisa_reshape(const Tensor input, int64_t* dims, int64_t ndim,
                       Tensor* output) {
-  // check if the sizes of input and output are matched
+  // Check if the sizes of input and output are matched
   int64_t in_size = aitisa_tensor_size(input);
   int64_t out_size = size_of_dims(dims, ndim);
   if (in_size != out_size) {
     return STATUS_DIMENSIONS_MISMATCH;
   }
-  // create output
+  // Create output
   Device device = aitisa_tensor_device(input);
   LayoutType layout_type = aitisa_tensor_layout_type(input);
   DataType dtype = aitisa_tensor_data_type(input);
@@ -17,7 +17,7 @@ Status aitisa_reshape(const Tensor input, int64_t* dims, int64_t ndim,
   CHECK_STATUS(
       aitisa_create(dtype, device, layout_type, dims, ndim, &new_tensor));
   *output = new_tensor;
-  // transport data
+  // Transport data
   void* in_data = aitisa_tensor_data(input);
   void* out_data = aitisa_tensor_data(*output);
   int64_t ele_size = dtype.size;

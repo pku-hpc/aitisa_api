@@ -5,6 +5,7 @@
 
 /**
  * @brief Applies a reshape over an input tensor within a specified dimension.
+ *
  * @param input The input tensor.
  * @param dims The new dimension to reshape to.
  * @param ndim The length of array dims.

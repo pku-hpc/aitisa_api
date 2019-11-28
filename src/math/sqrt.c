@@ -76,9 +76,9 @@ static Status sqrt_template(const Tensor input, Tensor *output) {
 }
 
 Status aitisa_sqrt(const Tensor input, Tensor *output) {
-  // create output
+  // Create output
   CHECK_STATUS(sqrt_create_output(input, output));
-  // implement square root
+  // Implement square root
   Status status = sqrt_template(input, output);
   return status;
 }

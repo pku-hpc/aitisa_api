@@ -5,6 +5,7 @@
 
 /**
  * @brief Applies a pooling over an input signal composed of several feature maps.
+ *
  * @param input The input tensor of a shape [num_batches, in_channels,
  *              in_spatial_shapes].
  * @param mode The pooling mode including "max" and "avg".
