@@ -19,14 +19,8 @@ static Status batch_norm_check_parameters(const Tensor input, const int axis,
     return STATUS_DIMENSIONS_MISMATCH;
   }
   // Check axis
-  if (ndim == 2) {
-    if (axis != 1) return STATUS_INVALID_ARGUMENT;
-  } else if (ndim > 2 && ndim < 6) {
-    if (axis != 1 && axis != ndim - 1) {
-      return STATUS_INVALID_ARGUMENT;
-    }
-  } else {
-    return STATUS_DIMENSIONS_MISMATCH;
+  if (axis != 1 && axis != ndim - 1) {
+    return STATUS_INVALID_ARGUMENT;
   }
   // Check scale and bias
   DataType scale_dtype = aitisa_tensor_data_type(scale);
@@ -315,20 +309,19 @@ static Status get_intermediate_tensors(const Tensor input, const int axis,
     uint8_t ele_size = dtype.size;
     *mean_array = aitisa_default_cpu_allocator()->raw_alloc(
         sizeof(**mean_array) * num_channels);
-    if (!*mean_array) return STATUS_ALLOC_FAILED;
     *scale_array = aitisa_default_cpu_allocator()->raw_alloc(
         sizeof(**scale_array) * num_channels);
-    if (!*scale_array) return STATUS_ALLOC_FAILED;
     *bias_array = aitisa_default_cpu_allocator()->raw_alloc(
         sizeof(**bias_array) * num_channels);
-    if (!*bias_array) return STATUS_ALLOC_FAILED;
     *denominator = NULL;
     *denominator = aitisa_default_cpu_allocator()->raw_alloc(
         sizeof(**denominator) * num_channels);
-    if (!*denominator) return STATUS_ALLOC_FAILED;
     Tensor *var_array = aitisa_default_cpu_allocator()->raw_alloc(
         sizeof(*var_array) * num_channels);
-    if (!var_array) return STATUS_ALLOC_FAILED;
+    if (!*mean_array || !*scale_array || !*bias_array ||
+        !*denominator || !var_array) {
+      return STATUS_ALLOC_FAILED;
+    } 
     for (uint32_t c = 0; c < num_channels; c++) {
       CHECK_STATUS(aitisa_create(dtype, device, layout, param_dims, param_ndim,
                                  &((*mean_array)[c])));

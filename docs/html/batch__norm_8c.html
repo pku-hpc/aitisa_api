@@ -74,13 +74,13 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="batch__norm_8h_source.html">src/nn/batch_norm.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="slice_8h_source.html">src/basic/slice.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="factories_8h_source.html">src/basic/factories.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="utils_8h_source.html">src/core/utils.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="allocator_8h_source.html">src/core/allocator.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="sqrt_8h_source.html">src/math/sqrt.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="binary__op_8h_source.html">src/math/binary_op.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="slice_8h_source.html">src/basic/slice.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="squeeze_8h_source.html">src/basic/squeeze.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="allocator_8h_source.html">src/core/allocator.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="utils_8h_source.html">src/core/utils.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="binary__op_8h_source.html">src/math/binary_op.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sqrt_8h_source.html">src/math/sqrt.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -164,7 +164,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Applies a batch normalization over an input along axis which is actually the axis of channel. </p>
-<p>The data type of input, scale, bias, mean and variance should be identical. The shape of output is same as the shape of input. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>The data type of input, scale, bias, mean and variance should be identical. The shape of output is same as the shape of input.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">input</td><td>The input tensor, whose shape should be [N,L], [N,C,L], [N,L,C], [N,C,H,W], [N,H,W,C], [N,C,D,H,W] or [N,D,H,W,C]. </td></tr>
     <tr><td class="paramname">axis</td><td>The axis along which to be normalized, actually the axis of channel. For instance, if the shape of given input is [N,C,H,W], then axis should be set to 1. But if the shape of input is [N,L], axis should be 1. </td></tr>

@@ -117,7 +117,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Applies a dot over two input signals. </p>
-<p>If the two inputs are one-dimension, then implement the normal dot; If the two inputs are two-dimension, then implement the matmul; If one of the two inputs is a scalar, then implement the scalar-tensor multiplication; If the second input is one-dimension, then calculate the dot between the last dimension of the first input and the second input; If both of the dimensions of the two inputs are larger than 2, then calculate the dot between the last dimension of the first input and the second-to-last dimension of the second input: dot(a, b)[i,j,k,m] = sum(a[i,j,:] * b[k,:,m]) </p><dl class="params"><dt>Parameters</dt><dd>
+<p>If the two inputs are one-dimension, then implement the normal dot; If the two inputs are two-dimension, then implement the matmul; If one of the two inputs is a scalar, then implement the scalar-tensor multiplication; If the second input is one-dimension, then calculate the dot between the last dimension of the first input and the second input; If both of the dimensions of the two inputs are larger than 2, then calculate the dot between the last dimension of the first input and the second-to-last dimension of the second input: dot(a, b)[i,j,k,m] = sum(a[i,j,:] * b[k,:,m]).</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tensor1</td><td>The first input tensor. </td></tr>
     <tr><td class="paramname">tensor2</td><td>The second input tensor. </td></tr>

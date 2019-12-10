@@ -11,7 +11,7 @@ int64_t batch_strides(int64_t *dims, int64_t ndim, int64_t *strides,
                       int64_t nstride) {
   int64_t stride = 1;
   for (int64_t i = 0; i < nstride; ++i) {
-    // ndim - 1 - i >= 0 to make sure it is not out bound.
+    // ndim - 1 - i >= 0 to make sure it is not out of bound.
     if (ndim - 1 - i >= 0 && dims[ndim - 1 - i] != 1) {
       strides[nstride - 1 - i] = stride;
       stride *= dims[ndim - 1 - i];

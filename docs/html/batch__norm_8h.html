@@ -147,7 +147,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Applies a batch normalization over an input along axis which is actually the axis of channel. </p>
-<p>The data type of input, scale, bias, mean and variance should be identical. The shape of output is same as the shape of input. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>The data type of input, scale, bias, mean and variance should be identical. The shape of output is same as the shape of input.</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">input</td><td>The input tensor, whose shape should be [N,L], [N,C,L], [N,L,C], [N,C,H,W], [N,H,W,C], [N,C,D,H,W] or [N,D,H,W,C]. </td></tr>
     <tr><td class="paramname">axis</td><td>The axis along which to be normalized, actually the axis of channel. For instance, if the shape of given input is [N,C,H,W], then axis should be set to 1. But if the shape of input is [N,L], axis should be 1. </td></tr>

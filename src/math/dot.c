@@ -281,9 +281,7 @@ static Status multidim_dot(const Tensor tensor1, const Tensor tensor2,
   for (int64_t i = 0; i < ndim_tensor2; i++) {
     if (i < ndim_tensor2 - 2) {
       out_dims[i + ndim_tensor1 - 1] = tensor2_dims[i];
-    } else if (i == ndim_tensor2 - 2) {
-      continue;
-    } else {
+    } else if (i > ndim_tensor2 - 2) {
       out_dims[i + ndim_tensor1 - 2] = tensor2_dims[i];
     }
   }
@@ -299,46 +297,33 @@ static Status multidim_dot(const Tensor tensor1, const Tensor tensor2,
       sizeof(*index_recorder_t1) * ndim_tensor1);
   int *index_recorder_t2 = aitisa_default_cpu_allocator()->raw_alloc(
       sizeof(*index_recorder_t2) * ndim_tensor2);
-  if (!index_recorder_t1 || !index_recorder_t2) {
-    return STATUS_ALLOC_FAILED;
-  }
-  for (int64_t i = 0; i < ndim_tensor1; i++) {
-    index_recorder_t1[i] = 0;
-  }
-  for (int64_t i = 0; i < ndim_tensor2; i++) {
-    index_recorder_t2[i] = 0;
-  }
   // Make parameters for slice
   // size
   int *size_t1 = aitisa_default_cpu_allocator()->raw_alloc(sizeof(*size_t1) *
                                                            ndim_tensor1);
   int *size_t2 = aitisa_default_cpu_allocator()->raw_alloc(sizeof(*size_t2) *
                                                            ndim_tensor2);
-  if (!size_t1 || !size_t2) {
-    return STATUS_ALLOC_FAILED;
-  }
-  for (int64_t i = 0; i < ndim_tensor1 - 1; i++) {
-    size_t1[i] = 0;
-  }
-  size_t1[ndim_tensor1 - 1] = tensor1_dims[ndim_tensor1 - 1];
-  for (int64_t i = 0; i < ndim_tensor2; i++) {
-    size_t2[i] = 0;
-  }
-  size_t2[ndim_tensor2 - 2] = tensor2_dims[ndim_tensor2 - 2];
   // step
   int *step_t1 = aitisa_default_cpu_allocator()->raw_alloc(sizeof(*step_t1) *
                                                            ndim_tensor1);
   int *step_t2 = aitisa_default_cpu_allocator()->raw_alloc(sizeof(*step_t2) *
                                                            ndim_tensor2);
-  if (!step_t1 || !step_t2) {
+  if (!index_recorder_t1 || !index_recorder_t2 || 
+      !size_t1 || !size_t2 || !step_t1 || !step_t2) {
     return STATUS_ALLOC_FAILED;
   }
   for (int64_t i = 0; i < ndim_tensor1; i++) {
+    index_recorder_t1[i] = 0;
+    size_t1[i] = 0;
     step_t1[i] = 1;
   }
   for (int64_t i = 0; i < ndim_tensor2; i++) {
+    index_recorder_t2[i] = 0;
+    size_t2[i] = 0;
     step_t2[i] = 1;
   }
+  size_t1[ndim_tensor1 - 1] = tensor1_dims[ndim_tensor1 - 1];
+  size_t2[ndim_tensor2 - 2] = tensor2_dims[ndim_tensor2 - 2];
   // Implement multidim dot
   int64_t nvec_tensor1 =
       size_to_dim(ndim_tensor1 - 1, tensor1_dims, ndim_tensor1);

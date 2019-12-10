@@ -7,9 +7,8 @@ Status aitisa_squeeze(const Tensor input, int64_t *axis, int64_t num_axis,
   int64_t *in_dims = aitisa_tensor_dims(input);
   int64_t in_ndim = aitisa_tensor_ndim(input);
   // Check if axis and num_axis are valid
-  if (num_axis < 0) {
-    return STATUS_INVALID_ARGUMENT;
-  } else if (num_axis > 0) {
+  if (num_axis < 0) return STATUS_INVALID_ARGUMENT;
+  if (num_axis > 0) {
     for (int64_t i = 0; i < num_axis; i++) {
       if (axis[i] < 0) {
         return STATUS_INVALID_ARGUMENT;
@@ -20,11 +19,11 @@ Status aitisa_squeeze(const Tensor input, int64_t *axis, int64_t num_axis,
   int64_t *processed_in_dims = aitisa_default_cpu_allocator()->raw_alloc(
       sizeof(*processed_in_dims) * in_ndim);
   if (!processed_in_dims) return STATUS_ALLOC_FAILED;
-  int64_t out_ndim = aitisa_tensor_ndim(input);
   for (int64_t i = 0; i < in_ndim; i++) {
     processed_in_dims[i] = in_dims[i];
   }
   // If num_axis == 0, then process all one-dimension axises
+  int64_t out_ndim = aitisa_tensor_ndim(input);
   if (num_axis == 0) {
     for (int64_t i = 0; i < in_ndim; i++) {
       if (in_dims[i] == 1) {
@@ -39,8 +38,6 @@ Status aitisa_squeeze(const Tensor input, int64_t *axis, int64_t num_axis,
         out_ndim--;
       }
     }
-  } else {
-    return STATUS_NOT_SUPPORTED;
   }
 
   // Create dims and ndim of output

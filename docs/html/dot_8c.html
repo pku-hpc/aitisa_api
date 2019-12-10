@@ -76,12 +76,12 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="dot_8h_source.html">src/math/dot.h</a>&quot;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="slice_8h_source.html">src/basic/slice.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="binary__op_8h_source.html">src/math/binary_op.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="matmul_8h_source.html">src/math/matmul.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="factories_8h_source.html">src/basic/factories.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="slice_8h_source.html">src/basic/slice.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="allocator_8h_source.html">src/core/allocator.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="utils_8h_source.html">src/core/utils.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="binary__op_8h_source.html">src/math/binary_op.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="matmul_8h_source.html">src/math/matmul.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -146,7 +146,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">typename</span> val = ((<span class="keyword">typename</span> *)<a class="code" href="tensor_8h.html#a95932d53ee0f3524e74c5fbe86d41129">aitisa_tensor_data</a>(tensor))[idx];     \</div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">typename</span> val = ((<span class="keyword">typename</span> *)<a class="code" href="tensor_8h.html#a95932d53ee0f3524e74c5fbe86d41129">aitisa_tensor_data</a>(tensor))[idx]; \</div>
 <div class="line">  *value = (double)val;</div>
 </div><!-- fragment -->
 </div>
@@ -194,9 +194,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">((<span class="keyword">typename</span> *)data_out)[0] = 0;                                                      \</div>
-<div class="line">  for(<span class="keywordtype">int</span> i=0; i&lt;size; i++){                                                          \</div>
-<div class="line">    ((<span class="keyword">typename</span> *)data_out)[0] += ((<span class="keyword">typename</span> *)data1)[i] * ((<span class="keyword">typename</span> *)data2)[i];     \</div>
+<b>Value:</b><div class="fragment"><div class="line">((<span class="keyword">typename</span> *)data_out)[0] = 0;                           \</div>
+<div class="line">  for (<span class="keywordtype">int</span> i = 0; i &lt; size; i++) {                         \</div>
+<div class="line">    ((<span class="keyword">typename</span> *)data_out)[0] +=                           \</div>
+<div class="line">        ((<span class="keyword">typename</span> *)data1)[i] * ((<span class="keyword">typename</span> *)data2)[i];   \</div>
 <div class="line">  }</div>
 </div><!-- fragment -->
 </div>
@@ -235,7 +236,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Applies a dot over two input signals. </p>
-<p>If the two inputs are one-dimension, then implement the normal dot; If the two inputs are two-dimension, then implement the matmul; If one of the two inputs is a scalar, then implement the scalar-tensor multiplication; If the second input is one-dimension, then calculate the dot between the last dimension of the first input and the second input; If both of the dimensions of the two inputs are larger than 2, then calculate the dot between the last dimension of the first input and the second-to-last dimension of the second input: dot(a, b)[i,j,k,m] = sum(a[i,j,:] * b[k,:,m]) </p><dl class="params"><dt>Parameters</dt><dd>
+<p>If the two inputs are one-dimension, then implement the normal dot; If the two inputs are two-dimension, then implement the matmul; If one of the two inputs is a scalar, then implement the scalar-tensor multiplication; If the second input is one-dimension, then calculate the dot between the last dimension of the first input and the second input; If both of the dimensions of the two inputs are larger than 2, then calculate the dot between the last dimension of the first input and the second-to-last dimension of the second input: dot(a, b)[i,j,k,m] = sum(a[i,j,:] * b[k,:,m]).</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tensor1</td><td>The first input tensor. </td></tr>
     <tr><td class="paramname">tensor2</td><td>The second input tensor. </td></tr>

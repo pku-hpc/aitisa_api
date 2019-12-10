@@ -143,17 +143,14 @@ static Status softmax_along_axis(const Tensor input, const int axis,
   // Make an index-recorder of each sample
   int64_t *index_recorder =
     aitisa_default_cpu_allocator()->raw_alloc(sizeof(*index_recorder) * ndim);
-  if(!index_recorder){
+  // Make an offset-recorder of each sample
+  int64_t *offset_recorder =
+    aitisa_default_cpu_allocator()->raw_alloc(sizeof(*index_recorder) * ndim);
+  if(!index_recorder || !offset_recorder){
     return STATUS_ALLOC_FAILED;
   }
   for(int64_t i=0; i<ndim; i++){
     index_recorder[i] = 0;
-  }
-  // Make an offset-recorder of each sample
-  int64_t *offset_recorder =
-    aitisa_default_cpu_allocator()->raw_alloc(sizeof(*index_recorder) * ndim);
-  if(!offset_recorder){
-    return STATUS_ALLOC_FAILED;
   }
   offset_recorder[ndim-1] = 1;
   for(int64_t i=ndim-2; i>=0; i--){
@@ -214,17 +211,15 @@ static Status softmax_along_axis(const Tensor input, const int axis,
 
 Status aitisa_softmax(const Tensor input, const int axis,
                       Tensor *output){
-  Status status;
   int64_t ndim = aitisa_tensor_ndim(input);
   if(axis < -1 || axis > ndim-1){
-    status =  STATUS_NOT_SUPPORTED;
-    return status;
+    return STATUS_NOT_SUPPORTED;
   }
 
   // Create output tensor
-  CHECK_STATUS(
-    softmax_create_output(input, output));
+  CHECK_STATUS(softmax_create_output(input, output));
 
+  Status status;
   switch(axis){
     case -1:{
       status = softmax_with_all(input, output);

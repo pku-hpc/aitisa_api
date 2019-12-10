@@ -74,11 +74,12 @@ $(function() {
 <div class="title">slice.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="tensor_8h_source.html">src/core/tensor.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="allocator_8h_source.html">src/core/allocator.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="slice_8h_source.html">src/basic/slice.h</a>&quot;</code><br />
-<code>#include &lt;math.h&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="slice_8h_source.html">src/basic/slice.h</a>&quot;</code><br />
 <code>#include &lt;inttypes.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="allocator_8h_source.html">src/core/allocator.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="tensor_8h_source.html">src/core/tensor.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
@@ -113,27 +114,27 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">typename</span> *in_data = (<span class="keyword">typename</span> *)<a class="code" href="tensor_8h.html#a95932d53ee0f3524e74c5fbe86d41129">aitisa_tensor_data</a>(input);              \</div>
-<div class="line">  typename *out_data = (<span class="keyword">typename</span> *)<a class="code" href="tensor_8h.html#a95932d53ee0f3524e74c5fbe86d41129">aitisa_tensor_data</a>(*output);           \</div>
-<div class="line">  int64_t out_size = <a class="code" href="tensor_8h.html#a0c25f593d04a46e26ad846ea4b628241">aitisa_tensor_size</a>(*output);                         \</div>
-<div class="line">  for(<span class="keywordtype">int</span> out_linear_idx=0; out_linear_idx&lt;out_size; out_linear_idx++){   \</div>
-<div class="line">    <span class="comment">/* get the linear index of input data element */</span>                      \</div>
-<div class="line">    int64_t in_linear_idx = 0;                                            \</div>
-<div class="line">    for(<span class="keywordtype">int</span> i=0; i&lt;in_ndim; i++){                                         \</div>
-<div class="line">      in_linear_idx += index_recorder[i] * offset_recorder[i];            \</div>
-<div class="line">    }                                                                     \</div>
-<div class="line">    <span class="comment">/* transport the input data element to output data */</span>                 \</div>
-<div class="line">    out_data[out_linear_idx] = in_data[in_linear_idx];                    \</div>
-<div class="line">    <span class="comment">/* update the index_recorder */</span>                                       \</div>
-<div class="line">    for(<span class="keywordtype">int</span> i=in_ndim-1; i&gt;=0; i--){                                      \</div>
-<div class="line">      index_recorder[i] += step[i];                                       \</div>
-<div class="line">      <span class="comment">/* judge whether the index is out of boundary */</span>                    \</div>
-<div class="line">      if(index_recorder[i] &gt; boundary[i]){                                \</div>
-<div class="line">        index_recorder[i] = begin[i];                                     \</div>
-<div class="line">      }<span class="keywordflow">else</span>{                                                              \</div>
-<div class="line">        break;                                                            \</div>
-<div class="line">      }                                                                   \</div>
-<div class="line">    }                                                                     \</div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">typename</span> *in_data = (<span class="keyword">typename</span> *)<a class="code" href="tensor_8h.html#a95932d53ee0f3524e74c5fbe86d41129">aitisa_tensor_data</a>(input);                  \</div>
+<div class="line">  typename *out_data = (<span class="keyword">typename</span> *)<a class="code" href="tensor_8h.html#a95932d53ee0f3524e74c5fbe86d41129">aitisa_tensor_data</a>(*output);               \</div>
+<div class="line">  int64_t out_size = <a class="code" href="tensor_8h.html#a0c25f593d04a46e26ad846ea4b628241">aitisa_tensor_size</a>(*output);                             \</div>
+<div class="line">  for (<span class="keywordtype">int</span> out_linear_idx = 0; out_linear_idx &lt; out_size; out_linear_idx++) { \</div>
+<div class="line">    <span class="comment">/* Get the linear index of input data element */</span>                          \</div>
+<div class="line">    int64_t in_linear_idx = 0;                                                \</div>
+<div class="line">    for (<span class="keywordtype">int</span> i = 0; i &lt; in_ndim; i++) {                                       \</div>
+<div class="line">      in_linear_idx += index_recorder[i] * offset_recorder[i];                \</div>
+<div class="line">    }                                                                         \</div>
+<div class="line">    <span class="comment">/* Transport the input data element to output data */</span>                     \</div>
+<div class="line">    out_data[out_linear_idx] = in_data[in_linear_idx];                        \</div>
+<div class="line">    <span class="comment">/* Update the index_recorder */</span>                                           \</div>
+<div class="line">    for (<span class="keywordtype">int</span> i = in_ndim - 1; i &gt;= 0; i--) {                                  \</div>
+<div class="line">      index_recorder[i] += step[i];                                           \</div>
+<div class="line">      <span class="comment">/* Judge whether the index is out of boundary */</span>                        \</div>
+<div class="line">      if (index_recorder[i] &gt; boundary[i]) {                                  \</div>
+<div class="line">        index_recorder[i] = begin[i];                                         \</div>
+<div class="line">      } <span class="keywordflow">else</span> {                                                                \</div>
+<div class="line">        break;                                                                \</div>
+<div class="line">      }                                                                       \</div>
+<div class="line">    }                                                                         \</div>
 <div class="line">  }</div>
 </div><!-- fragment -->
 </div>

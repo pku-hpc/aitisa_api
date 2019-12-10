@@ -104,10 +104,10 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">typename</span> *in_data = <a class="code" href="tensor_8h.html#a95932d53ee0f3524e74c5fbe86d41129">aitisa_tensor_data</a>(input);      \</div>
-<div class="line">  typename *out_data = <a class="code" href="tensor_8h.html#a95932d53ee0f3524e74c5fbe86d41129">aitisa_tensor_data</a>(*output);    \</div>
-<div class="line">  for(int64_t i=0; i&lt;size; i++){                      \</div>
-<div class="line">    out_data[i] = (<span class="keyword">typename</span>)(1/(1+exp(-in_data[i]))); \</div>
+<b>Value:</b><div class="fragment"><div class="line"><span class="keyword">typename</span> *in_data = <a class="code" href="tensor_8h.html#a95932d53ee0f3524e74c5fbe86d41129">aitisa_tensor_data</a>(input);          \</div>
+<div class="line">  typename *out_data = <a class="code" href="tensor_8h.html#a95932d53ee0f3524e74c5fbe86d41129">aitisa_tensor_data</a>(*output);       \</div>
+<div class="line">  for (int64_t i = 0; i &lt; size; i++) {                    \</div>
+<div class="line">    out_data[i] = (<span class="keyword">typename</span>)(1 / (1 + exp(-in_data[i]))); \</div>
 <div class="line">  }</div>
 </div><!-- fragment -->
 </div>

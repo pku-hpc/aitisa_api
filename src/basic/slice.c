@@ -1,5 +1,6 @@
 #include "src/basic/slice.h"
 #include <inttypes.h>
+#include <stdbool.h>
 #include <math.h>
 #include "src/core/allocator.h"
 #include "src/core/tensor.h"
@@ -13,11 +14,9 @@ static Status slice_create_output(const Tensor input, int *begin, int *size,
   if (!out_dims_temp) {
     return STATUS_ALLOC_FAILED;
   }
-  for (int i = 0; i < in_ndim; i++) {
-    out_dims_temp[i] = (int)ceil((double)size[i] / (double)step[i]);
-  }
   int64_t out_ndim = 0;
   for (int i = 0; i < in_ndim; i++) {
+    out_dims_temp[i] = (int)ceil((double)size[i] / (double)step[i]);
     if (out_dims_temp[i] > 0) {
       out_ndim++;
     }
@@ -48,13 +47,10 @@ static Status slice_check_parameters(const Tensor input, int *begin, int *size,
   int64_t in_ndim = aitisa_tensor_ndim(input);
   int64_t *in_dims = aitisa_tensor_dims(input);
   for (int i = 0; i < in_ndim; i++) {
-    if (begin[i] < 0 || begin[i] >= in_dims[i]) {
-      return STATUS_INVALID_ARGUMENT;
-    }
-    if (size[i] < 0 || begin[i] + size[i] > in_dims[i]) {
-      return STATUS_INVALID_ARGUMENT;
-    }
-    if (step[i] < 1) {
+    bool cond_begin = begin[i] < 0 || begin[i] >= in_dims[i];
+    bool cond_size  = size[i] < 0  || begin[i] + size[i] > in_dims[i];
+    bool cond_step  = step[i] < 1;
+    if (cond_begin || cond_size || cond_step) {
       return STATUS_INVALID_ARGUMENT;
     }
   }
@@ -93,27 +89,19 @@ static Status slice_template(const Tensor input, int *begin, int *size,
   // element being processed, then initialize it
   int64_t *index_recorder = aitisa_default_cpu_allocator()->raw_alloc(
       sizeof(*index_recorder) * in_ndim);
-  if (!index_recorder) {
-    return STATUS_ALLOC_FAILED;
-  }
-  for (int i = 0; i < in_ndim; i++) {
-    index_recorder[i] = begin[i];
-  }
   // Make a boundary to judge whether the index is out of slice range
   int64_t *boundary =
       aitisa_default_cpu_allocator()->raw_alloc(sizeof(*boundary) * in_ndim);
-  if (!boundary) {
-    return STATUS_ALLOC_FAILED;
-  }
-  for (int i = 0; i < in_ndim; i++) {
-    boundary[i] = (int64_t)begin[i] + (int64_t)size[i] - 1;
-  }
   // Make an offset_recorder which records every linear offset of each
   // dimension
   int64_t *offset_recorder = aitisa_default_cpu_allocator()->raw_alloc(
       sizeof(*offset_recorder) * in_ndim);
-  if (!offset_recorder) {
+  if (!index_recorder || !boundary || !offset_recorder) {
     return STATUS_ALLOC_FAILED;
+  }
+  for (int i = 0; i < in_ndim; i++) {
+    index_recorder[i] = begin[i];
+    boundary[i] = (int64_t)begin[i] + (int64_t)size[i] - 1;
   }
   offset_recorder[in_ndim - 1] = 1;
   for (int i = in_ndim - 2; i >= 0; i--) {

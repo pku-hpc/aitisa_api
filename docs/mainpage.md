@@ -38,6 +38,7 @@ AITISA_API is an open-source library aiming to provide a reference implementatio
 - @ref aitisa_coords_to_linidx
 - @ref aitisa_linidx_to_coords
 - @ref aitisa_coords_to_offset
+- @ref aitisa_broadcast_array
 
 # Math Operations
 - @ref aitisa_add
