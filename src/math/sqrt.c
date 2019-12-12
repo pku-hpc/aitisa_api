@@ -1,4 +1,5 @@
 #include "src/math/sqrt.h"
+#include "src/core/dispatch.h"
 #include <math.h>
 
 static Status sqrt_create_output(const Tensor input, Tensor *output) {
@@ -28,50 +29,7 @@ static Status sqrt_template(const Tensor input, Tensor *output) {
   Status status = STATUS_SUCCESS;
   int64_t size = aitisa_tensor_size(input);
   DataType dtype = aitisa_tensor_data_type(input);
-  switch (dtype.code) {
-    case TYPE_INT8: {
-      sqrt_kernel(int8_t, input, output);
-      break;
-    }
-    case TYPE_UINT8: {
-      sqrt_kernel(uint8_t, input, output);
-      break;
-    }
-    case TYPE_INT16: {
-      sqrt_kernel(int16_t, input, output);
-      break;
-    }
-    case TYPE_UINT16: {
-      sqrt_kernel(uint16_t, input, output);
-      break;
-    }
-    case TYPE_INT32: {
-      sqrt_kernel(int32_t, input, output);
-      break;
-    }
-    case TYPE_UINT32: {
-      sqrt_kernel(uint32_t, input, output);
-      break;
-    }
-    case TYPE_INT64: {
-      sqrt_kernel(int64_t, input, output);
-      break;
-    }
-    case TYPE_UINT64: {
-      sqrt_kernel(uint64_t, input, output);
-      break;
-    }
-    case TYPE_FLOAT: {
-      sqrt_kernel(float, input, output);
-      break;
-    }
-    case TYPE_DOUBLE: {
-      sqrt_kernel(double, input, output);
-      break;
-    }
-    default:
-      status = STATUS_NOT_SUPPORTED;
-  }
+  AITISA_DISPATCH_ALL_TYPES_WITH_ARGS_RETURN(dtype, sqrt_kernel, input, output);
   return status;
 }
 

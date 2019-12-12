@@ -40,5 +40,4 @@ SetTypedValueFunc aitisa_set_typed_value_func(DataType dtype);
 SetTypedArrayValueFunc aitisa_set_typed_array_value_func(DataType dtype);
 CasttoTypedValueFunc aitisa_castto_typed_value_func(DataType dtype);
 
-
 #endif

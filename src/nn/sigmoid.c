@@ -1,4 +1,5 @@
 #include "src/nn/sigmoid.h"
+#include "src/core/dispatch.h"
 #include <math.h>
 
 #define sigmoid_kernel(typename)                          \
@@ -22,17 +23,6 @@ Status aitisa_sigmoid(const Tensor input, Tensor *output) {
   // Implement sigmoid
   Status status = STATUS_SUCCESS;
   int64_t size = aitisa_tensor_size(input);
-  switch (dtype.code) {
-    case TYPE_FLOAT: {
-      sigmoid_kernel(float);
-      break;
-    }
-    case TYPE_DOUBLE: {
-      sigmoid_kernel(double);
-      break;
-    }
-    default:
-      status = STATUS_NOT_SUPPORTED;
-  }
+  AITISA_DISPATCH_FLOATING_TYPES_RETURN(dtype, sigmoid_kernel);
   return status;
 }

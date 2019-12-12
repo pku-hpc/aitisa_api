@@ -3,6 +3,7 @@
 #include "src/basic/factories.h"
 #include "src/basic/slice.h"
 #include "src/core/allocator.h"
+#include "src/core/dispatch.h"
 #include "src/core/utils.h"
 #include "src/math/binary_op.h"
 #include "src/math/matmul.h"
@@ -17,50 +18,7 @@
 static Status dot_template(DataType dtype, void *data1, void *data2,
                            int64_t size, void *data_out) {
   Status status = STATUS_SUCCESS;
-  switch (dtype.code) {
-    case TYPE_INT8: {
-      dot_kernel(int8_t, data1, data2, size, data_out);
-      break;
-    }
-    case TYPE_UINT8: {
-      dot_kernel(uint8_t, data1, data2, size, data_out);
-      break;
-    }
-    case TYPE_INT16: {
-      dot_kernel(int16_t, data1, data2, size, data_out);
-      break;
-    }
-    case TYPE_UINT16: {
-      dot_kernel(uint16_t, data1, data2, size, data_out);
-      break;
-    }
-    case TYPE_INT32: {
-      dot_kernel(int32_t, data1, data2, size, data_out);
-      break;
-    }
-    case TYPE_UINT32: {
-      dot_kernel(uint32_t, data1, data2, size, data_out);
-      break;
-    }
-    case TYPE_INT64: {
-      dot_kernel(int64_t, data1, data2, size, data_out);
-      break;
-    }
-    case TYPE_UINT64: {
-      dot_kernel(uint64_t, data1, data2, size, data_out);
-      break;
-    }
-    case TYPE_FLOAT: {
-      dot_kernel(float, data1, data2, size, data_out);
-      break;
-    }
-    case TYPE_DOUBLE: {
-      dot_kernel(double, data1, data2, size, data_out);
-      break;
-    }
-    default:
-      status = STATUS_NOT_SUPPORTED;
-  }
+  AITISA_DISPATCH_ALL_TYPES_WITH_ARGS_RETURN(dtype, dot_kernel, data1, data2, size, data_out);
   return status;
 }
 
@@ -70,50 +28,7 @@ static Status dot_template(DataType dtype, void *data1, void *data2,
 
 static Status dot_get_value(const Tensor tensor, int idx, double *value) {
   DataType dtype = aitisa_tensor_data_type(tensor);
-  switch (dtype.code) {
-    case TYPE_INT8: {
-      dot_get_value_kernel(int8_t, tensor, idx, value);
-      break;
-    }
-    case TYPE_UINT8: {
-      dot_get_value_kernel(uint8_t, tensor, idx, value);
-      break;
-    }
-    case TYPE_INT16: {
-      dot_get_value_kernel(int16_t, tensor, idx, value);
-      break;
-    }
-    case TYPE_UINT16: {
-      dot_get_value_kernel(uint16_t, tensor, idx, value);
-      break;
-    }
-    case TYPE_INT32: {
-      dot_get_value_kernel(int32_t, tensor, idx, value);
-      break;
-    }
-    case TYPE_UINT32: {
-      dot_get_value_kernel(uint32_t, tensor, idx, value);
-      break;
-    }
-    case TYPE_INT64: {
-      dot_get_value_kernel(int64_t, tensor, idx, value);
-      break;
-    }
-    case TYPE_UINT64: {
-      dot_get_value_kernel(uint64_t, tensor, idx, value);
-      break;
-    }
-    case TYPE_FLOAT: {
-      dot_get_value_kernel(float, tensor, idx, value);
-      break;
-    }
-    case TYPE_DOUBLE: {
-      dot_get_value_kernel(double, tensor, idx, value);
-      break;
-    }
-    default:
-      return STATUS_NOT_SUPPORTED;
-  }
+  AITISA_DISPATCH_ALL_TYPES_WITH_ARGS_RETURN(dtype, dot_get_value_kernel, tensor, idx, value);
   return STATUS_SUCCESS;
 }
 
