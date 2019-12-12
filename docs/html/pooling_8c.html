@@ -74,60 +74,38 @@ $(function() {
 <div class="title">pooling.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="pooling_8h_source.html">src/nn/pooling.h</a>&quot;</code><br />
-<code>#include &lt;math.h&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="allocator_8h_source.html">src/core/allocator.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="dispatch_8h_source.html">src/core/dispatch.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="index__utils_8h_source.html">src/basic/index_utils.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="allocator_8h_source.html">src/core/allocator.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="utils_8h_source.html">src/core/utils.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="pooling_8h_source.html">src/nn/pooling.h</a>&quot;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a6c7e08d4ee8697294425eae40ccd12b3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#a6c7e08d4ee8697294425eae40ccd12b3">max_pooling_1d_kernel</a>(typename)</td></tr>
-<tr class="separator:a6c7e08d4ee8697294425eae40ccd12b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d1e6e261ab3970060b11152cc00237c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#a7d1e6e261ab3970060b11152cc00237c">avg_pooling_1d_kernel</a>(typename)</td></tr>
-<tr class="separator:a7d1e6e261ab3970060b11152cc00237c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65c54968feacc5029055db19ffd43f8a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#a65c54968feacc5029055db19ffd43f8a">max_pooling_2d_kernel</a>(typename)</td></tr>
-<tr class="separator:a65c54968feacc5029055db19ffd43f8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fd07903369db3e5f9428559a96f54cb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#a8fd07903369db3e5f9428559a96f54cb">avg_pooling_2d_kernel</a>(typename)</td></tr>
-<tr class="separator:a8fd07903369db3e5f9428559a96f54cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c75cca58378e202d9b4c435c555d12e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#a1c75cca58378e202d9b4c435c555d12e">max_pooling_3d_kernel</a>(typename)</td></tr>
-<tr class="separator:a1c75cca58378e202d9b4c435c555d12e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0d20af3e84f29d7d11f603c2d3455ba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#ae0d20af3e84f29d7d11f603c2d3455ba">avg_pooling_3d_kernel</a>(typename)</td></tr>
-<tr class="separator:ae0d20af3e84f29d7d11f603c2d3455ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bc47e22c55e189740a38029bf5e6a0f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#a0bc47e22c55e189740a38029bf5e6a0f">pooling_kernel</a>(typename)</td></tr>
+<tr class="separator:a0bc47e22c55e189740a38029bf5e6a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c59fcd2e850ed15680c828d8daa0b5f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#a9c59fcd2e850ed15680c828d8daa0b5f">pooling_output_element</a>(typename)</td></tr>
+<tr class="separator:a9c59fcd2e850ed15680c828d8daa0b5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8e42da4553302e0d5070c2f99647a46e"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#a8e42da4553302e0d5070c2f99647a46e">max_pooling_1d</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> input, const int *ksize, const int *stride, const int *padding, const int *dilation, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
-<tr class="separator:a8e42da4553302e0d5070c2f99647a46e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49a487d2aeb20886a9a54712c88b5322"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#a49a487d2aeb20886a9a54712c88b5322">avg_pooling_1d</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> input, const int *ksize, const int *stride, const int *padding, const int *dilation, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
-<tr class="separator:a49a487d2aeb20886a9a54712c88b5322"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5eef8f5b4ee7710b16ed8e55e29b14a6"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#a5eef8f5b4ee7710b16ed8e55e29b14a6">pooling_1d</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> input, const char *mode, const int *ksize, const int *stride, const int *padding, const int *dilation, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
-<tr class="separator:a5eef8f5b4ee7710b16ed8e55e29b14a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab602940053fbcc8d31c552580ecb16ba"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#ab602940053fbcc8d31c552580ecb16ba">max_pooling_2d</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> input, const int *ksize, const int *stride, const int *padding, const int *dilation, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
-<tr class="separator:ab602940053fbcc8d31c552580ecb16ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90845bea8aa60a13683e148e707a17a7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#a90845bea8aa60a13683e148e707a17a7">avg_pooling_2d</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> input, const int *ksize, const int *stride, const int *padding, const int *dilation, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
-<tr class="separator:a90845bea8aa60a13683e148e707a17a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b0b986f77b10ee84cca4fc39fdcf7a7"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#a8b0b986f77b10ee84cca4fc39fdcf7a7">pooling_2d</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> input, const char *mode, const int *ksize, const int *stride, const int *padding, const int *dilation, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
-<tr class="separator:a8b0b986f77b10ee84cca4fc39fdcf7a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77ba820f0391b1316ac9cb5cc86a2785"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#a77ba820f0391b1316ac9cb5cc86a2785">max_pooling_3d</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> input, const int *ksize, const int *stride, const int *padding, const int *dilation, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
-<tr class="separator:a77ba820f0391b1316ac9cb5cc86a2785"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49f45a657e0d55384140f8cf655b7b7f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#a49f45a657e0d55384140f8cf655b7b7f">avg_pooling_3d</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> input, const int *ksize, const int *stride, const int *padding, const int *dilation, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
-<tr class="separator:a49f45a657e0d55384140f8cf655b7b7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4274f72a2a853072b3a67e496a546d06"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#a4274f72a2a853072b3a67e496a546d06">pooling_3d</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> input, const char *mode, const int *ksize, const int *stride, const int *padding, const int *dilation, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
-<tr class="separator:a4274f72a2a853072b3a67e496a546d06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30bf04d198c7a41f4a4f5839c89100d6"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#a30bf04d198c7a41f4a4f5839c89100d6">pooling_create_output</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> input, int64_t *out_dims, const int *ksize, const int *stride, const int *padding, const int *dilation, const int axis, int64_t c_start, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
+<tr class="separator:a30bf04d198c7a41f4a4f5839c89100d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1d691ac69f6b1554bd8383efc496ee3"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#af1d691ac69f6b1554bd8383efc496ee3">pooling_double</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> input, const char *mode, const int *ksize, const int *stride, const int *padding, const int *dilation, const int axis, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
+<tr class="separator:af1d691ac69f6b1554bd8383efc496ee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad061e28180ec47569970fbe30e7ddd97"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pooling_8c.html#ad061e28180ec47569970fbe30e7ddd97">aitisa_pooling</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> input, const char *mode, const int *ksize, const int *stride, const int *padding, const int *dilation, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
 <tr class="memdesc:ad061e28180ec47569970fbe30e7ddd97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies a pooling over an input signal composed of several feature maps.  <a href="pooling_8c.html#ad061e28180ec47569970fbe30e7ddd97">More...</a><br /></td></tr>
 <tr class="separator:ad061e28180ec47569970fbe30e7ddd97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a7d1e6e261ab3970060b11152cc00237c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d1e6e261ab3970060b11152cc00237c">&#9670;&nbsp;</a></span>avg_pooling_1d_kernel</h2>
+<a id="a0bc47e22c55e189740a38029bf5e6a0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bc47e22c55e189740a38029bf5e6a0f">&#9670;&nbsp;</a></span>pooling_kernel</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define avg_pooling_1d_kernel</td>
+          <td class="memname">#define pooling_kernel</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">typename</td><td>)</td>
@@ -135,17 +113,25 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">if</span>(!strcmp(mode, <span class="stringliteral">&quot;avg&quot;</span>)){                           \</div>
+<div class="line">    temp += ((<span class="keyword">typename</span>*)in_data)[linear_idx];         \</div>
+<div class="line">  }                                                   \</div>
+<div class="line">  else <span class="keywordflow">if</span> (!strcmp(mode, <span class="stringliteral">&quot;max&quot;</span>)) {                    \</div>
+<div class="line">    if (temp &lt; ((<span class="keyword">typename</span>*)in_data)[linear_idx]) {    \</div>
+<div class="line">      temp = ((<span class="keyword">typename</span>*)in_data)[linear_idx];        \</div>
+<div class="line">    }                                                 \</div>
+<div class="line">  }</div>
+</div><!-- fragment -->
 </div>
 </div>
-<a id="a8fd07903369db3e5f9428559a96f54cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8fd07903369db3e5f9428559a96f54cb">&#9670;&nbsp;</a></span>avg_pooling_2d_kernel</h2>
+<a id="a9c59fcd2e850ed15680c828d8daa0b5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c59fcd2e850ed15680c828d8daa0b5f">&#9670;&nbsp;</a></span>pooling_output_element</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define avg_pooling_2d_kernel</td>
+          <td class="memname">#define pooling_output_element</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">typename</td><td>)</td>
@@ -153,79 +139,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae0d20af3e84f29d7d11f603c2d3455ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0d20af3e84f29d7d11f603c2d3455ba">&#9670;&nbsp;</a></span>avg_pooling_3d_kernel</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define avg_pooling_3d_kernel</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">typename</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6c7e08d4ee8697294425eae40ccd12b3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c7e08d4ee8697294425eae40ccd12b3">&#9670;&nbsp;</a></span>max_pooling_1d_kernel</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define max_pooling_1d_kernel</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">typename</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a65c54968feacc5029055db19ffd43f8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65c54968feacc5029055db19ffd43f8a">&#9670;&nbsp;</a></span>max_pooling_2d_kernel</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define max_pooling_2d_kernel</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">typename</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1c75cca58378e202d9b4c435c555d12e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c75cca58378e202d9b4c435c555d12e">&#9670;&nbsp;</a></span>max_pooling_3d_kernel</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define max_pooling_3d_kernel</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">typename</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line"><span class="keywordflow">if</span>(!strcmp(mode, <span class="stringliteral">&quot;avg&quot;</span>)){                                                   \</div>
+<div class="line">    ((<span class="keyword">typename</span>*)out_data)[out_linear_idx] = (<span class="keyword">typename</span>)(temp / window_size);   \</div>
+<div class="line">  }                                                                           \</div>
+<div class="line">  else <span class="keywordflow">if</span> (!strcmp(mode, <span class="stringliteral">&quot;max&quot;</span>)) {                                            \</div>
+<div class="line">    ((<span class="keyword">typename</span>*)out_data)[out_linear_idx] = (<span class="keyword">typename</span>)temp;                   \</div>
+<div class="line">  }</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
@@ -302,8 +222,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a49a487d2aeb20886a9a54712c88b5322"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49a487d2aeb20886a9a54712c88b5322">&#9670;&nbsp;</a></span>avg_pooling_1d()</h2>
+<a id="a30bf04d198c7a41f4a4f5839c89100d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30bf04d198c7a41f4a4f5839c89100d6">&#9670;&nbsp;</a></span>pooling_create_output()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -312,10 +232,16 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> avg_pooling_1d </td>
+          <td class="memname">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> pooling_create_output </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a>&#160;</td>
           <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int64_t *&#160;</td>
+          <td class="paramname"><em>out_dims</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -344,62 +270,14 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *&#160;</td>
-          <td class="paramname"><em>output</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a90845bea8aa60a13683e148e707a17a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90845bea8aa60a13683e148e707a17a7">&#9670;&nbsp;</a></span>avg_pooling_2d()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> avg_pooling_2d </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a>&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>axis</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>ksize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>stride</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>padding</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>dilation</em>, </td>
+          <td class="paramtype">int64_t&#160;</td>
+          <td class="paramname"><em>c_start</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -422,8 +300,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a49f45a657e0d55384140f8cf655b7b7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49f45a657e0d55384140f8cf655b7b7f">&#9670;&nbsp;</a></span>avg_pooling_3d()</h2>
+<a id="af1d691ac69f6b1554bd8383efc496ee3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1d691ac69f6b1554bd8383efc496ee3">&#9670;&nbsp;</a></span>pooling_double()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -432,247 +310,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> avg_pooling_3d </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a>&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>ksize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>stride</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>padding</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>dilation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *&#160;</td>
-          <td class="paramname"><em>output</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8e42da4553302e0d5070c2f99647a46e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e42da4553302e0d5070c2f99647a46e">&#9670;&nbsp;</a></span>max_pooling_1d()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> max_pooling_1d </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a>&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>ksize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>stride</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>padding</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>dilation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *&#160;</td>
-          <td class="paramname"><em>output</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab602940053fbcc8d31c552580ecb16ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab602940053fbcc8d31c552580ecb16ba">&#9670;&nbsp;</a></span>max_pooling_2d()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> max_pooling_2d </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a>&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>ksize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>stride</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>padding</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>dilation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *&#160;</td>
-          <td class="paramname"><em>output</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a77ba820f0391b1316ac9cb5cc86a2785"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77ba820f0391b1316ac9cb5cc86a2785">&#9670;&nbsp;</a></span>max_pooling_3d()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> max_pooling_3d </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a>&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>ksize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>stride</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>padding</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>dilation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *&#160;</td>
-          <td class="paramname"><em>output</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5eef8f5b4ee7710b16ed8e55e29b14a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5eef8f5b4ee7710b16ed8e55e29b14a6">&#9670;&nbsp;</a></span>pooling_1d()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> pooling_1d </td>
+          <td class="memname">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> pooling_double </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a>&#160;</td>
           <td class="paramname"><em>input</em>, </td>
@@ -710,134 +348,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *&#160;</td>
-          <td class="paramname"><em>output</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8b0b986f77b10ee84cca4fc39fdcf7a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b0b986f77b10ee84cca4fc39fdcf7a7">&#9670;&nbsp;</a></span>pooling_2d()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> pooling_2d </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a>&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>mode</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>ksize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>stride</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>padding</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>dilation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *&#160;</td>
-          <td class="paramname"><em>output</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4274f72a2a853072b3a67e496a546d06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4274f72a2a853072b3a67e496a546d06">&#9670;&nbsp;</a></span>pooling_3d()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> pooling_3d </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a>&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>mode</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>ksize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>stride</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>padding</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const int *&#160;</td>
-          <td class="paramname"><em>dilation</em>, </td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>axis</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

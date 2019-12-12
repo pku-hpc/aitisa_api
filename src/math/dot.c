@@ -115,32 +115,22 @@ static Status tensor_vector_dot(const Tensor tensor1, const Tensor tensor2,
   // Make an index recorder of vectors in tensor1 then initialize it
   int *index_recorder = aitisa_default_cpu_allocator()->raw_alloc(
       sizeof(*index_recorder) * ndim_tensor1);
-  if (!index_recorder) {
-    return STATUS_ALLOC_FAILED;
-  }
-  for (int64_t i = 0; i < ndim_tensor1; i++) {
-    index_recorder[i] = 0;
-  }
   // Make parameters for slice
   // size
   int *size =
       aitisa_default_cpu_allocator()->raw_alloc(sizeof(*size) * ndim_tensor1);
-  if (!size) {
-    return STATUS_ALLOC_FAILED;
-  }
-  for (int64_t i = 0; i < ndim_tensor1 - 1; i++) {
-    size[i] = 0;
-  }
-  size[ndim_tensor1 - 1] = tensor1_dims[ndim_tensor1 - 1];
   // step
   int *step =
       aitisa_default_cpu_allocator()->raw_alloc(sizeof(*step) * ndim_tensor1);
-  if (!step) {
+  if (!index_recorder || !size || !step) {
     return STATUS_ALLOC_FAILED;
   }
   for (int64_t i = 0; i < ndim_tensor1; i++) {
+    index_recorder[i] = 0;
+    size[i] = 0;
     step[i] = 1;
   }
+  size[ndim_tensor1 - 1] = tensor1_dims[ndim_tensor1 - 1];
   // Implement tensor-vector dot
   int64_t nvec_tensor1 =
       size_to_dim(ndim_tensor1 - 1, tensor1_dims, ndim_tensor1);

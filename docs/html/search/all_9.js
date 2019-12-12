@@ -1,20 +1,8 @@
 var searchData=
 [
-  ['macros_2eh_177',['macros.h',['../macros_8h.html',1,'']]],
-  ['mainpage_2emd_178',['mainpage.md',['../mainpage_8md.html',1,'']]],
-  ['matmul_2ec_179',['matmul.c',['../matmul_8c.html',1,'']]],
-  ['matmul_2eh_180',['matmul.h',['../matmul_8h.html',1,'']]],
-  ['max_5fint64_5f_181',['max_int64_',['../matmul_8c.html#a535d62f9b4aa6980eb461bd6d86f5c89',1,'matmul.c']]],
-  ['max_5fpooling_5f1d_182',['max_pooling_1d',['../pooling_8c.html#a8e42da4553302e0d5070c2f99647a46e',1,'pooling.c']]],
-  ['max_5fpooling_5f1d_5fkernel_183',['max_pooling_1d_kernel',['../pooling_8c.html#a6c7e08d4ee8697294425eae40ccd12b3',1,'pooling.c']]],
-  ['max_5fpooling_5f2d_184',['max_pooling_2d',['../pooling_8c.html#ab602940053fbcc8d31c552580ecb16ba',1,'pooling.c']]],
-  ['max_5fpooling_5f2d_5fkernel_185',['max_pooling_2d_kernel',['../pooling_8c.html#a65c54968feacc5029055db19ffd43f8a',1,'pooling.c']]],
-  ['max_5fpooling_5f3d_186',['max_pooling_3d',['../pooling_8c.html#a77ba820f0391b1316ac9cb5cc86a2785',1,'pooling.c']]],
-  ['max_5fpooling_5f3d_5fkernel_187',['max_pooling_3d_kernel',['../pooling_8c.html#a1c75cca58378e202d9b4c435c555d12e',1,'pooling.c']]],
-  ['min2maj_188',['min2maj',['../structLayout.html#ac55d4a0d5802d6910c4aa561464de667',1,'Layout']]],
-  ['mm_5fkernel_189',['MM_KERNEL',['../matmul_8c.html#a717d9a3c7022ffb9121cacb0f8281843',1,'matmul.c']]],
-  ['mm_5ftemplate_190',['mm_template',['../matmul_8c.html#a2a82591e6d40473d4990b9376a76aa2a',1,'matmul.c']]],
-  ['multidim_5fdot_191',['multidim_dot',['../dot_8c.html#a9e3365976c8fbc00f0ede38e3d25552b',1,'dot.c']]],
-  ['mv_5fkernel_192',['MV_KERNEL',['../matmul_8c.html#a8895e811548a6be6af233e1704ad0f6e',1,'matmul.c']]],
-  ['mv_5ftemplate_193',['mv_template',['../matmul_8c.html#a67f435bf6c27842213541b1904785604',1,'matmul.c']]]
+  ['layout_181',['Layout',['../structLayout.html',1,'Layout'],['../structShape.html#a28ad5c30b34568fe943cf4005886a710',1,'Shape::layout()']]],
+  ['layout_5fdense_182',['LAYOUT_DENSE',['../shape_8h.html#aaf71c596602a7233419387100afbd329a6e6334dd6714385d912a1b76136c4c75',1,'shape.h']]],
+  ['layout_5fsparse_183',['LAYOUT_SPARSE',['../shape_8h.html#aaf71c596602a7233419387100afbd329aeeef1756bde2af5168af007daf5b179a',1,'shape.h']]],
+  ['layouttype_184',['LayoutType',['../shape_8h.html#aaf71c596602a7233419387100afbd329',1,'shape.h']]],
+  ['log_2eh_185',['log.h',['../log_8h.html',1,'']]]
 ];

@@ -78,6 +78,7 @@ $(function() {
 <code>#include &quot;<a class="el" href="broadcast_8h_source.html">src/basic/broadcast.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="factories_8h_source.html">src/basic/factories.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="allocator_8h_source.html">src/core/allocator.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="dispatch_8h_source.html">src/core/dispatch.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="utils_8h_source.html">src/core/utils.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -97,14 +98,14 @@ Functions</h2></td></tr>
 <tr class="separator:a535d62f9b4aa6980eb461bd6d86f5c89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a294a6e1e7a068b708da8e0ae5a1e7642"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a294a6e1e7a068b708da8e0ae5a1e7642">batch_strides</a> (int64_t *dims, int64_t ndim, int64_t *strides, int64_t nstride)</td></tr>
 <tr class="separator:a294a6e1e7a068b708da8e0ae5a1e7642"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3515229dedded925abddd21165b49bdb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a3515229dedded925abddd21165b49bdb">vv_template</a> (<a class="el" href="structDataType.html">DataType</a> dtype, void *X, void *Y, void *Z, int64_t L, <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> *status)</td></tr>
-<tr class="separator:a3515229dedded925abddd21165b49bdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67f435bf6c27842213541b1904785604"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a67f435bf6c27842213541b1904785604">mv_template</a> (<a class="el" href="structDataType.html">DataType</a> dtype, void *A, void *X, void *B, int64_t M, int64_t N, <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> *status)</td></tr>
-<tr class="separator:a67f435bf6c27842213541b1904785604"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a82591e6d40473d4990b9376a76aa2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a2a82591e6d40473d4990b9376a76aa2a">mm_template</a> (<a class="el" href="structDataType.html">DataType</a> dtype, void *A, void *B, void *C, int64_t M, int64_t K, int64_t N, <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> *status)</td></tr>
-<tr class="separator:a2a82591e6d40473d4990b9376a76aa2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb5fdb83f0fa6dee2137cd28c7d9c062"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#acb5fdb83f0fa6dee2137cd28c7d9c062">batch_mm_template</a> (<a class="el" href="structDataType.html">DataType</a> dtype, void **As, void **Bs, void **Cs, int64_t M, int64_t K, int64_t N, int64_t n_batch, <a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> *status)</td></tr>
-<tr class="separator:acb5fdb83f0fa6dee2137cd28c7d9c062"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32ebd4b86bd7c48adbf1ce82730f16f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a32ebd4b86bd7c48adbf1ce82730f16f4">vv_template</a> (<a class="el" href="structDataType.html">DataType</a> dtype, void *X, void *Y, void *Z, int64_t L)</td></tr>
+<tr class="separator:a32ebd4b86bd7c48adbf1ce82730f16f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a411677ec75e0e244e310333819360075"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a411677ec75e0e244e310333819360075">mv_template</a> (<a class="el" href="structDataType.html">DataType</a> dtype, void *A, void *X, void *B, int64_t M, int64_t N)</td></tr>
+<tr class="separator:a411677ec75e0e244e310333819360075"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62ca1b2e29ccf9be8ffda9d6f4f90e5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a62ca1b2e29ccf9be8ffda9d6f4f90e5e">mm_template</a> (<a class="el" href="structDataType.html">DataType</a> dtype, void *A, void *B, void *C, int64_t M, int64_t K, int64_t N)</td></tr>
+<tr class="separator:a62ca1b2e29ccf9be8ffda9d6f4f90e5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c29f12ef181e8e5d9937abae2f62c56"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a6c29f12ef181e8e5d9937abae2f62c56">batch_mm_template</a> (<a class="el" href="structDataType.html">DataType</a> dtype, void **As, void **Bs, void **Cs, int64_t M, int64_t K, int64_t N, int64_t n_batch)</td></tr>
+<tr class="separator:a6c29f12ef181e8e5d9937abae2f62c56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96128f58a1132189851c3654b1beae70"><td class="memItemLeft" align="right" valign="top"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matmul_8c.html#a96128f58a1132189851c3654b1beae70">aitisa_matmul</a> (const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> tensor1, const <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> tensor2, <a class="el" href="tensor_8h.html#a621a4e61b2dc779bfe3f7b216051f100">Tensor</a> *output)</td></tr>
 <tr class="memdesc:a96128f58a1132189851c3654b1beae70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Matrix multiplication of tensor1 and tensor2.  <a href="matmul_8c.html#a96128f58a1132189851c3654b1beae70">More...</a><br /></td></tr>
 <tr class="separator:a96128f58a1132189851c3654b1beae70"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -409,14 +410,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="acb5fdb83f0fa6dee2137cd28c7d9c062"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb5fdb83f0fa6dee2137cd28c7d9c062">&#9670;&nbsp;</a></span>batch_mm_template()</h2>
+<a id="a6c29f12ef181e8e5d9937abae2f62c56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c29f12ef181e8e5d9937abae2f62c56">&#9670;&nbsp;</a></span>batch_mm_template()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void batch_mm_template </td>
+          <td class="memname"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> batch_mm_template </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structDataType.html">DataType</a>&#160;</td>
           <td class="paramname"><em>dtype</em>, </td>
@@ -461,13 +462,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int64_t&#160;</td>
-          <td class="paramname"><em>n_batch</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> *&#160;</td>
-          <td class="paramname"><em>status</em>&#160;</td>
+          <td class="paramname"><em>n_batch</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -547,14 +542,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a2a82591e6d40473d4990b9376a76aa2a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a82591e6d40473d4990b9376a76aa2a">&#9670;&nbsp;</a></span>mm_template()</h2>
+<a id="a62ca1b2e29ccf9be8ffda9d6f4f90e5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62ca1b2e29ccf9be8ffda9d6f4f90e5e">&#9670;&nbsp;</a></span>mm_template()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void mm_template </td>
+          <td class="memname"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> mm_template </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structDataType.html">DataType</a>&#160;</td>
           <td class="paramname"><em>dtype</em>, </td>
@@ -593,13 +588,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int64_t&#160;</td>
-          <td class="paramname"><em>N</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> *&#160;</td>
-          <td class="paramname"><em>status</em>&#160;</td>
+          <td class="paramname"><em>N</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -611,14 +600,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a67f435bf6c27842213541b1904785604"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67f435bf6c27842213541b1904785604">&#9670;&nbsp;</a></span>mv_template()</h2>
+<a id="a411677ec75e0e244e310333819360075"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a411677ec75e0e244e310333819360075">&#9670;&nbsp;</a></span>mv_template()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void mv_template </td>
+          <td class="memname"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> mv_template </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structDataType.html">DataType</a>&#160;</td>
           <td class="paramname"><em>dtype</em>, </td>
@@ -651,13 +640,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int64_t&#160;</td>
-          <td class="paramname"><em>N</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> *&#160;</td>
-          <td class="paramname"><em>status</em>&#160;</td>
+          <td class="paramname"><em>N</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -669,14 +652,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a3515229dedded925abddd21165b49bdb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3515229dedded925abddd21165b49bdb">&#9670;&nbsp;</a></span>vv_template()</h2>
+<a id="a32ebd4b86bd7c48adbf1ce82730f16f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32ebd4b86bd7c48adbf1ce82730f16f4">&#9670;&nbsp;</a></span>vv_template()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void vv_template </td>
+          <td class="memname"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> vv_template </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structDataType.html">DataType</a>&#160;</td>
           <td class="paramname"><em>dtype</em>, </td>
@@ -703,13 +686,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int64_t&#160;</td>
-          <td class="paramname"><em>L</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="status_8h.html#a67a0db04d321a74b7e7fcfd3f1a3f70b">Status</a> *&#160;</td>
-          <td class="paramname"><em>status</em>&#160;</td>
+          <td class="paramname"><em>L</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

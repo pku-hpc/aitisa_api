@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['layout_173',['Layout',['../structLayout.html',1,'Layout'],['../structShape.html#a28ad5c30b34568fe943cf4005886a710',1,'Shape::layout()']]],
-  ['layout_5fdense_174',['LAYOUT_DENSE',['../shape_8h.html#aaf71c596602a7233419387100afbd329a6e6334dd6714385d912a1b76136c4c75',1,'shape.h']]],
-  ['layout_5fsparse_175',['LAYOUT_SPARSE',['../shape_8h.html#aaf71c596602a7233419387100afbd329aeeef1756bde2af5168af007daf5b179a',1,'shape.h']]],
-  ['layouttype_176',['LayoutType',['../shape_8h.html#aaf71c596602a7233419387100afbd329',1,'shape.h']]]
+  ['id_177',['id',['../structDevice.html#acba8d88e9870a9c9e034c4e438264655',1,'Device']]],
+  ['index_5futils_2ec_178',['index_utils.c',['../index__utils_8c.html',1,'']]],
+  ['index_5futils_2eh_179',['index_utils.h',['../index__utils_8h.html',1,'']]],
+  ['info_180',['INFO',['../log_8h.html#a3fd9bd2100828b9bfb78e189171a55b0a748005382152808a72b1a9177d9dc806',1,'log.h']]]
 ];
