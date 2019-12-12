@@ -1,5 +1,6 @@
 #include "src/core/tensor.h"
 #include "src/core/allocator.h"
+#include "src/core/dispatch.h"
 #include "src/nn/softmax.h"
 #include <math.h>
 
@@ -34,50 +35,7 @@ static Status softmax_create_output(const Tensor input, Tensor *output){
 static Status softmax_with_all(const Tensor input, Tensor *output){
   // Choose the right data type
   DataType dtype = aitisa_tensor_data_type(input);
-  switch(dtype.code){
-    case TYPE_INT8: {
-      softmax_with_all_kernel(int8_t, input, output);
-      break;
-    }
-    case TYPE_UINT8: {
-      softmax_with_all_kernel(uint8_t, input, output);
-      break;
-    }
-    case TYPE_INT16: {
-      softmax_with_all_kernel(int16_t, input, output);
-      break;
-    }
-    case TYPE_UINT16: {
-      softmax_with_all_kernel(uint16_t, input, output);
-      break;
-    }
-    case TYPE_INT32: {
-      softmax_with_all_kernel(int32_t, input, output);
-      break;
-    }
-    case TYPE_UINT32: {
-      softmax_with_all_kernel(uint32_t, input, output);
-      break;
-    }
-    case TYPE_INT64: {
-      softmax_with_all_kernel(int64_t, input, output);
-      break;
-    }
-    case TYPE_UINT64: {
-      softmax_with_all_kernel(uint64_t, input, output);
-      break;
-    }
-    case TYPE_FLOAT: {
-      softmax_with_all_kernel(float, input, output);
-      break;
-    }
-    case TYPE_DOUBLE: {
-      softmax_with_all_kernel(double, input, output);
-      break;
-    }
-    default:
-      return STATUS_NOT_SUPPORTED;
-    }
+  AITISA_DISPATCH_ALL_TYPES_WITH_ARGS_RETURN(dtype, softmax_with_all_kernel, input, output);
   return STATUS_SUCCESS;
 }
 
@@ -165,50 +123,7 @@ static Status softmax_along_axis(const Tensor input, const int axis,
 
   // Choose the right data type
   DataType dtype = aitisa_tensor_data_type(input);
-  switch(dtype.code){
-    case TYPE_INT8: {
-      softmax_along_axis_kernel(int8_t);
-      break;
-    }
-    case TYPE_UINT8: {
-      softmax_along_axis_kernel(uint8_t);
-      break;
-    }
-    case TYPE_INT16: {
-      softmax_along_axis_kernel(int16_t);
-      break;
-    }
-    case TYPE_UINT16: {
-      softmax_along_axis_kernel(uint16_t);
-      break;
-    }
-    case TYPE_INT32: {
-      softmax_along_axis_kernel(int32_t);
-      break;
-    }
-    case TYPE_UINT32: {
-      softmax_along_axis_kernel(uint32_t);
-      break;
-    }
-    case TYPE_INT64: {
-      softmax_along_axis_kernel(int64_t);
-      break;
-    }
-    case TYPE_UINT64: {
-      softmax_along_axis_kernel(uint64_t);
-      break;
-    }
-    case TYPE_FLOAT: {
-      softmax_along_axis_kernel(float)
-      break;
-    }
-    case TYPE_DOUBLE: {
-      softmax_along_axis_kernel(double);
-      break;
-    }
-    default:
-      return STATUS_NOT_SUPPORTED;
-  }
+  AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, softmax_along_axis_kernel);
   return STATUS_SUCCESS;
 }
 

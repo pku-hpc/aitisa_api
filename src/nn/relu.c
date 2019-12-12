@@ -1,4 +1,5 @@
 #include "src/nn/relu.h"
+#include "src/core/dispatch.h"
 
 #define relu_kernel(typename)                       \
   typename *in_data = aitisa_tensor_data(input);    \
@@ -25,49 +26,6 @@ Status aitisa_relu(const Tensor input, Tensor *output) {
   // Implement relu
   int64_t size = aitisa_tensor_size(input);
   Status status = STATUS_SUCCESS;
-  switch (dtype.code) {
-    case TYPE_INT8: {
-      relu_kernel(int8_t);
-      break;
-    }
-    case TYPE_UINT8: {
-      relu_kernel(uint8_t);
-      break;
-    }
-    case TYPE_INT16: {
-      relu_kernel(int16_t);
-      break;
-    }
-    case TYPE_UINT16: {
-      relu_kernel(uint16_t);
-      break;
-    }
-    case TYPE_INT32: {
-      relu_kernel(int32_t);
-      break;
-    }
-    case TYPE_UINT32: {
-      relu_kernel(uint32_t);
-      break;
-    }
-    case TYPE_INT64: {
-      relu_kernel(int64_t);
-      break;
-    }
-    case TYPE_UINT64: {
-      relu_kernel(uint64_t);
-      break;
-    }
-    case TYPE_FLOAT: {
-      relu_kernel(float);
-      break;
-    }
-    case TYPE_DOUBLE: {
-      relu_kernel(double);
-      break;
-    }
-    default:
-      status = STATUS_NOT_SUPPORTED;
-  }
+  AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, relu_kernel);
   return status;
 }

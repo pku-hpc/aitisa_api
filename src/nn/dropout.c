@@ -1,6 +1,7 @@
 #include "src/nn/dropout.h"
 #include <time.h>
 #include "src/basic/duplicate.h"
+#include "src/core/dispatch.h"
 
 #define dropout_kernel(typename)                            \
   typename *data = (typename *)aitisa_tensor_data(*tensor); \
@@ -18,50 +19,7 @@ static Status dropout_template(Tensor *tensor, const double rate) {
   Status status = STATUS_SUCCESS;
   srand(time(NULL));
   int rate_line = (int)(rate * 100);
-  switch (dtype.code) {
-    case TYPE_INT8: {
-      dropout_kernel(int8_t);
-      break;
-    }
-    case TYPE_UINT8: {
-      dropout_kernel(uint8_t);
-      break;
-    }
-    case TYPE_INT16: {
-      dropout_kernel(int16_t);
-      break;
-    }
-    case TYPE_UINT16: {
-      dropout_kernel(uint16_t);
-      break;
-    }
-    case TYPE_INT32: {
-      dropout_kernel(int32_t);
-      break;
-    }
-    case TYPE_UINT32: {
-      dropout_kernel(uint32_t);
-      break;
-    }
-    case TYPE_INT64: {
-      dropout_kernel(int64_t);
-      break;
-    }
-    case TYPE_UINT64: {
-      dropout_kernel(uint64_t);
-      break;
-    }
-    case TYPE_FLOAT: {
-      dropout_kernel(float);
-      break;
-    }
-    case TYPE_DOUBLE: {
-      dropout_kernel(double);
-      break;
-    }
-    default:
-      status = STATUS_NOT_SUPPORTED;
-  }
+  AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, dropout_kernel);
   return status;
 }
 

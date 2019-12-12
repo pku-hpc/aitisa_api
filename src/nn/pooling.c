@@ -1,4 +1,5 @@
 #include "src/core/allocator.h"
+#include "src/core/dispatch.h"
 #include "src/basic/index_utils.h"
 #include "src/nn/pooling.h"
 #include <math.h>
@@ -23,17 +24,17 @@
 
 
 static Status pooling_create_output(const Tensor input, int64_t *out_dims,
-                             const int *ksize,	 const int *stride,
-                             const int *padding, const int *dilation,
-                             const int axis,     int64_t c_start,
-                             Tensor *output){
+                                    const int *ksize,	  const int *stride,
+                                    const int *padding, const int *dilation,
+                                    const int axis,     int64_t c_start,
+                                    Tensor *output){
   int64_t ndim = aitisa_tensor_ndim(input);
   int64_t *in_dims = aitisa_tensor_dims(input);
   out_dims[0] = in_dims[0];
   out_dims[axis] = in_dims[axis];
-  for(int64_t i=c_start; i<c_start+ndim-2; i++){
-    double temp = in_dims[i]+2.0*padding[i-c_start]-
-                  dilation[i-c_start]*(ksize[i-c_start]-1);
+  for(int64_t i = c_start; i < c_start + ndim - 2; i++){
+    double temp = in_dims[i] + 2.0 * padding[i - c_start] -
+                  dilation[i - c_start] * (ksize[i - c_start] - 1);
     out_dims[i] = (int64_t)floor((temp-1)/stride[i-c_start] + 1 );
   }
   DataType dtype = aitisa_tensor_data_type(input);
@@ -44,9 +45,9 @@ static Status pooling_create_output(const Tensor input, int64_t *out_dims,
 }
 
 static Status pooling_double(const Tensor input, const char *mode,
-                               const int *ksize,	 const int *stride,
-                               const int *padding, const int *dilation,
-                               const int axis,     Tensor *output){
+                             const int *ksize,	 const int *stride,
+                             const int *padding, const int *dilation,
+                             const int axis,     Tensor *output){
   int64_t ndim = aitisa_tensor_ndim(input);
   int64_t *in_dims = aitisa_tensor_dims(input);
   int64_t c_start = axis==1?2:1;
@@ -122,50 +123,7 @@ static Status pooling_double(const Tensor input, const char *mode,
           }
           // need to consider padding
           if(!padded){
-            switch (dtype.code) {
-              case TYPE_INT8: {
-                pooling_kernel(int8_t);
-                break;
-              }
-              case TYPE_UINT8: {
-                pooling_kernel(uint8_t);
-                break;
-              }
-              case TYPE_INT16: {
-                pooling_kernel(int16_t);
-                break;
-              }
-              case TYPE_UINT16: {
-                pooling_kernel(uint16_t);
-                break;
-              }
-              case TYPE_INT32: {
-                pooling_kernel(int32_t);
-                break;
-              }
-              case TYPE_UINT32: {
-                pooling_kernel(uint32_t);
-                break;
-              }
-              case TYPE_INT64: {
-                pooling_kernel(int64_t);
-                break;
-              }
-              case TYPE_UINT64: {
-                pooling_kernel(uint64_t);
-                break;
-              }
-              case TYPE_FLOAT: {
-                pooling_kernel(float);
-                break;
-              }
-              case TYPE_DOUBLE: {
-                pooling_kernel(double);
-                break;
-              }
-              default:
-                return STATUS_NOT_SUPPORTED;
-            }
+            AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, pooling_kernel);
           }
           // update index
           for(int64_t i=c_start+ndim-3; i>=c_start; i--){
@@ -182,50 +140,7 @@ static Status pooling_double(const Tensor input, const char *mode,
         // update new_tensor
         int64_t out_linear_idx =
           window_idx * out_strides[c_start+ndim-3] + out_bc_stride;
-        switch (dtype.code) {
-          case TYPE_INT8: {
-            pooling_output_element(int8_t);
-            break;
-          }
-          case TYPE_UINT8: {
-            pooling_output_element(uint8_t);
-            break;
-          }
-          case TYPE_INT16: {
-            pooling_output_element(int16_t);
-            break;
-          }
-          case TYPE_UINT16: {
-            pooling_output_element(uint16_t);
-            break;
-          }
-          case TYPE_INT32: {
-            pooling_output_element(int32_t);
-            break;
-          }
-          case TYPE_UINT32: {
-            pooling_output_element(uint32_t);
-            break;
-          }
-          case TYPE_INT64: {
-            pooling_output_element(int64_t);
-            break;
-          }
-          case TYPE_UINT64: {
-            pooling_output_element(uint64_t);
-            break;
-          }
-          case TYPE_FLOAT: {
-            pooling_output_element(float);
-            break;
-          }
-          case TYPE_DOUBLE: {
-            pooling_output_element(double);
-            break;
-          }
-          default:
-            return STATUS_NOT_SUPPORTED;
-        }
+        AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, pooling_output_element);
         // update k_head and k_tail
         for(int64_t i=c_start+ndim-3; i>=c_start; i--){
           k_head[i] = k_head[i] + stride[i-c_start];
