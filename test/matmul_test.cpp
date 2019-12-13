@@ -23,7 +23,7 @@ namespace {
 TEST(Matmul, vector_vector) {
   Tensor tensor1;
   Tensor tensor2;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[1] = {4};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 1, &tensor1);
@@ -56,7 +56,7 @@ TEST(Matmul, vector_vector) {
 TEST(Matmul, matrix_vector) {
   Tensor tensor1;
   Tensor tensor2;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims1[2] = {5, 4};
   int64_t dims2[1] = {4};
@@ -90,7 +90,7 @@ TEST(Matmul, matrix_vector) {
 TEST(Matmul, matrix_matrix) {
   Tensor tensor1;
   Tensor tensor2;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims1[2] = {5, 4};
   int64_t dims2[2] = {4, 3};
@@ -125,7 +125,7 @@ TEST(Matmul, matrix_matrix) {
 TEST(Matmul, vector_matrix) {
   Tensor tensor1;
   Tensor tensor2;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims1[1] = {5};
   int64_t dims2[2] = {5, 4};
@@ -159,7 +159,7 @@ TEST(Matmul, vector_matrix) {
 TEST(Matmul, cube_vector) {
   Tensor tensor1;
   Tensor tensor2;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims1[3] = {5, 4, 3};
   int64_t dims2[1] = {3};
@@ -195,7 +195,7 @@ TEST(Matmul, cube_vector) {
 TEST(Matmul, vector_cube) {
   Tensor tensor1;
   Tensor tensor2;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims1[1] = {3};
   int64_t dims2[3] = {5, 3, 4};
@@ -231,7 +231,7 @@ TEST(Matmul, vector_cube) {
 TEST(Matmul, tensor_tensor) {
   Tensor tensor1;
   Tensor tensor2;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims1[4] = {2, 1, 3, 4};
   int64_t dims2[3] = {2, 4, 2};
@@ -266,7 +266,7 @@ TEST(Matmul, tensor_tensor) {
 
 // TEST(Matmul, ttt) {
 //   Tensor tensor1;
-//   DataType dtype = {TYPE_FLOAT, sizeof(float)};
+//   DataType dtype = kFloat;
 //   Device device = {DEVICE_CPU, 0};
 //   int64_t dims1[2] = {5, 4};
 //   aitisa_full(dtype, device, dims1, 2, 2.1, &tensor1);

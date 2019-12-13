@@ -28,6 +28,26 @@ typedef struct {
   uint8_t size;  /**< Number of bytes occupyied by this DataType */
 } DataType;
 
+/**
+ * Define DataType constants for all types.
+ * looks like:
+      static const DataType kInt8 = {TYPE_INT8, sizeof(int8_t)};
+ */
+#define AITISA_DEFINE_CONSTANTS_DATA_TYPE(Dtype, DTYPE, dtype) \
+  static const DataType k##Dtype = {TYPE_##DTYPE, sizeof(dtype)};
+
+AITISA_DEFINE_CONSTANTS_DATA_TYPE(Int8, INT8, int8_t);
+AITISA_DEFINE_CONSTANTS_DATA_TYPE(Uint8, UINT8, uint8_t);
+AITISA_DEFINE_CONSTANTS_DATA_TYPE(Int16, INT16, int16_t);
+AITISA_DEFINE_CONSTANTS_DATA_TYPE(Uint16, UINT16, uint16_t);
+AITISA_DEFINE_CONSTANTS_DATA_TYPE(Int32, INT32, int32_t);
+AITISA_DEFINE_CONSTANTS_DATA_TYPE(Uint32, UINT32, uint32_t);
+AITISA_DEFINE_CONSTANTS_DATA_TYPE(Int64, INT64, int64_t);
+AITISA_DEFINE_CONSTANTS_DATA_TYPE(Uint64, UINT64, uint64_t);
+AITISA_DEFINE_CONSTANTS_DATA_TYPE(Float, FLOAT, float);
+AITISA_DEFINE_CONSTANTS_DATA_TYPE(Double, DOUBLE, double);
+#undef AITISA_DEFINE_CONSTANTS_DATA_TYPE
+
 typedef void (*GetTypedValueFunc)(void *addr, void *value);
 typedef void (*GetTypedArrayValueFunc)(void *addr, int64_t i, void *value);
 typedef void (*SetTypedValueFunc)(void *addr, void *value);

@@ -13,7 +13,7 @@ namespace {
 
 TEST(Conv2D, P0S1D1) {
   Tensor input, filter, output;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t input_dims[4] = {2, 2, 5, 5};
   int64_t filter_dims[4] = {3, 2, 3, 3};
@@ -67,7 +67,7 @@ TEST(Conv2D, P0S1D1) {
 
 TEST(Conv2D, P2S1D1) {
   Tensor input, filter, output;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t input_dims[4] = {1, 1, 5, 5};
   int64_t filter_dims[4] = {1, 1, 2, 2};
@@ -98,7 +98,7 @@ TEST(Conv2D, P2S1D1) {
 
 TEST(Conv3D, P0S1D1) {
   Tensor input, filter, output;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t input_dims[5] = {2, 2, 5, 5, 5};
   int64_t filter_dims[5] = {3, 2, 3, 3, 3};

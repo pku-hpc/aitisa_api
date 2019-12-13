@@ -19,7 +19,7 @@ void batch_norm_natural_assign_double(Tensor t, const double start) {
 namespace aitisa_api {
 namespace {
 TEST(BatchNorm, Input5dAxis4) {
-  DataType dtype = {TYPE_DOUBLE, sizeof(double)};
+  DataType dtype = kDouble;
   Device device = {DEVICE_CPU, 0};
 
   Tensor input;
@@ -72,7 +72,7 @@ TEST(BatchNorm, Input5dAxis4) {
 }
 
 TEST(BatchNorm, Input4dAxis1) {
-  DataType dtype = {TYPE_DOUBLE, sizeof(double)};
+  DataType dtype = kDouble;
   Device device = {DEVICE_CPU, 0};
 
   Tensor input;
@@ -129,7 +129,7 @@ TEST(BatchNorm, Input4dAxis1) {
 }
 
 TEST(BatchNorm, Input2dAxis1) {
-  DataType dtype = {TYPE_DOUBLE, sizeof(double)};
+  DataType dtype = kDouble;
   Device device = {DEVICE_CPU, 0};
 
   Tensor input;

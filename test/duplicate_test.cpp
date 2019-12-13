@@ -21,7 +21,7 @@ TEST(Duplicate, Float) {
   Tensor input;
   int64_t dims[2] = {3, 2};
   Device device = {DEVICE_CPU, 0};
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, &input);
   duplicate_assign_float(input);
   Tensor output;

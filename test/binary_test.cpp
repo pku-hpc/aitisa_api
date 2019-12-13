@@ -35,7 +35,7 @@ namespace {
 TEST(Binary, add) {
   Tensor tensor1;
   Tensor tensor2;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[1] = {4};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 1, &tensor1);
@@ -68,7 +68,7 @@ TEST(Binary, add) {
 TEST(Binary, sub) {
   Tensor tensor1;
   Tensor tensor2;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[1] = {4};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 1, &tensor1);
@@ -101,7 +101,7 @@ TEST(Binary, sub) {
 TEST(Binary, mul) {
   Tensor tensor1;
   Tensor tensor2;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[1] = {4};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 1, &tensor1);

@@ -34,7 +34,7 @@ TEST(Cast, FloatToInt32) {
   Tensor factor;
   int64_t dims[2] = {3, 2};
   Device device = {DEVICE_CPU, 0};
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, &input);
   aitisa_full(dtype, device, dims, 2, 7, &factor);
   cast_assign_float(input);
@@ -67,7 +67,7 @@ TEST(Cast, Int32ToDouble) {
   Tensor factor;
   int64_t dims[2] = {3, 2};
   Device device = {DEVICE_CPU, 0};
-  DataType dtype = {TYPE_INT32, sizeof(int32_t)};
+  DataType dtype = kInt32;
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, &input);
   aitisa_full(dtype, device, dims, 2, 2, &factor);
   cast_assign_int32(input);
