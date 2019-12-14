@@ -29,7 +29,7 @@ static Status sqrt_template(const Tensor input, Tensor *output) {
   Status status = STATUS_SUCCESS;
   int64_t size = aitisa_tensor_size(input);
   DataType dtype = aitisa_tensor_data_type(input);
-  AITISA_DISPATCH_ALL_TYPES_WITH_ARGS_RETURN(dtype, sqrt_kernel, input, output);
+  AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, sqrt_kernel, input, output);
   return status;
 }
 

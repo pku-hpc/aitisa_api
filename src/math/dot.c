@@ -18,7 +18,7 @@
 static Status dot_template(DataType dtype, void *data1, void *data2,
                            int64_t size, void *data_out) {
   Status status = STATUS_SUCCESS;
-  AITISA_DISPATCH_ALL_TYPES_WITH_ARGS_RETURN(dtype, dot_kernel, data1, data2, size, data_out);
+  AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, dot_kernel, data1, data2, size, data_out);
   return status;
 }
 
@@ -28,7 +28,7 @@ static Status dot_template(DataType dtype, void *data1, void *data2,
 
 static Status dot_get_value(const Tensor tensor, int idx, double *value) {
   DataType dtype = aitisa_tensor_data_type(tensor);
-  AITISA_DISPATCH_ALL_TYPES_WITH_ARGS_RETURN(dtype, dot_get_value_kernel, tensor, idx, value);
+  AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, dot_get_value_kernel, tensor, idx, value);
   return STATUS_SUCCESS;
 }
 
