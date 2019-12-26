@@ -1,6 +1,6 @@
 Standard APIs for AI operations
 # Setup
-You can setup *Standard APIs for AI operations* by following the instructions below:
+You can setup *Standard APIs for AI operations* by following instructions:
 1. Use **git clone** instruction to download source code
 
       ```
