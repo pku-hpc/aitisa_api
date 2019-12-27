@@ -1,6 +1,6 @@
 Standard APIs for AI operations
 
-# Dependencies
+# Environment Requirement
 
 | Dependency | Version required    |
 | ---------- | ------------------- |
