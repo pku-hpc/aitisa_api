@@ -35,7 +35,7 @@ namespace {
 
 TEST(Softmax, FloatAll) {
   Tensor input;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[2] = {2, 3};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, &input);
@@ -61,7 +61,7 @@ TEST(Softmax, FloatAll) {
 
 TEST(Softmax, DoubleAxis1) {
   Tensor input;
-  DataType dtype = {TYPE_DOUBLE, sizeof(double)};
+  DataType dtype = kDouble;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[3] = {2, 3, 5};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 3, &input);

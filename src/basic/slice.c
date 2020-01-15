@@ -4,6 +4,7 @@
 #include <math.h>
 #include "src/core/allocator.h"
 #include "src/core/tensor.h"
+#include "src/core/dispatch.h"
 
 static Status slice_create_output(const Tensor input, int *begin, int *size,
                                   int *step, Tensor *output) {
@@ -109,50 +110,7 @@ static Status slice_template(const Tensor input, int *begin, int *size,
   }
   // Implement slice kernel
   DataType dtype = aitisa_tensor_data_type(input);
-  switch (dtype.code) {
-    case TYPE_INT8: {
-      slice_kernel(int8_t);
-      break;
-    }
-    case TYPE_UINT8: {
-      slice_kernel(uint8_t);
-      break;
-    }
-    case TYPE_INT16: {
-      slice_kernel(int16_t);
-      break;
-    }
-    case TYPE_UINT16: {
-      slice_kernel(uint16_t);
-      break;
-    }
-    case TYPE_INT32: {
-      slice_kernel(int32_t);
-      break;
-    }
-    case TYPE_UINT32: {
-      slice_kernel(uint32_t);
-      break;
-    }
-    case TYPE_INT64: {
-      slice_kernel(int64_t);
-      break;
-    }
-    case TYPE_UINT64: {
-      slice_kernel(uint64_t);
-      break;
-    }
-    case TYPE_FLOAT: {
-      slice_kernel(float);
-      break;
-    }
-    case TYPE_DOUBLE: {
-      slice_kernel(double);
-      break;
-    }
-    default:
-      return STATUS_NOT_SUPPORTED;
-  }
+  AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, slice_kernel);
   return STATUS_SUCCESS;
 }
 

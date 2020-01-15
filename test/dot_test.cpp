@@ -24,7 +24,7 @@ namespace {
 TEST(Dot, Dim2DotDim2) {
   Tensor tensor1;
   Tensor tensor2;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
 
   int64_t dims[2] = {3, 3};
@@ -56,7 +56,7 @@ TEST(Dot, Dim2DotDim2) {
 TEST(Dot, Dim2DotDim0) {
   Tensor tensor1;
   Tensor tensor2;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
 
   int64_t dims1[2] = {3, 3};
@@ -88,7 +88,7 @@ TEST(Dot, Dim2DotDim0) {
 TEST(Dot, Dim1DotDim1) {
   Tensor tensor1;
   Tensor tensor2;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
 
   int64_t dims[1] = {5};
@@ -120,7 +120,7 @@ TEST(Dot, Dim1DotDim1) {
 TEST(Dot, Dim3DotDim1) {
   Tensor tensor1;
   Tensor tensor2;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
 
   int64_t dims1[3] = {2, 5, 6};
@@ -156,7 +156,7 @@ TEST(Dot, Dim3DotDim1) {
 TEST(Dot, Dim4DotDim3) {
   Tensor tensor1;
   Tensor tensor2;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
 
   int64_t dims1[4] = {2, 3, 2, 3};

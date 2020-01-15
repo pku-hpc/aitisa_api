@@ -30,7 +30,7 @@ namespace {
 
 TEST(Sqrt, Float) {
   Tensor input;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[2] = {2, 3};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, &input);
@@ -57,7 +57,7 @@ TEST(Sqrt, Float) {
 
 TEST(Sqrt, Int32) {
   Tensor input;
-  DataType dtype = {TYPE_INT32, sizeof(int32_t)};
+  DataType dtype = kInt32;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[2] = {2, 3};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, &input);

@@ -8,7 +8,7 @@ namespace {
 
 TEST(TensorStruct, MemberAccess) {
   Tensor tensor;
-  DataType dtype = {TYPE_INT32, sizeof(int)};
+  DataType dtype = kInt32;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[3] = {2, 3, 4};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 3, &tensor);
@@ -19,7 +19,7 @@ TEST(TensorStruct, MemberAccess) {
 
 TEST(TensorStruct, Factories) {
   Tensor tensor;
-  DataType dtype = {TYPE_INT32, sizeof(int32_t)};
+  DataType dtype = kInt32;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[3] = {2, 3, 4};
   aitisa_full(dtype, device, dims, 3, 7.3, &tensor);

@@ -46,7 +46,7 @@ namespace {
 
 TEST(Pooling1D, MaxFloatK2S2P0D2) {
   Tensor input;
-  DataType dtype = {TYPE_FLOAT, sizeof(float)};
+  DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[3] = {2, 3, 9};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 3, &input);
@@ -79,7 +79,7 @@ TEST(Pooling1D, MaxFloatK2S2P0D2) {
 
 TEST(Pooling2D, AvgInt32K3S3P0D1) {
   Tensor input;
-  DataType dtype = {TYPE_INT32, sizeof(int32_t)};
+  DataType dtype = kInt32;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[4] = {1, 2, 9, 9};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 4, &input);
@@ -108,7 +108,7 @@ TEST(Pooling2D, AvgInt32K3S3P0D1) {
 
 TEST(Pooling2D, MaxDoubleK6S6P3D1) {
   Tensor input;
-  DataType dtype = {TYPE_DOUBLE, sizeof(double)};
+  DataType dtype = kDouble;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[4] = {1, 2, 15, 15};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 4, &input);
@@ -141,7 +141,7 @@ TEST(Pooling2D, MaxDoubleK6S6P3D1) {
 
 TEST(Pooling3D, MaxInt32K3S5P0D2) {
   Tensor input;
-  DataType dtype = {TYPE_INT32, sizeof(int32_t)};
+  DataType dtype = kInt32;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[5] = {1, 2, 5, 10, 9};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 5, &input);

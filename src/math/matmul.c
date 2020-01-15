@@ -58,21 +58,21 @@ int64_t batch_strides(int64_t *dims, int64_t ndim, int64_t *strides,
 
 // choose vv kernel according to dtype.code
 Status vv_template(DataType dtype, void *X, void *Y, void *Z, int64_t L) {
-  AITISA_DISPATCH_ALL_TYPES_WITH_ARGS_RETURN(dtype, VV_KERNEL, X, Y, Z, L);
+  AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, VV_KERNEL, X, Y, Z, L);
   return STATUS_SUCCESS;
 }
 
 // choose mv kernel according to dtype.code
 Status mv_template(DataType dtype, void *A, void *X, void *B, int64_t M,
                    int64_t N) {
-  AITISA_DISPATCH_ALL_TYPES_WITH_ARGS_RETURN(dtype, MV_KERNEL, A, X, B, M, N);
+  AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, MV_KERNEL, A, X, B, M, N);
   return STATUS_SUCCESS;
 }
 
 // choose mm kernel according to dtype.code
 Status mm_template(DataType dtype, void *A, void *B, void *C, int64_t M,
                    int64_t K, int64_t N) {
-  AITISA_DISPATCH_ALL_TYPES_WITH_ARGS_RETURN(dtype, MM_KERNEL, A, B, C, M, K,
+  AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, MM_KERNEL, A, B, C, M, K,
                                              N);
   return STATUS_SUCCESS;
 }
@@ -80,7 +80,7 @@ Status mm_template(DataType dtype, void *A, void *B, void *C, int64_t M,
 // choose batch_mm kernel according to dtype.code
 Status batch_mm_template(DataType dtype, void **As, void **Bs, void **Cs,
                          int64_t M, int64_t K, int64_t N, int64_t n_batch) {
-  AITISA_DISPATCH_ALL_TYPES_WITH_ARGS_RETURN(dtype, BATCH_MM_KERNEL, As, Bs, Cs,
+  AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, BATCH_MM_KERNEL, As, Bs, Cs,
                                              M, K, N, n_batch);
   return STATUS_SUCCESS;
 }

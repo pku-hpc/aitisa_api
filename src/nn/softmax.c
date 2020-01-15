@@ -35,7 +35,7 @@ static Status softmax_create_output(const Tensor input, Tensor *output){
 static Status softmax_with_all(const Tensor input, Tensor *output){
   // Choose the right data type
   DataType dtype = aitisa_tensor_data_type(input);
-  AITISA_DISPATCH_ALL_TYPES_WITH_ARGS_RETURN(dtype, softmax_with_all_kernel, input, output);
+  AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, softmax_with_all_kernel, input, output);
   return STATUS_SUCCESS;
 }
 

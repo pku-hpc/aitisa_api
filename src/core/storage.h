@@ -30,7 +30,7 @@ typedef struct _StorageImpl *Storage;
  *
  * @code
  * Storage storage;
- * DataType dtype = {TYPE_INT32, sizeof(int)};
+ * DataType dtype = kInt32;   // equivalent with: dtype = {TYPE_INT32, sizeof(int)};
  * Device device = {DEVICE_CPU, 0};
  * aitisa_create_storage(dtype, device, 12, storage);
  * @endcode

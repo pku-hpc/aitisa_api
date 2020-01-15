@@ -19,7 +19,7 @@ namespace aitisa_api {
 namespace {
 TEST(Squeeze, Axis) {
   Tensor input;
-  DataType dtype = {TYPE_INT32, sizeof(int32_t)};
+  DataType dtype = kInt32;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[6] = {2, 1, 5, 1, 10, 1};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 6, &input);
@@ -46,7 +46,7 @@ TEST(Squeeze, Axis) {
 
 TEST(Squeeze, All) {
   Tensor input;
-  DataType dtype = {TYPE_INT32, sizeof(int32_t)};
+  DataType dtype = kInt32;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[6] = {2, 1, 5, 1, 10, 1};
   aitisa_create(dtype, device, LAYOUT_DENSE, dims, 6, &input);
