@@ -34,7 +34,7 @@ TEST(Slice, StepIsOne) {
   DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[3] = {2, 4, 5};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 3, &input);
+  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 3, NULL, &input);
   slice_assign_float(input);
 
   Tensor output;
@@ -61,7 +61,7 @@ TEST(Slice, StepNotOne) {
   DataType dtype = kInt32;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[3] = {2, 5, 10};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 3, &input);
+  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 3, NULL, &input);
   slice_assign_int32(input);
 
   Tensor output;

@@ -24,7 +24,7 @@ TEST(Dropout, Rate40percent) {
   int64_t dims[2] = {30, 20};
   Device device = {DEVICE_CPU, 0};
   DataType dtype = kFloat;
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, &input);
+  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, NULL, &input);
   dropout_assign_float(input);
 
   Tensor output;

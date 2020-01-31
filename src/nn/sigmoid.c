@@ -18,7 +18,7 @@ Status aitisa_sigmoid(const Tensor input, Tensor *output) {
   Device device = aitisa_tensor_device(input);
   LayoutType layout_type = aitisa_tensor_layout_type(input);
   CHECK_STATUS(
-      aitisa_create(dtype, device, layout_type, dims, ndim, &new_tensor));
+      aitisa_create(dtype, device, layout_type, dims, ndim, NULL, &new_tensor));
   *output = new_tensor;
   // Implement sigmoid
   Status status = STATUS_SUCCESS;

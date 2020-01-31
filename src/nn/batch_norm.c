@@ -69,7 +69,7 @@ static Status batch_norm_create_output(const Tensor input, Tensor *output) {
   DataType dtype = aitisa_tensor_data_type(input);
   Device device = aitisa_tensor_device(input);
   LayoutType layout_type = aitisa_tensor_layout_type(input);
-  status = aitisa_create(dtype, device, layout_type, dims, ndim, &new_tensor);
+  status = aitisa_create(dtype, device, layout_type, dims, ndim, NULL, &new_tensor);
   if (status == STATUS_SUCCESS) {
     *output = new_tensor;
   }
@@ -324,15 +324,15 @@ static Status get_intermediate_tensors(const Tensor input, const int axis,
     } 
     for (uint32_t c = 0; c < num_channels; c++) {
       CHECK_STATUS(aitisa_create(dtype, device, layout, param_dims, param_ndim,
-                                 &((*mean_array)[c])));
+                                 NULL, &((*mean_array)[c])));
       CHECK_STATUS(aitisa_create(dtype, device, layout, param_dims, param_ndim,
-                                 &((*scale_array)[c])));
+                                 NULL, &((*scale_array)[c])));
       CHECK_STATUS(aitisa_create(dtype, device, layout, param_dims, param_ndim,
-                                 &((*bias_array)[c])));
+                                 NULL, &((*bias_array)[c])));
       CHECK_STATUS(aitisa_create(dtype, device, layout, param_dims, param_ndim,
-                                 &(var_array[c])));
+                                 NULL, &(var_array[c])));
       CHECK_STATUS(aitisa_create(dtype, device, layout, param_dims, param_ndim,
-                                 &((*denominator)[c])));
+                                 NULL, &((*denominator)[c])));
       // Repeatedly copy data to array
       char *mean_array_c_data = aitisa_tensor_data((*mean_array)[c]);
       char *mean_data = aitisa_tensor_data(mean);

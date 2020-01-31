@@ -26,6 +26,7 @@ typedef struct _StorageImpl *Storage;
  * @param dtype The data type of storage
  * @param device The device to create storage on
  * @param size The total number of elements that will put in this storage
+ * @param data The pointer of data of the storage
  * @param storage A new storage to be created
  *
  * @code
@@ -40,7 +41,7 @@ typedef struct _StorageImpl *Storage;
  * @retval STATUS_ALLOC_FAILED Failed when the storage already exists
  */
 Status aitisa_create_storage(DataType dtype, Device device, int64_t size,
-                             Storage *storage);
+                             void *data, Storage *storage);
 
 /**
  * @brief Destroy an exist storage

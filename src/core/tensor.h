@@ -123,13 +123,14 @@ static inline void aitisa_tensor_set_item(const Tensor t, int64_t idx,
  * @param layout_type The layout_type of the tensor
  * @param dims The dimensions of the tensor
  * @param ndim The number of dimensions of the tensor
+ * @param data The pointer of data of the tensor
  * @param output The created tensor pointer
  * @return Status The status indicates whether the function launched
  *                successfully.
  */
 AITISA_API_PUBLIC Status aitisa_create(DataType dtype, Device device,
                                        LayoutType layout_type, int64_t *dims,
-                                       int64_t ndim, Tensor *output);
+                                       int64_t ndim, void *data, Tensor *output);
 
 /**
  * @brief Destroy the tensor by deallocating all related members.
