@@ -8,6 +8,7 @@ option(AITISA_API_BUILD_SHARED_LIBS "Compiled as a shared library" ON)
 option(AITISA_API_BUILD_TESTING "Build with testing enabled" ON)
 option(AITISA_API_BUILD_DOCS "Generate documents with Doxygen" ON)
 option(AITISA_API_USE_GTEST_LOCAL "Download and build with GTest" ON)
+option(AITISA_API_USE_HICE "Build with HICE" ON)
 
 if(AITISA_API_BUILD_SHARED_LIBS)
   set(BUILD_SHARED_LIBS ON CACHE INTERNAL "")
@@ -51,6 +52,11 @@ include(cmake/public/Utils.cmake)
 # Find all the files under `src/`
 FILE(GLOB_RECURSE aitisa_api_srcs "src/*.c" "src/*.h")
 
+if(AITISA_API_USE_HICE)
+  FILE(GLOB_RECURSE hice_api_c_headers "hice/hice/api_c/*.h")
+  list(APPEND aitisa_api_srcs ${hice_api_c_headers})
+endif()
+
 # Create library target with all the source codes.
 if(BUILD_SHARED_LIBS)
   add_library(aitisa_api SHARED ${aitisa_api_srcs})
@@ -69,6 +75,13 @@ if(BUILD_SHARED_LIBS)
   )
 else()
   add_library(aitisa_api STATIC ${aitisa_api_srcs})
+endif()
+
+if(AITISA_API_USE_HICE)
+  add_subdirectory(hice hice)
+  target_link_libraries(aitisa_api PUBLIC hice::hice)
+  target_include_directories(aitisa_api PRIVATE ${CMAKE_SOURCE_DIR}/hice)
+  target_compile_definitions(aitisa_api PUBLIC AITISA_API_USE_HICE)
 endif()
 
 target_compile_features(aitisa_api PUBLIC c_std_99)

@@ -5,6 +5,10 @@
 #include "src/core/dispatch.h"
 #include "src/core/utils.h"
 
+#ifdef AITISA_API_USE_HICE
+#include "hice/hice_c.h"
+#endif
+
 int64_t max_int64_(int64_t a, int64_t b) { return a > b ? a : b; }
 
 // get the strides of dims
@@ -72,19 +76,187 @@ Status mv_template(DataType dtype, void *A, void *X, void *B, int64_t M,
 // choose mm kernel according to dtype.code
 Status mm_template(DataType dtype, void *A, void *B, void *C, int64_t M,
                    int64_t K, int64_t N) {
-  AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, MM_KERNEL, A, B, C, M, K,
-                                             N);
+  AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, MM_KERNEL, A, B, C, M, K, N);
   return STATUS_SUCCESS;
 }
 
 // choose batch_mm kernel according to dtype.code
 Status batch_mm_template(DataType dtype, void **As, void **Bs, void **Cs,
                          int64_t M, int64_t K, int64_t N, int64_t n_batch) {
-  AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, BATCH_MM_KERNEL, As, Bs, Cs,
-                                             M, K, N, n_batch);
+  AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, BATCH_MM_KERNEL, As, Bs, Cs, M, K, N,
+                                   n_batch);
   return STATUS_SUCCESS;
 }
 
+#ifdef AITISA_API_USE_HICE
+Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
+                     Tensor *output) {
+  if (aitisa_tensor_device(tensor1).type != DEVICE_CPU ||
+      aitisa_tensor_device(tensor2).type != DEVICE_CPU) {
+    return STATUS_NOT_SUPPORTED;
+  }
+  int64_t ndim_tensor1 = aitisa_tensor_ndim(tensor1);
+  int64_t ndim_tensor2 = aitisa_tensor_ndim(tensor2);
+  Status status;
+  if (ndim_tensor1 == 1 && ndim_tensor2 == 1) {
+    // vector-vector
+    int64_t dim0_tensor1 = aitisa_tensor_dim(tensor1, 0);
+    int64_t dim0_tensor2 = aitisa_tensor_dim(tensor2, 0);
+    if (dim0_tensor1 != dim0_tensor2) {
+      return STATUS_DIMENSIONS_MISMATCH;
+    }
+    // create output
+    int64_t ndim_out = 1;
+    int64_t dims_out[1] = {1};
+    CHECK_STATUS(aitisa_full(aitisa_tensor_data_type(tensor1),
+                             aitisa_tensor_device(tensor1), dims_out, ndim_out,
+                             0.0, output));
+  } else if (ndim_tensor1 == 2 && ndim_tensor2 == 1) {
+    // matrix-vector
+    int64_t dim0_tensor1 = aitisa_tensor_dim(tensor1, 0);
+    int64_t dim1_tensor1 = aitisa_tensor_dim(tensor1, 1);
+    int64_t dim0_tensor2 = aitisa_tensor_dim(tensor2, 0);
+    if (dim1_tensor1 != dim0_tensor2) {
+      return STATUS_DIMENSIONS_MISMATCH;
+    }
+    // create output
+    int64_t ndim_out = 1;
+    int64_t dims_out[1] = {dim0_tensor1};
+    CHECK_STATUS(aitisa_full(aitisa_tensor_data_type(tensor1),
+                             aitisa_tensor_device(tensor1), dims_out, ndim_out,
+                             0.0, output));
+  } else if (ndim_tensor1 == 2 && ndim_tensor2 == 2) {
+    // matrix-matrix
+    int64_t dim0_tensor1 = aitisa_tensor_dim(tensor1, 0);
+    int64_t dim1_tensor1 = aitisa_tensor_dim(tensor1, 1);
+    int64_t dim0_tensor2 = aitisa_tensor_dim(tensor2, 0);
+    int64_t dim1_tensor2 = aitisa_tensor_dim(tensor2, 1);
+    if (dim1_tensor1 != dim0_tensor2) {
+      return STATUS_DIMENSIONS_MISMATCH;
+    }
+    // create output
+    int64_t ndim_out = 2;
+    int64_t dims_out[2] = {dim0_tensor1, dim1_tensor2};
+    CHECK_STATUS(aitisa_full(aitisa_tensor_data_type(tensor1),
+                             aitisa_tensor_device(tensor1), dims_out, ndim_out,
+                             0.0, output));
+  } else if (ndim_tensor1 == 1 && ndim_tensor2 == 2) {
+    // consider tensor1 as a matrix whose dim[0]=1;
+    int64_t dim0_tensor1 = 1;
+    int64_t dim1_tensor1 = aitisa_tensor_dim(tensor1, 0);
+    int64_t dim0_tensor2 = aitisa_tensor_dim(tensor2, 0);
+    int64_t dim1_tensor2 = aitisa_tensor_dim(tensor2, 1);
+    if (dim1_tensor1 != dim0_tensor2) {
+      return STATUS_DIMENSIONS_MISMATCH;
+    }
+    // create output
+    int64_t ndim_out = 1;
+    int64_t dims_out[1] = {dim1_tensor2};
+    CHECK_STATUS(aitisa_full(aitisa_tensor_data_type(tensor1),
+                             aitisa_tensor_device(tensor1), dims_out, ndim_out,
+                             0.0, output));
+  } else if (ndim_tensor1 >= 3 && ndim_tensor2 == 1) {
+    // consider tensor2 as a matrix whose dim[1]=1;
+    int64_t dim0_tensor1 = aitisa_tensor_dim(tensor1, ndim_tensor1 - 2);
+    int64_t dim1_tensor1 = aitisa_tensor_dim(tensor1, ndim_tensor1 - 1);
+    int64_t dim0_tensor2 = aitisa_tensor_dim(tensor2, 0);
+    int64_t dim1_tensor2 = 1;
+    if (dim1_tensor1 != dim0_tensor2) {
+      return STATUS_DIMENSIONS_MISMATCH;
+    }
+    // create output
+    int64_t ndim_out = ndim_tensor1 - 1;
+    int64_t *dims_out =
+        aitisa_default_cpu_allocator()->raw_alloc(sizeof(int64_t) * ndim_out);
+    for (int64_t i = 0; i < ndim_out; ++i) {
+      dims_out[i] = aitisa_tensor_dim(tensor1, i);
+    }
+    CHECK_STATUS(aitisa_full(aitisa_tensor_data_type(tensor1),
+                             aitisa_tensor_device(tensor1), dims_out, ndim_out,
+                             0.0, output));
+    aitisa_default_cpu_allocator()->raw_dealloc(dims_out);
+  } else if (ndim_tensor1 == 1 && ndim_tensor2 >= 3) {
+    // consider tensor1 as a matrix whose dim[0]=1;
+    int64_t dim0_tensor1 = 1;
+    int64_t dim1_tensor1 = aitisa_tensor_dim(tensor1, 0);
+    int64_t dim0_tensor2 = aitisa_tensor_dim(tensor2, ndim_tensor2 - 2);
+    int64_t dim1_tensor2 = aitisa_tensor_dim(tensor2, ndim_tensor2 - 1);
+    if (dim1_tensor1 != dim0_tensor2) {
+      return STATUS_DIMENSIONS_MISMATCH;
+    }
+    // create output
+    int64_t ndim_out = ndim_tensor2 - 1;
+    int64_t *dims_out =
+        aitisa_default_cpu_allocator()->raw_alloc(sizeof(int64_t) * ndim_out);
+    for (int64_t i = 0; i < ndim_out - 1; ++i) {
+      dims_out[i] = aitisa_tensor_dim(tensor2, i);
+    }
+    dims_out[ndim_out - 1] = aitisa_tensor_dim(tensor2, ndim_tensor2 - 1);
+    CHECK_STATUS(aitisa_full(aitisa_tensor_data_type(tensor1),
+                             aitisa_tensor_device(tensor1), dims_out, ndim_out,
+                             0.0, output));
+    aitisa_default_cpu_allocator()->raw_dealloc(dims_out);
+  } else if (ndim_tensor1 >= 3 && ndim_tensor2 >= 2 ||
+             ndim_tensor1 >= 2 && ndim_tensor2 >= 3) {
+    // tensor-tensor => batch matrix-matrix
+    int64_t dim0_tensor1 = aitisa_tensor_dim(tensor1, ndim_tensor1 - 2);
+    int64_t dim1_tensor1 = aitisa_tensor_dim(tensor1, ndim_tensor1 - 1);
+    int64_t dim0_tensor2 = aitisa_tensor_dim(tensor2, ndim_tensor2 - 2);
+    int64_t dim1_tensor2 = aitisa_tensor_dim(tensor2, ndim_tensor2 - 1);
+    if (dim1_tensor1 != dim0_tensor2) {
+      return STATUS_DIMENSIONS_MISMATCH;
+    }
+    // create output
+    int64_t ndim_out = max_int64_(ndim_tensor1, ndim_tensor2);
+    int64_t *dims_out =
+        aitisa_default_cpu_allocator()->raw_alloc(sizeof(int64_t) * ndim_out);
+    CHECK_STATUS(aitisa_broadcast_array(
+        aitisa_tensor_dims(tensor1), max_int64_(ndim_tensor1 - 2, 0),
+        aitisa_tensor_dims(tensor2), max_int64_(ndim_tensor2 - 2, 0), dims_out,
+        ndim_out - 2));
+    dims_out[ndim_out - 2] = dim0_tensor1;
+    dims_out[ndim_out - 1] = dim1_tensor2;
+    CHECK_STATUS(aitisa_full(aitisa_tensor_data_type(tensor1),
+                             aitisa_tensor_device(tensor1), dims_out, ndim_out,
+                             0.0, output));
+    aitisa_default_cpu_allocator()->raw_dealloc(dims_out);
+  } else {
+    status = STATUS_INVALID_ARGUMENT;
+  }
+
+  HI_Tensor hi_tensor1, hi_tensor2, hi_output;
+  HI_Create((HI_DataType)(aitisa_tensor_data_type(tensor1).code),
+            (HI_Device)(aitisa_tensor_device(tensor1)),
+            (HI_LayoutType)(aitisa_tensor_layout_type(tensor1).type),
+            aitisa_tensor_dims(tensor1), aitisa_tensor_ndim(tensor1),
+            aitisa_tensor_data(tensor1), &hi_tensor1);
+  HI_Create((HI_DataType)(aitisa_tensor_data_type(tensor2).code),
+            (HI_Device)(aitisa_tensor_device(tensor2)),
+            (HI_LayoutType)(aitisa_tensor_layout_type(tensor2).type),
+            aitisa_tensor_dims(tensor2), aitisa_tensor_ndim(tensor2),
+            aitisa_tensor_data(tensor2), &hi_tensor2);
+
+  HI_Matmul(hi_tensor1, hi_tensor2, &hi_output);
+
+  // create output
+  int64_t ndim_out = HI_TensorNdim(*hi_output);
+  int64_t *dims_out = static_cast<int64_t *>(HI_TensorDims(*hi_output));
+  CHECK_STATUS(aitisa_create(
+      aitisa_tensor_data_type(tensor1), aitisa_tensor_device(tensor1),
+      aitisa_tensor_layout_type(tensor1), dims_out, ndim_out, output));
+
+  HI_Create((HI_DataType)(aitisa_tensor_data_type(*output).code),
+            (HI_DeviceType)(aitisa_tensor_device(*output).type),
+            (HI_LayoutType)(aitisa_tensor_layout_type(*output).type),
+            aitisa_tensor_dims(*output), aitisa_tensor_ndim(*output),
+            aitisa_tensor_data(*output), &hi_output);
+
+  // HI_Print(hi_tensor1);
+  // HI_Print(hi_tensor2);
+  // HI_Print(hi_output);
+  return status;
+}
+#else
 // Definition of aitisa_matmul.
 Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
                      Tensor *output) {
@@ -352,3 +524,4 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
   }
   return status;
 }
+#endif  // AITISA_API_USE_HICE
