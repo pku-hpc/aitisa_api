@@ -225,31 +225,19 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
   }
 
   HI_Tensor hi_tensor1, hi_tensor2, hi_output;
-  HI_Create((HI_DataType)(aitisa_tensor_data_type(tensor1).code),
-            (HI_Device)(aitisa_tensor_device(tensor1)),
-            (HI_LayoutType)(aitisa_tensor_layout_type(tensor1).type),
+  Device device = aitisa_tensor_device(tensor1);
+  HI_Device *hi_device = (HI_Device *)&device;
+  HI_Create((HI_DataType)(aitisa_tensor_data_type(tensor1).code), *hi_device,
             aitisa_tensor_dims(tensor1), aitisa_tensor_ndim(tensor1),
             aitisa_tensor_data(tensor1), &hi_tensor1);
-  HI_Create((HI_DataType)(aitisa_tensor_data_type(tensor2).code),
-            (HI_Device)(aitisa_tensor_device(tensor2)),
-            (HI_LayoutType)(aitisa_tensor_layout_type(tensor2).type),
+  HI_Create((HI_DataType)(aitisa_tensor_data_type(tensor2).code), *hi_device,
             aitisa_tensor_dims(tensor2), aitisa_tensor_ndim(tensor2),
             aitisa_tensor_data(tensor2), &hi_tensor2);
-
-  HI_Matmul(hi_tensor1, hi_tensor2, &hi_output);
-
-  // create output
-  int64_t ndim_out = HI_TensorNdim(*hi_output);
-  int64_t *dims_out = static_cast<int64_t *>(HI_TensorDims(*hi_output));
-  CHECK_STATUS(aitisa_create(
-      aitisa_tensor_data_type(tensor1), aitisa_tensor_device(tensor1),
-      aitisa_tensor_layout_type(tensor1), dims_out, ndim_out, output));
-
-  HI_Create((HI_DataType)(aitisa_tensor_data_type(*output).code),
-            (HI_DeviceType)(aitisa_tensor_device(*output).type),
-            (HI_LayoutType)(aitisa_tensor_layout_type(*output).type),
+  HI_Create((HI_DataType)(aitisa_tensor_data_type(*output).code), *hi_device,
             aitisa_tensor_dims(*output), aitisa_tensor_ndim(*output),
             aitisa_tensor_data(*output), &hi_output);
+
+  HI_Matmul_Inplace(hi_tensor1, hi_tensor2, hi_output);
 
   // HI_Print(hi_tensor1);
   // HI_Print(hi_tensor2);
