@@ -21,7 +21,7 @@ TEST(Reshape, Int32) {
   DataType dtype = kInt32;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[4] = {2, 1, 5, 10};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 4, NULL, &input);
+  aitisa_create(dtype, device, dims, 4, NULL, 0, &input);
   reshape_assign_int32(input);
   int64_t in_size = aitisa_tensor_size(input);
 

@@ -11,7 +11,7 @@ TEST(TensorStruct, MemberAccess) {
   DataType dtype = kInt32;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[3] = {2, 3, 4};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 3, NULL, &tensor);
+  aitisa_create(dtype, device, dims, 3, NULL, 0, &tensor);
   EXPECT_EQ(3, aitisa_tensor_ndim(tensor));
   EXPECT_EQ(24, aitisa_tensor_size(tensor));
   aitisa_destroy(&tensor);

@@ -35,7 +35,7 @@ TEST(Cast, FloatToInt32) {
   int64_t dims[2] = {3, 2};
   Device device = {DEVICE_CPU, 0};
   DataType dtype = kFloat;
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, NULL, &input);
+  aitisa_create(dtype, device, dims, 2, NULL, 0, &input);
   aitisa_full(dtype, device, dims, 2, 7, &factor);
   cast_assign_float(input);
   aitisa_mul(input, factor, &input);
@@ -68,7 +68,7 @@ TEST(Cast, Int32ToDouble) {
   int64_t dims[2] = {3, 2};
   Device device = {DEVICE_CPU, 0};
   DataType dtype = kInt32;
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, NULL, &input);
+  aitisa_create(dtype, device, dims, 2, NULL, 0, &input);
   aitisa_full(dtype, device, dims, 2, 2, &factor);
   cast_assign_int32(input);
   aitisa_mul(input, factor, &input);

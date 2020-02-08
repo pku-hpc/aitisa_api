@@ -1,15 +1,19 @@
 #include "src/core/tensor.h"
 #include "src/core/allocator.h"
 #include "src/core/utils.h"
+// #include <stdio.h>
 
-Status aitisa_create(DataType dtype, Device device, LayoutType layout_type,
-                     int64_t *dims, int64_t ndim, void *data, Tensor *output) {
+Status aitisa_create(DataType dtype, Device device, int64_t *dims, int64_t ndim, 
+                     void *data, int64_t len, Tensor *output) {
   Tensor tensor;
   tensor = aitisa_default_cpu_allocator()->raw_alloc(sizeof(*tensor));
   if (!tensor) return STATUS_ALLOC_FAILED;
   tensor->size = size_of_dims(dims, ndim);
   tensor->offset = 0;
-  CHECK_STATUS(aitisa_create_shape(layout_type, dims, ndim, &tensor->shape));
+  if(data){
+    if(len/dtype.size != tensor->size) return STATUS_INVALID_ARGUMENT;
+  }
+  CHECK_STATUS(aitisa_create_shape(LAYOUT_DENSE, dims, ndim, &tensor->shape));
   CHECK_STATUS(
       aitisa_create_storage(dtype, device, tensor->size, data, &tensor->storage));
   *output = tensor;
@@ -24,3 +28,14 @@ Status aitisa_destroy(Tensor *input) {
   return STATUS_SUCCESS;
 }
 
+Status aitisa_resolve(Tensor input, DataType *dtype, Device *device, 
+                      int64_t **dims, int64_t *ndim, void **data, int64_t *len){
+  *dtype = aitisa_tensor_data_type(input);
+  *device = aitisa_tensor_device(input);
+  int64_t *dims_ = aitisa_tensor_dims(input);
+  *dims = dims_;
+  *ndim = aitisa_tensor_ndim(input);
+  void *data_ = aitisa_tensor_data(input);
+  *data = data_;
+  *len = aitisa_tensor_size(input) * (*dtype).size;
+}

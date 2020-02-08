@@ -28,8 +28,8 @@ TEST(Dot, Dim2DotDim2) {
   Device device = {DEVICE_CPU, 0};
 
   int64_t dims[2] = {3, 3};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, NULL, &tensor1);
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, NULL, &tensor2);
+  aitisa_create(dtype, device, dims, 2, NULL, 0, &tensor1);
+  aitisa_create(dtype, device, dims, 2, NULL, 0, &tensor2);
   dot_assign_float(tensor1);
   dot_assign_float(tensor2);
   // tensor_printer2d(tensor1);
@@ -61,7 +61,7 @@ TEST(Dot, Dim2DotDim0) {
 
   int64_t dims1[2] = {3, 3};
   int64_t* dims2 = NULL;
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims1, 2, NULL, &tensor1);
+  aitisa_create(dtype, device, dims1, 2, NULL, 0, &tensor1);
   aitisa_full(dtype, device, dims2, 0, 2, &tensor2);
   dot_assign_float(tensor1);
   // tensor_printer2d(tensor1);
@@ -92,8 +92,8 @@ TEST(Dot, Dim1DotDim1) {
   Device device = {DEVICE_CPU, 0};
 
   int64_t dims[1] = {5};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 1, NULL, &tensor1);
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 1, NULL, &tensor2);
+  aitisa_create(dtype, device, dims, 1, NULL, 0, &tensor1);
+  aitisa_create(dtype, device, dims, 1, NULL, 0, &tensor2);
   dot_assign_float(tensor1);
   dot_assign_float(tensor2);
   // tensor_printer(tensor1);
@@ -125,8 +125,8 @@ TEST(Dot, Dim3DotDim1) {
 
   int64_t dims1[3] = {2, 5, 6};
   int64_t dims2[1] = {6};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims1, 3, NULL, &tensor1);
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims2, 1, NULL, &tensor2);
+  aitisa_create(dtype, device, dims1, 3, NULL, 0, &tensor1);
+  aitisa_create(dtype, device, dims2, 1, NULL, 0, &tensor2);
   dot_assign_float(tensor1);
   dot_assign_float(tensor2);
   // printf("tensor1:\n");
@@ -161,8 +161,8 @@ TEST(Dot, Dim4DotDim3) {
 
   int64_t dims1[4] = {2, 3, 2, 3};
   int64_t dims2[3] = {2, 3, 2};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims1, 4, NULL, &tensor1);
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims2, 3, NULL, &tensor2);
+  aitisa_create(dtype, device, dims1, 4, NULL, 0, &tensor1);
+  aitisa_create(dtype, device, dims2, 3, NULL, 0, &tensor2);
   dot_assign_float(tensor1);
   dot_assign_float(tensor2);
 

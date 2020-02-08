@@ -109,8 +109,8 @@ static Status tensor_vector_dot(const Tensor tensor1, const Tensor tensor2,
   DataType dtype = aitisa_tensor_data_type(tensor1);
   Device device = aitisa_tensor_device(tensor1);
   LayoutType layout_type = aitisa_tensor_layout_type(tensor1);
-  CHECK_STATUS(aitisa_create(dtype, device, layout_type, out_dims, out_ndim,
-                             NULL, &new_tensor));
+  CHECK_STATUS(aitisa_create(dtype, device, out_dims, out_ndim,
+                             NULL, 0, &new_tensor));
   *output = new_tensor;
   // Make an index recorder of vectors in tensor1 then initialize it
   int *index_recorder = aitisa_default_cpu_allocator()->raw_alloc(
@@ -194,8 +194,8 @@ static Status multidim_dot(const Tensor tensor1, const Tensor tensor2,
   DataType dtype = aitisa_tensor_data_type(tensor1);
   Device device = aitisa_tensor_device(tensor1);
   LayoutType layout_type = aitisa_tensor_layout_type(tensor1);
-  CHECK_STATUS(aitisa_create(dtype, device, layout_type, out_dims, out_ndim,
-                             NULL, &new_tensor));
+  CHECK_STATUS(aitisa_create(dtype, device, out_dims, out_ndim,
+                             NULL, 0, &new_tensor));
   *output = new_tensor;
   // Make index recorders of vectors in tensor1 and tensor2 then initialize them
   int *index_recorder_t1 = aitisa_default_cpu_allocator()->raw_alloc(

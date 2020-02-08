@@ -41,7 +41,7 @@ static Status pooling_create_output(const Tensor input, int64_t *out_dims,
   Device device = aitisa_tensor_device(input);
   LayoutType layout = aitisa_tensor_layout_type(input);
   return
-    aitisa_create(dtype, device, layout, out_dims, ndim, NULL, output);
+    aitisa_create(dtype, device, out_dims, ndim, NULL, 0, output);
 }
 
 static Status pooling_double(const Tensor input, const char *mode,

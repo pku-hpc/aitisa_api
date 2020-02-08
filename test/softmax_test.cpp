@@ -38,7 +38,7 @@ TEST(Softmax, FloatAll) {
   DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[2] = {2, 3};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, NULL, &input);
+  aitisa_create(dtype, device, dims, 2, NULL, 0, &input);
   quadratic_assign_float(input);
   // tensor_printer2d(input);
 
@@ -64,7 +64,7 @@ TEST(Softmax, DoubleAxis1) {
   DataType dtype = kDouble;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[3] = {2, 3, 5};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 3, NULL, &input);
+  aitisa_create(dtype, device, dims, 3, NULL, 0, &input);
   quadratic_assign_double(input);
   // tensor_printer2d(input);
 

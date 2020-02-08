@@ -120,17 +120,18 @@ static inline void aitisa_tensor_set_item(const Tensor t, int64_t idx,
  *
  * @param dtype The data type of the tensor
  * @param device The device of the tensor
- * @param layout_type The layout_type of the tensor
  * @param dims The dimensions of the tensor
  * @param ndim The number of dimensions of the tensor
  * @param data The pointer of data of the tensor
+ * @param len The length of data, also the number of bytes of data
  * @param output The created tensor pointer
  * @return Status The status indicates whether the function launched
  *                successfully.
  */
-AITISA_API_PUBLIC Status aitisa_create(DataType dtype, Device device,
-                                       LayoutType layout_type, int64_t *dims,
-                                       int64_t ndim, void *data, Tensor *output);
+AITISA_API_PUBLIC Status aitisa_create(DataType dtype, Device device, 
+                                       int64_t *dims, int64_t ndim, 
+                                       void *data, int64_t len, 
+                                       Tensor *output);
 
 /**
  * @brief Destroy the tensor by deallocating all related members.
@@ -140,5 +141,23 @@ AITISA_API_PUBLIC Status aitisa_create(DataType dtype, Device device,
  *                successfully.
  */
 AITISA_API_PUBLIC Status aitisa_destroy(Tensor *input);
+
+/**
+ * @brief Resolve a tensor into DataType, Device, dims, ndim, data and len.
+ *
+ * @param input The tensor to be resolved
+ * @param dtype The data type of the tensor
+ * @param device The device of the tensor
+ * @param dims The dimensions of the tensor
+ * @param ndim The number of dimensions of the tensor
+ * @param data The pointer of data of the tensor
+ * @param len The length of data, also the number of bytes of data
+ * @return Status The status indicates whether the function launched
+ *                successfully.
+ */
+AITISA_API_PUBLIC Status aitisa_resolve(Tensor input, DataType *dtype, 
+                                        Device *device, int64_t **dims,
+                                        int64_t *ndim, void **data, 
+                                        int64_t *len);
 
 #endif

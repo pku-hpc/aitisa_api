@@ -22,7 +22,7 @@ TEST(Relu, Float) {
   DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[2] = {2, 3};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 2, NULL, &input);
+  aitisa_create(dtype, device, dims, 2, NULL, 0, &input);
   relu_assign_float(input);
   // tensor_printer2d(input);
 

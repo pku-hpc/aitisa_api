@@ -15,7 +15,7 @@ Status aitisa_reshape(const Tensor input, int64_t* dims, int64_t ndim,
   DataType dtype = aitisa_tensor_data_type(input);
   Tensor new_tensor;
   CHECK_STATUS(
-      aitisa_create(dtype, device, layout_type, dims, ndim, NULL, &new_tensor));
+      aitisa_create(dtype, device, dims, ndim, NULL, 0, &new_tensor));
   *output = new_tensor;
   // Transport data
   void* in_data = aitisa_tensor_data(input);

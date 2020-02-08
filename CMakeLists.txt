@@ -92,8 +92,9 @@ if(AITISA_API_BUILD_TESTING)
   else()
     include(cmake/public/GTest.cmake)
   endif()
-  add_subdirectory(test)
-  add_subdirectory(auto_testing)
+  #add_subdirectory(test)
+  include_directories("auto_test")
+  add_subdirectory(auto_test)
 endif()
 
 ##############################################

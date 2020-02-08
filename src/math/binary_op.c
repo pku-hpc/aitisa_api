@@ -226,8 +226,8 @@ Status aitisa_add(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   }
   // create output
   CHECK_STATUS(aitisa_create(aitisa_tensor_data_type(tensor1),
-                             aitisa_tensor_device(tensor1), LAYOUT_DENSE,
-                             dims_tensor1, ndim_tensor1, NULL, output));
+                             aitisa_tensor_device(tensor1),
+                             dims_tensor1, ndim_tensor1, NULL, 0, output));
   int64_t size = aitisa_tensor_size(tensor1);
   void *data_tensor1 = aitisa_tensor_data(tensor1);
   void *data_tensor2 = aitisa_tensor_data(tensor2);
@@ -272,8 +272,8 @@ Status aitisa_sub(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   }
   // create output
   CHECK_STATUS(aitisa_create(aitisa_tensor_data_type(tensor1),
-                             aitisa_tensor_device(tensor1), LAYOUT_DENSE,
-                             dims_tensor1, ndim_tensor1, NULL, output));
+                             aitisa_tensor_device(tensor1),
+                             dims_tensor1, ndim_tensor1, NULL, 0, output));
   int64_t size = aitisa_tensor_size(tensor1);
   void *data_tensor1 = aitisa_tensor_data(tensor1);
   void *data_tensor2 = aitisa_tensor_data(tensor2);
@@ -318,8 +318,8 @@ Status aitisa_mul(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   }
   // create output
   CHECK_STATUS(aitisa_create(aitisa_tensor_data_type(tensor1),
-                             aitisa_tensor_device(tensor1), LAYOUT_DENSE,
-                             dims_tensor1, ndim_tensor1, NULL, output));
+                             aitisa_tensor_device(tensor1),
+                             dims_tensor1, ndim_tensor1, NULL, 0, output));
   int64_t size = aitisa_tensor_size(tensor1);
   void *data_tensor1 = aitisa_tensor_data(tensor1);
   void *data_tensor2 = aitisa_tensor_data(tensor2);
@@ -364,8 +364,8 @@ Status aitisa_div(const Tensor tensor1, const Tensor tensor2, Tensor *output) {
   }
   // create output
   CHECK_STATUS(aitisa_create(aitisa_tensor_data_type(tensor1),
-                             aitisa_tensor_device(tensor1), LAYOUT_DENSE,
-                             dims_tensor1, ndim_tensor1, NULL, output));
+                             aitisa_tensor_device(tensor1),
+                             dims_tensor1, ndim_tensor1, NULL, 0, output));
   int64_t size = aitisa_tensor_size(tensor1);
   void *data_tensor1 = aitisa_tensor_data(tensor1);
   void *data_tensor2 = aitisa_tensor_data(tensor2);

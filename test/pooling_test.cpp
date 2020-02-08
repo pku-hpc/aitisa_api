@@ -49,7 +49,7 @@ TEST(Pooling1D, MaxFloatK2S2P0D2) {
   DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[3] = {2, 3, 9};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 3, NULL, &input);
+  aitisa_create(dtype, device, dims, 3, NULL, 0, &input);
   pooling_assign_float(input);
 
   Tensor output;
@@ -82,7 +82,7 @@ TEST(Pooling2D, AvgInt32K3S3P0D1) {
   DataType dtype = kInt32;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[4] = {1, 2, 9, 9};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 4, NULL, &input);
+  aitisa_create(dtype, device, dims, 4, NULL, 0, &input);
   pooling_assign_int32(input);
 
   Tensor output;
@@ -111,7 +111,7 @@ TEST(Pooling2D, MaxDoubleK6S6P3D1) {
   DataType dtype = kDouble;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[4] = {1, 2, 15, 15};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 4, NULL, &input);
+  aitisa_create(dtype, device, dims, 4, NULL, 0, &input);
   pooling_assign_double(input);
 
   Tensor output;
@@ -144,7 +144,7 @@ TEST(Pooling3D, MaxInt32K3S5P0D2) {
   DataType dtype = kInt32;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[5] = {1, 2, 5, 10, 9};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 5, NULL, &input);
+  aitisa_create(dtype, device, dims, 5, NULL, 0, &input);
   pooling_assign_int32(input);
 
   Tensor output;

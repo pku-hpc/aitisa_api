@@ -26,20 +26,20 @@ TEST(BatchNorm, Input5dAxis4) {
   int channel_axis = 4;
   double epsilon = 1e-5;
   int64_t in_dims[5] = {2, 1, 2, 1, 2};
-  aitisa_create(dtype, device, LAYOUT_DENSE, in_dims, 5, NULL, &input);
+  aitisa_create(dtype, device, in_dims, 5, NULL, 0, &input);
   batch_norm_natural_assign_double(input, 0);
 
   Tensor mean, variance, scale, bias;
   int64_t param_dims[1] = {2};
   int64_t param_ndim = 1;
-  aitisa_create(dtype, device, LAYOUT_DENSE, param_dims, param_ndim, NULL, &mean);
+  aitisa_create(dtype, device, param_dims, param_ndim, NULL, 0, &mean);
   batch_norm_natural_assign_double(mean, 0.5);
-  aitisa_create(dtype, device, LAYOUT_DENSE, param_dims, param_ndim, NULL, &variance);
+  aitisa_create(dtype, device, param_dims, param_ndim, NULL, 0, &variance);
   batch_norm_natural_assign_double(variance, 1.1);
 
-  aitisa_create(dtype, device, LAYOUT_DENSE, param_dims, param_ndim, NULL, &scale);
+  aitisa_create(dtype, device, param_dims, param_ndim, NULL, 0, &scale);
   batch_norm_natural_assign_double(scale, 1);
-  aitisa_create(dtype, device, LAYOUT_DENSE, param_dims, param_ndim, NULL, &bias);
+  aitisa_create(dtype, device, param_dims, param_ndim, NULL, 0, &bias);
   batch_norm_natural_assign_double(bias, 0);
 
   Tensor output;
@@ -77,20 +77,20 @@ TEST(BatchNorm, Input4dAxis1) {
 
   Tensor input;
   int64_t in_dims[4] = {2, 3, 2, 2};
-  aitisa_create(dtype, device, LAYOUT_DENSE, in_dims, 4, NULL, &input);
+  aitisa_create(dtype, device, in_dims, 4, NULL, 0, &input);
   batch_norm_natural_assign_double(input, 0);
 
   Tensor mean, variance, scale, bias;
   int64_t param_dims[1] = {3};
   int64_t param_ndim = 1;
-  aitisa_create(dtype, device, LAYOUT_DENSE, param_dims, param_ndim, NULL, &mean);
+  aitisa_create(dtype, device, param_dims, param_ndim, NULL, 0, &mean);
   batch_norm_natural_assign_double(mean, 0.5);
-  aitisa_create(dtype, device, LAYOUT_DENSE, param_dims, param_ndim, NULL, &variance);
+  aitisa_create(dtype, device, param_dims, param_ndim, NULL, 0, &variance);
   batch_norm_natural_assign_double(variance, 1.1);
 
-  aitisa_create(dtype, device, LAYOUT_DENSE, param_dims, param_ndim, NULL, &scale);
+  aitisa_create(dtype, device, param_dims, param_ndim, NULL, 0, &scale);
   batch_norm_natural_assign_double(scale, 1);
-  aitisa_create(dtype, device, LAYOUT_DENSE, param_dims, param_ndim, NULL, &bias);
+  aitisa_create(dtype, device, param_dims, param_ndim, NULL, 0, &bias);
   batch_norm_natural_assign_double(bias, 0);
 
   double epsilon = 1e-5;
@@ -134,7 +134,7 @@ TEST(BatchNorm, Input2dAxis1) {
 
   Tensor input;
   int64_t in_dims[2] = {3, 4};
-  aitisa_create(dtype, device, LAYOUT_DENSE, in_dims, 2, NULL, &input);
+  aitisa_create(dtype, device, in_dims, 2, NULL, 0, &input);
   batch_norm_natural_assign_double(input, 0);
   // printf("input:\n");
   // tensor_printer2d(input);
@@ -142,14 +142,14 @@ TEST(BatchNorm, Input2dAxis1) {
   Tensor mean, variance, scale, bias;
   int64_t param_dims[1] = {4};
   int64_t param_ndim = 1;
-  aitisa_create(dtype, device, LAYOUT_DENSE, param_dims, param_ndim, NULL, &mean);
+  aitisa_create(dtype, device, param_dims, param_ndim, NULL, 0, &mean);
   batch_norm_natural_assign_double(mean, 0.5);
-  aitisa_create(dtype, device, LAYOUT_DENSE, param_dims, param_ndim, NULL, &variance);
+  aitisa_create(dtype, device, param_dims, param_ndim, NULL, 0, &variance);
   batch_norm_natural_assign_double(variance, 1.1);
 
-  aitisa_create(dtype, device, LAYOUT_DENSE, param_dims, param_ndim, NULL, &scale);
+  aitisa_create(dtype, device, param_dims, param_ndim, NULL, 0, &scale);
   batch_norm_natural_assign_double(scale, 1);
-  aitisa_create(dtype, device, LAYOUT_DENSE, param_dims, param_ndim, NULL, &bias);
+  aitisa_create(dtype, device, param_dims, param_ndim, NULL, 0, &bias);
   batch_norm_natural_assign_double(bias, 0);
 
   double epsilon = 1e-5;

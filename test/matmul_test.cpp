@@ -26,8 +26,8 @@ TEST(Matmul, vector_vector) {
   DataType dtype = kFloat;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[1] = {4};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 1, NULL, &tensor1);
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 1, NULL, &tensor2);
+  aitisa_create(dtype, device, dims, 1, NULL, 0, &tensor1);
+  aitisa_create(dtype, device, dims, 1, NULL, 0, &tensor2);
   natural_assign(tensor1);
   natural_assign(tensor2);
   Tensor output;
