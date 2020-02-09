@@ -3,7 +3,7 @@
 #include "src/core/utils.h"
 
 Status aitisa_create(DataType dtype, Device device, LayoutType layout_type,
-            int64_t *dims, int64_t ndim, Tensor *output) {
+                     int64_t *dims, int64_t ndim, void *data, Tensor *output) {
   Tensor tensor;
   tensor = aitisa_default_cpu_allocator()->raw_alloc(sizeof(*tensor));
   if (!tensor) return STATUS_ALLOC_FAILED;
@@ -11,7 +11,7 @@ Status aitisa_create(DataType dtype, Device device, LayoutType layout_type,
   tensor->offset = 0;
   CHECK_STATUS(aitisa_create_shape(layout_type, dims, ndim, &tensor->shape));
   CHECK_STATUS(
-      aitisa_create_storage(dtype, device, tensor->size, &tensor->storage));
+      aitisa_create_storage(dtype, device, tensor->size, data, &tensor->storage));
   *output = tensor;
   return STATUS_SUCCESS;
 }

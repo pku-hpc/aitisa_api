@@ -22,7 +22,7 @@ TEST(Squeeze, Axis) {
   DataType dtype = kInt32;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[6] = {2, 1, 5, 1, 10, 1};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 6, &input);
+  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 6, NULL, &input);
   squeeze_assign_int32(input);
   // tensor_printer2d(input);
   int64_t in_size = aitisa_tensor_size(input);
@@ -49,7 +49,7 @@ TEST(Squeeze, All) {
   DataType dtype = kInt32;
   Device device = {DEVICE_CPU, 0};
   int64_t dims[6] = {2, 1, 5, 1, 10, 1};
-  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 6, &input);
+  aitisa_create(dtype, device, LAYOUT_DENSE, dims, 6, NULL, &input);
   squeeze_assign_int32(input);
   // tensor_printer2d(input);
   int64_t in_size = aitisa_tensor_size(input);

@@ -38,7 +38,7 @@ static Status slice_create_output(const Tensor input, int *begin, int *size,
   Device device = aitisa_tensor_device(input);
   LayoutType layout_type = aitisa_tensor_layout_type(input);
   status = aitisa_create(dtype, device, layout_type, out_dims, out_ndim,
-                         &new_tensor);
+                         NULL, &new_tensor);
   *output = new_tensor;
   return status;
 }

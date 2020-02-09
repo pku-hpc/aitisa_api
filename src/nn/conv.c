@@ -54,7 +54,7 @@ static Status aitisa_conv_float(const Tensor input, const Tensor filter,
   Device device = aitisa_tensor_device(input);
   LayoutType layout_type = aitisa_tensor_layout_type(input);
   CHECK_STATUS(
-      aitisa_create(dtype, device, layout_type, out_dims, ndim, &new_tensor));
+      aitisa_create(dtype, device, layout_type, out_dims, ndim, NULL, &new_tensor));
   *output_ptr = new_tensor;
 
   aitisa_get_all_strides(input, in_strides);

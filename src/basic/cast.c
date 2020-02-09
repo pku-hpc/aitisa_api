@@ -85,7 +85,7 @@ Status aitisa_cast(const Tensor input, DataType dtype, Tensor *output) {
   int64_t *out_dims = aitisa_tensor_dims(input);
   int64_t out_ndim = aitisa_tensor_ndim(input);
   CHECK_STATUS(aitisa_create(dtype, device, layout_type, out_dims, out_ndim,
-                             &new_tensor));
+                             NULL, &new_tensor));
   *output = new_tensor;
   // Implement cast
   Status status;
