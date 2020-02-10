@@ -1,5 +1,5 @@
 #include <iostream>
-#include "test/auto_add_test.h"
+#include "auto_add_test.h"
 
 namespace hice {
   class Tensor {};
