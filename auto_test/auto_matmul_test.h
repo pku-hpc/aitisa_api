@@ -19,9 +19,9 @@ public:
             /*device1=cpu*/0, /*data1*/nullptr, /*len1*/0, 
             /*ndim2*/1, /*dims2*/{10}, /*dtype2=float*/8, 
             /*device2=cpu*/0, /*data2*/nullptr, /*len2*/0),
-    input1(/*ndim1*/2, /*dims1*/{1995,2020}, /*dtype1=double*/9,  
+    input1(/*ndim1*/2, /*dims1*/{199,202}, /*dtype1=double*/9,  
             /*device1=cuda*/1, /*data1*/nullptr, /*len1*/0, 
-            /*ndim2*/2, /*dims2*/{2020,2018}, /*dtype2=double*/9, 
+            /*ndim2*/2, /*dims2*/{202,201}, /*dtype2=double*/9, 
             /*device2=cuda*/1, /*data2*/nullptr, /*len2*/0),
     input2(/*ndim1*/1, /*dims1*/{10}, /*dtype1=float*/8,  
             /*device1=cpu*/0, /*data1*/nullptr, /*len1*/0, 
@@ -87,7 +87,7 @@ public:
   Binary_Input input6; // Natural assigned float type input of CPU with dims1{2,4,3} and dims2{3,2,3,2}
   Binary_Input *input[7] = {&input0, &input1, &input2, &input3, &input4, &input5, &input6};
   std::string input0_name = "Natural Float CPU with Dims{10} and Dims{10}";
-  std::string input1_name = "Random Double CUDA with Dims{1995,2020} and Dims{2020,2018}";
+  std::string input1_name = "Random Double CUDA with Dims{199,202} and Dims{202,201}";
   std::string input2_name = "Natural Float CPU with Dims{10} and Dims{10,5}";
   std::string input3_name = "Natural Float CPU with Dims{10,5} and Dims{5}";
   std::string input4_name = "Natural Float CPU with Dims{3} and Dims{2,2,4,3,2}";
@@ -178,20 +178,16 @@ TYPED_TEST_P(MatmulTest, FiveTests){
     }
     EXPECT_EQ(aitisa_result_len, user_result_len);
     if(i == 1){ // Double
-      std::cout<< "ok1" << std::endl;
+      // std::cout<< "ok1" << std::endl;
       double *aitisa_data = (double*)aitisa_result_data;
       double *user_data = (double*)user_result_data;
       for(int64_t j=0; j<tensor_size; j++){
-        if(j == 1) {
-          // std::cout<< aitisa_data[j] << std::endl;
-          std::cout<< user_data[j] << std::endl;
-        }
-        EXPECT_TRUE(abs(aitisa_data[j] - user_data[j]) < 1e-4);
+        EXPECT_TRUE(abs(aitisa_data[j] - user_data[j]) < 1e-3);
       }
-      std::cout<< "ok2" << std::endl;
+      // std::cout<< "ok2" << std::endl;
     }else{ // Float
       for(int64_t j=0; j<tensor_size; j++){
-        EXPECT_TRUE(abs(aitisa_result_data[j] - user_result_data[j]) < 1e-4);
+        EXPECT_TRUE(abs(aitisa_result_data[j] - user_result_data[j]) < 1e-3);
       }
     }
     // print result of test
