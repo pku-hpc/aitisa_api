@@ -29,7 +29,7 @@ Status aitisa_destroy(Tensor *input) {
 }
 
 Status aitisa_resolve(Tensor input, DataType *dtype, Device *device, 
-                      int64_t **dims, int64_t *ndim, void **data, int64_t *len){
+                      int64_t **dims, int64_t *ndim, void **data, unsigned int *len){
   *dtype = aitisa_tensor_data_type(input);
   *device = aitisa_tensor_device(input);
   int64_t *dims_ = aitisa_tensor_dims(input);

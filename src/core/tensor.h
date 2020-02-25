@@ -158,6 +158,6 @@ AITISA_API_PUBLIC Status aitisa_destroy(Tensor *input);
 AITISA_API_PUBLIC Status aitisa_resolve(Tensor input, DataType *dtype, 
                                         Device *device, int64_t **dims,
                                         int64_t *ndim, void **data, 
-                                        int64_t *len);
+                                        unsigned int *len);
 
 #endif

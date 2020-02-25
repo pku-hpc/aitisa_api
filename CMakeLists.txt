@@ -5,7 +5,8 @@ project(aitisa_api VERSION 0.4.0 LANGUAGES C CXX)
 # General options
 ##############################################
 option(AITISA_API_BUILD_SHARED_LIBS "Compiled as a shared library" ON)
-option(AITISA_API_BUILD_TESTING "Build with testing enabled" ON)
+option(AITISA_API_BUILD_TESTING "Build with testing enabled" OFF)
+option(AITISA_API_BUILD_AUTO_TESTING "Compile auto testing framework as a shared library" ON)
 option(AITISA_API_BUILD_DOCS "Generate documents with Doxygen" ON)
 option(AITISA_API_USE_GTEST_LOCAL "Download and build with GTest" ON)
 
@@ -92,9 +93,40 @@ if(AITISA_API_BUILD_TESTING)
   else()
     include(cmake/public/GTest.cmake)
   endif()
-  #add_subdirectory(test)
-  include_directories("auto_test")
-  add_subdirectory(auto_test)
+  add_subdirectory(test)
+  #include_directories("auto_test")
+  #add_subdirectory(auto_test)
+endif()
+
+##############################################
+# Auto Testing
+##############################################
+if(AITISA_API_BUILD_AUTO_TESTING)
+  if(NOT AITISA_API_BUILD_TESTING)
+    enable_testing()
+    if(AITISA_API_USE_GTEST_LOCAL)
+      include(cmake/local/GTest.cmake)
+    else()
+      include(cmake/public/GTest.cmake)
+    endif()
+  endif()
+  FILE(GLOB_RECURSE auto_test_srcs "auto_test/*.cpp" "auto_test/*.h")
+  add_library(auto_test SHARED ${auto_test_srcs})
+  set_target_properties(auto_test
+    PROPERTIES
+      INTERFACE_POSITION_INDEPENDENT_CODE ON
+      OUTPUT_NAME "auto_test"
+      SOVERSION ${PROJECT_VERSION_MAJOR}
+      C_VISIBILITY_PRESET "hidden"
+      VISIBILITY_INLINES_HIDDEN ON
+  )
+  target_compile_definitions(auto_test
+    PRIVATE
+      AUTO_TEST_SHARED_LIBS
+      AUTO_TEST_SHARED_LIBS_EXPORTS
+  )
+  target_link_libraries(auto_test aitisa_api::aitisa_api aitisa_api::gmock)
+  add_library(aitisa_api::auto_test ALIAS auto_test)
 endif()
 
 ##############################################
