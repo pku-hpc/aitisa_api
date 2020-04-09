@@ -4,7 +4,7 @@
 // #include <stdio.h>
 
 Status aitisa_create(DataType dtype, Device device, int64_t *dims, int64_t ndim, 
-                     void *data, int64_t len, Tensor *output) {
+                     void *data, unsigned int len, Tensor *output) {
   Tensor tensor;
   tensor = aitisa_default_cpu_allocator()->raw_alloc(sizeof(*tensor));
   if (!tensor) return STATUS_ALLOC_FAILED;

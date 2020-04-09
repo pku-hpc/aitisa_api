@@ -130,7 +130,7 @@ static inline void aitisa_tensor_set_item(const Tensor t, int64_t idx,
  */
 AITISA_API_PUBLIC Status aitisa_create(DataType dtype, Device device, 
                                        int64_t *dims, int64_t ndim, 
-                                       void *data, int64_t len, 
+                                       void *data, unsigned int len, 
                                        Tensor *output);
 
 /**

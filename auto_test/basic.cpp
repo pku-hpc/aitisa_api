@@ -14,13 +14,13 @@ const Device aitisa_devices[2] = { {DEVICE_CPU,  0},
 template <typename DATATYPE>
 inline void natural_assign_int(DATATYPE *data, unsigned int nelem){
   for(unsigned int i=0; i<nelem; i++){
-    data[i] = (DATATYPE)i;
+    data[i] = (DATATYPE)i + 1;
   }
 }
 template <typename DATATYPE>
 inline void natural_assign_float(DATATYPE *data, unsigned int nelem){
   for(unsigned int i=0; i<nelem; i++){
-    data[i] = (DATATYPE)(i * 0.1);
+    data[i] = (DATATYPE)i * 0.1 + 0.1;
   }
 }
 void natural_assign(void *data, unsigned int len, int dtype){

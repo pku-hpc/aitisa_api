@@ -19,9 +19,9 @@ public:
             /*device1=cpu*/0, /*data1*/nullptr, /*len1*/0, 
             /*ndim2*/1, /*dims2*/{10}, /*dtype2=float*/8, 
             /*device2=cpu*/0, /*data2*/nullptr, /*len2*/0),
-    input1(/*ndim1*/2, /*dims1*/{199,202}, /*dtype1=double*/9,  
+    input1(/*ndim1*/2, /*dims1*/{1995,2020}, /*dtype1=double*/9,  
             /*device1=cuda*/1, /*data1*/nullptr, /*len1*/0, 
-            /*ndim2*/2, /*dims2*/{202,201}, /*dtype2=double*/9, 
+            /*ndim2*/2, /*dims2*/{2020,2018}, /*dtype2=double*/9, 
             /*device2=cuda*/1, /*data2*/nullptr, /*len2*/0),
     input2(/*ndim1*/1, /*dims1*/{10}, /*dtype1=float*/8,  
             /*device1=cpu*/0, /*data1*/nullptr, /*len1*/0, 
@@ -76,7 +76,11 @@ public:
     }
   }
   virtual ~MatmulTest(){}
+  using InputType = Binary_Input;
   using UserInterface = InterfaceType;
+  static void aitisa_kernel(AITISA_Tensor in1, AITISA_Tensor in2, AITISA_Tensor *out){
+    aitisa_matmul(in1, in2, out);
+  }
   // inputs
   Binary_Input input0; // Natural assigned float type input of CPU with dims1{10} and dims2{10}
   Binary_Input input1; // Random assigned double type input of CUDA with dims1{1995,2020} and dims2{2020,2018}
@@ -99,13 +103,12 @@ public:
 };
 TYPED_TEST_CASE_P(MatmulTest);
 
-TYPED_TEST_P(MatmulTest, FiveTests){
+TYPED_TEST_P(MatmulTest, SevenTests){
   using UserDataType = typename TestFixture::UserInterface::UserDataType;
   using UserDevice = typename TestFixture::UserInterface::UserDevice;
   using UserTensor = typename TestFixture::UserInterface::UserTensor;
   using UserFuncs = typename TestFixture::UserInterface;
   for(int i=0; i<this->ninput; i++){
-    // if(i==1) continue;
     std::clock_t aitisa_start, aitisa_end, user_start, user_end;
     double aitisa_time, user_time;
     int64_t aitisa_result_ndim, user_result_ndim;
@@ -130,7 +133,7 @@ TYPED_TEST_P(MatmulTest, FiveTests){
     aitisa_start = std::clock();
     aitisa_matmul(aitisa_tensor1, aitisa_tensor2, &aitisa_result);
     aitisa_end = std::clock();
-    aitisa_time = (double)(aitisa_end - aitisa_start) / CLOCKS_PER_SEC * 1000;
+    aitisa_time = 1000.0 * (aitisa_end - aitisa_start) / static_cast<double>(CLOCKS_PER_SEC);
     aitisa_resolve(aitisa_result, &aitisa_result_dtype, &aitisa_result_device, &aitisa_result_dims, 
                    &aitisa_result_ndim, (void**)&aitisa_result_data, &aitisa_result_len);
     //for debug, please delete it when it is done!
@@ -156,38 +159,38 @@ TYPED_TEST_P(MatmulTest, FiveTests){
     user_start = std::clock();
     UserFuncs::user_matmul(user_tensor1, user_tensor2, &user_result);
     user_end = std::clock();
-    user_time = (double)(user_end - user_start) / CLOCKS_PER_SEC * 1000;
+    user_time = 1000.0 * (user_end - user_start) / static_cast<double>(CLOCKS_PER_SEC);
     UserFuncs::user_resolve(user_result, &user_result_dtype, &user_result_device, 
                             &user_result_dims, &user_result_ndim, 
                             (void**)&user_result_data, &user_result_len);
     // compare
     int64_t tensor_size = 1;
-    EXPECT_EQ(aitisa_result_ndim, user_result_ndim);
+    ASSERT_EQ(aitisa_result_ndim, user_result_ndim);
     if(i == 1){ // CUDA
-      EXPECT_EQ(
+      ASSERT_EQ(
         /*CUDA*/1, UserFuncs::user_device_to_int(user_result_device));
     }else{ // CPU
-      EXPECT_EQ(aitisa_device_to_int(aitisa_result_device), 
+      ASSERT_EQ(aitisa_device_to_int(aitisa_result_device), 
                 UserFuncs::user_device_to_int(user_result_device));
     }
-    EXPECT_EQ(aitisa_dtype_to_int(aitisa_result_dtype), 
+    ASSERT_EQ(aitisa_dtype_to_int(aitisa_result_dtype), 
               UserFuncs::user_dtype_to_int(user_result_dtype));
     for(int64_t j=0; j<aitisa_result_ndim; j++){
       tensor_size *= aitisa_result_dims[j];
-      EXPECT_EQ(aitisa_result_dims[j], user_result_dims[j]);
+      ASSERT_EQ(aitisa_result_dims[j], user_result_dims[j]);
     }
-    EXPECT_EQ(aitisa_result_len, user_result_len);
+    ASSERT_EQ(aitisa_result_len, user_result_len);
     if(i == 1){ // Double
       // std::cout<< "ok1" << std::endl;
       double *aitisa_data = (double*)aitisa_result_data;
       double *user_data = (double*)user_result_data;
       for(int64_t j=0; j<tensor_size; j++){
-        EXPECT_TRUE(abs(aitisa_data[j] - user_data[j]) < 1e-3);
+        ASSERT_TRUE(abs(aitisa_data[j] - user_data[j]) < 1e-3);
       }
       // std::cout<< "ok2" << std::endl;
     }else{ // Float
       for(int64_t j=0; j<tensor_size; j++){
-        EXPECT_TRUE(abs(aitisa_result_data[j] - user_result_data[j]) < 1e-3);
+        ASSERT_TRUE(abs(aitisa_result_data[j] - user_result_data[j]) < 1e-3);
       }
     }
     // print result of test
@@ -197,43 +200,15 @@ TYPED_TEST_P(MatmulTest, FiveTests){
     std::cout<< /*GREEN <<*/ "\t[  USER  ] " << /*RESET <<*/ user_time << " ms" << std::endl;
   }
 }
-REGISTER_TYPED_TEST_CASE_P(MatmulTest, FiveTests);
+REGISTER_TYPED_TEST_CASE_P(MatmulTest, SevenTests);
 
-//  void get_sample_matmul(Sample<Binary_Input>& sample, std::string case_name){
-//   std::string case1("aitisa_api/MatmulTest/0.NaturalFloatCPU");
-//   std::string case2("aitisa_api/MatmulTest/0.RandomDoubleCUDA");
-//   int sample_num = 0;
-//   AITISA_Tensor aitisa_tensor1, aitisa_tensor2, aitisa_result;
-//   AITISA_DataType aitisa_result_dtype;
-//   AITISA_Device aitisa_result_device;
-//   int64_t aitisa_result_ndim;
-//   int64_t *aitisa_result_dims = nullptr;
-//   void *aitisa_result_data=nullptr;
-//   unsigned int aitisa_result_len;
-//   Concrete<MatmulTest<void>> matmul_test;
-//   if(case_name == case1) {
-//     sample_num = 1;
-//   }else if(case_name == case2){
-//     sample_num = 2;
-//   }else {}
-//   switch(sample_num){
-//     case 1: sample.set_input(matmul_test.input1); break;
-//     case 2: sample.set_input(matmul_test.input2); break;
-//     default: break;
-//   }
-//   AITISA_DataType aitisa_dtype1 = aitisa_int_to_dtype(sample.input().dtype1());
-//   AITISA_DataType aitisa_dtype2 = aitisa_int_to_dtype(sample.input().dtype2());
-//   AITISA_Device aitisa_device1 = aitisa_int_to_device(0); // cpu supported only
-//   AITISA_Device aitisa_device2 = aitisa_int_to_device(0); // cpu supported only
-//   aitisa_create(aitisa_dtype1, aitisa_device1, sample.input().dims1(), sample.input().ndim1(), 
-//                 (void*)(sample.input().data1()), sample.input().len1(), &aitisa_tensor1);
-//   aitisa_create(aitisa_dtype2, aitisa_device2, sample.input().dims2(), sample.input().ndim2(), 
-//                 (void*)(sample.input().data2()), sample.input().len2(), &aitisa_tensor2);
-//   aitisa_matmul(aitisa_tensor1, aitisa_tensor2, &aitisa_result);
-//   aitisa_resolve(aitisa_result, &aitisa_result_dtype, &aitisa_result_device, &aitisa_result_dims, 
-//                  &aitisa_result_ndim, (void**)&aitisa_result_data, &aitisa_result_len);
-//   sample.set_result(aitisa_result_ndim, aitisa_result_dims, aitisa_result_data, aitisa_result_len);
-// }
+Sample<Binary_Input> get_sample_matmul(int sample_num){
+  return get_binary_sample<MatmulTest<void>>(sample_num);
+}
+
+#define GET_SAMPLE_MATMUL(SAMPLE, NUM)                                                    \
+  aitisa_api::Sample<aitisa_api::Binary_Input> SAMPLE;                                    \
+  aitisa_api::get_binary_sample<aitisa_api::MatmulTest<void>>(SAMPLE, NUM);
 
 #define REGISTER_MATMUL(MATMUL_FUNC)                                                      \
   class Matmul : public Basic {                                                           \
@@ -245,5 +220,5 @@ REGISTER_TYPED_TEST_CASE_P(MatmulTest, FiveTests);
   namespace aitisa_api{                                                                   \
     INSTANTIATE_TYPED_TEST_CASE_P(aitisa_api, MatmulTest, Matmul);                        \
   }
-  
+
 } // namespace aitisa_api
