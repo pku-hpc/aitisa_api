@@ -23,8 +23,9 @@ Status aitisa_create(DataType dtype, Device device, int64_t *dims, int64_t ndim,
 Status aitisa_destroy(Tensor *input) {
   if (!(*input)) return STATUS_SUCCESS;
   CHECK_STATUS(aitisa_destroy_shape(&(*input)->shape));
-  CHECK_STATUS(aitisa_destroy_storage(&(*input)->storage));
+  CHECK_STATUS(aitisa_destroy_storage(&((*input)->storage)));
   aitisa_default_cpu_allocator()->raw_dealloc((*input));
+  *input = NULL;
   return STATUS_SUCCESS;
 }
 

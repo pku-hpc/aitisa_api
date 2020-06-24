@@ -25,6 +25,13 @@ Status aitisa_create_storage(DataType dtype, Device device, int64_t size,
 
 Status aitisa_destroy_storage(Storage *storage) {
   if (!(*storage)) return STATUS_SUCCESS;
+  void *data = (*storage)->data;
+  if(data){
+    aitisa_default_cpu_allocator()->raw_dealloc((data));
+    data = NULL;
+    (*storage)->data = NULL;
+  }
   aitisa_default_cpu_allocator()->raw_dealloc((*storage));
+  *storage = NULL;
   return STATUS_SUCCESS;
 }

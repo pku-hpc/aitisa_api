@@ -38,7 +38,7 @@ static Status scalar_tensor_mul(const Tensor tensor1, const Tensor tensor2,
   int64_t ndim_tensor2 = aitisa_tensor_ndim(tensor2);
   // Create a new tensor full of the scalar value
   int64_t out_ndim;
-  int64_t *out_dims;
+  int64_t *out_dims = NULL;
   double value;
   Tensor new_tensor;
   DataType dtype = aitisa_tensor_data_type(tensor1);
@@ -61,6 +61,9 @@ static Status scalar_tensor_mul(const Tensor tensor1, const Tensor tensor2,
   } else {
     status = aitisa_mul(new_tensor, tensor2, output);
   }
+
+  aitisa_destroy(&new_tensor);
+
   return status;
 }
 
@@ -82,6 +85,7 @@ static Status vector_vector_dot(const Tensor tensor1, const Tensor tensor2,
   status = dot_template(
       aitisa_tensor_data_type(tensor1), aitisa_tensor_data(tensor1),
       aitisa_tensor_data(tensor2), tensor1->size, aitisa_tensor_data(*output));
+
   return status;
 }
 
@@ -112,6 +116,8 @@ static Status tensor_vector_dot(const Tensor tensor1, const Tensor tensor2,
   CHECK_STATUS(aitisa_create(dtype, device, out_dims, out_ndim,
                              NULL, 0, &new_tensor));
   *output = new_tensor;
+  aitisa_default_cpu_allocator()->raw_dealloc(out_dims);
+  out_dims = NULL;
   // Make an index recorder of vectors in tensor1 then initialize it
   int *index_recorder = aitisa_default_cpu_allocator()->raw_alloc(
       sizeof(*index_recorder) * ndim_tensor1);
@@ -155,6 +161,8 @@ static Status tensor_vector_dot(const Tensor tensor1, const Tensor tensor2,
         break;
       }
     }
+    aitisa_destroy(&vec1);
+    aitisa_destroy(&result);
   }
   aitisa_default_cpu_allocator()->raw_dealloc(index_recorder);
   aitisa_default_cpu_allocator()->raw_dealloc(size);
@@ -197,6 +205,8 @@ static Status multidim_dot(const Tensor tensor1, const Tensor tensor2,
   CHECK_STATUS(aitisa_create(dtype, device, out_dims, out_ndim,
                              NULL, 0, &new_tensor));
   *output = new_tensor;
+  aitisa_default_cpu_allocator()->raw_dealloc(out_dims);
+  out_dims = NULL;
   // Make index recorders of vectors in tensor1 and tensor2 then initialize them
   int *index_recorder_t1 = aitisa_default_cpu_allocator()->raw_alloc(
       sizeof(*index_recorder_t1) * ndim_tensor1);
@@ -262,6 +272,8 @@ static Status multidim_dot(const Tensor tensor1, const Tensor tensor2,
           break;
         }
       }
+      aitisa_destroy(&vec2);
+      aitisa_destroy(&result);
     }
     // Update index_recorder_t1
     for (int i = ndim_tensor1 - 2; i >= 0; i--) {
@@ -273,6 +285,7 @@ static Status multidim_dot(const Tensor tensor1, const Tensor tensor2,
         break;
       }
     }
+    aitisa_destroy(&vec1);
   }
   aitisa_default_cpu_allocator()->raw_dealloc(index_recorder_t1);
   aitisa_default_cpu_allocator()->raw_dealloc(size_t1);

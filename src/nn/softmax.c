@@ -121,6 +121,9 @@ static Status softmax_along_axis(const Tensor input, const int axis,
   // Choose the right data type
   DataType dtype = aitisa_tensor_data_type(input);
   AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, softmax_along_axis_kernel);
+
+  aitisa_default_cpu_allocator()->raw_dealloc(index_recorder);
+  aitisa_default_cpu_allocator()->raw_dealloc(offset_recorder);
   return STATUS_SUCCESS;
 }
 

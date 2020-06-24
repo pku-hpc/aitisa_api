@@ -54,6 +54,8 @@ Status aitisa_squeeze(const Tensor input, int64_t *axis, int64_t num_axis,
   Status status = aitisa_reshape(input, out_dims, out_ndim, output);
   // Destroy temporary parameters
   aitisa_default_cpu_allocator()->raw_dealloc(processed_in_dims);
-
+  aitisa_default_cpu_allocator()->raw_dealloc(out_dims);
+  processed_in_dims = NULL;
+  out_dims = NULL;
   return status;
 }

@@ -68,6 +68,10 @@ TEST(BatchNorm, Input5dAxis4) {
   }
 
   aitisa_destroy(&input);
+  aitisa_destroy(&mean);
+  aitisa_destroy(&variance);
+  aitisa_destroy(&scale);
+  aitisa_destroy(&bias);
   aitisa_destroy(&output);
 }
 
@@ -125,6 +129,10 @@ TEST(BatchNorm, Input4dAxis1) {
   }
 
   aitisa_destroy(&input);
+  aitisa_destroy(&mean);
+  aitisa_destroy(&variance);
+  aitisa_destroy(&scale);
+  aitisa_destroy(&bias);
   aitisa_destroy(&output);
 }
 
@@ -180,6 +188,10 @@ TEST(BatchNorm, Input2dAxis1) {
   }
 
   aitisa_destroy(&input);
+  aitisa_destroy(&mean);
+  aitisa_destroy(&variance);
+  aitisa_destroy(&scale);
+  aitisa_destroy(&bias);
   aitisa_destroy(&output);
 }
 

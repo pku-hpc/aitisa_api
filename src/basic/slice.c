@@ -31,6 +31,7 @@ static Status slice_create_output(const Tensor input, int *begin, int *size,
     }
   }
   aitisa_default_cpu_allocator()->raw_dealloc(out_dims_temp);
+  out_dims_temp = NULL;
   // Create output
   Status status;
   Tensor new_tensor;
@@ -40,6 +41,9 @@ static Status slice_create_output(const Tensor input, int *begin, int *size,
   status = aitisa_create(dtype, device, out_dims, out_ndim,
                          NULL, 0, &new_tensor);
   *output = new_tensor;
+  aitisa_default_cpu_allocator()->raw_dealloc(out_dims);
+  out_dims = NULL;
+  
   return status;
 }
 
@@ -111,6 +115,10 @@ static Status slice_template(const Tensor input, int *begin, int *size,
   // Implement slice kernel
   DataType dtype = aitisa_tensor_data_type(input);
   AITISA_DISPATCH_ALL_TYPES_RETURN(dtype, slice_kernel);
+
+  aitisa_default_cpu_allocator()->raw_dealloc(index_recorder);
+  aitisa_default_cpu_allocator()->raw_dealloc(boundary);
+  aitisa_default_cpu_allocator()->raw_dealloc(offset_recorder);
   return STATUS_SUCCESS;
 }
 

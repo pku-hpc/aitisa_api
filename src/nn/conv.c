@@ -46,8 +46,7 @@ static Status aitisa_conv_float(const Tensor input, const Tensor filter,
   int64_t *out_strides =
       aitisa_default_cpu_allocator()->raw_alloc(sizeof(*out_strides) * ndim);
 
-  conv_output_dims(in_dims, fil_dims, stride, padding, dilation, ndim,
-                   out_dims);
+  conv_output_dims(in_dims, fil_dims, stride, padding, dilation, ndim, out_dims);
 
   Tensor new_tensor;
   DataType dtype = aitisa_tensor_data_type(input);
@@ -127,6 +126,7 @@ static Status aitisa_conv_float(const Tensor input, const Tensor filter,
   aitisa_default_cpu_allocator()->raw_dealloc(in_strides);
   aitisa_default_cpu_allocator()->raw_dealloc(fil_strides);
   aitisa_default_cpu_allocator()->raw_dealloc(out_strides);
+  aitisa_default_cpu_allocator()->raw_dealloc(tmp_coords);
 }
 
 /*

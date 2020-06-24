@@ -31,6 +31,7 @@ namespace aitisa_api {
 namespace {
 TEST(Cast, FloatToInt32) {
   Tensor input;
+  Tensor temp;
   Tensor factor;
   int64_t dims[2] = {3, 2};
   Device device = {DEVICE_CPU, 0};
@@ -38,13 +39,12 @@ TEST(Cast, FloatToInt32) {
   aitisa_create(dtype, device, dims, 2, NULL, 0, &input);
   aitisa_full(dtype, device, dims, 2, 7, &factor);
   cast_assign_float(input);
-  aitisa_mul(input, factor, &input);
+  aitisa_mul(input, factor, &temp);
   DataType out_dtype = {TYPE_INT32, sizeof(int32_t)};
 
   Tensor output;
   Status status;
-  status = aitisa_cast(input, out_dtype, &output);
-  status = aitisa_cast(input, out_dtype, &output);
+  status = aitisa_cast(temp, out_dtype, &output);
 
   DataType in_dtype_test = aitisa_tensor_data_type(input);
   DataType out_dtype_test = aitisa_tensor_data_type(output);
@@ -59,25 +59,26 @@ TEST(Cast, FloatToInt32) {
 
   aitisa_destroy(&factor);
   aitisa_destroy(&input);
+  aitisa_destroy(&temp);
   aitisa_destroy(&output);
 }
 
 TEST(Cast, Int32ToDouble) {
   Tensor input;
   Tensor factor;
+  Tensor temp;
   int64_t dims[2] = {3, 2};
   Device device = {DEVICE_CPU, 0};
   DataType dtype = kInt32;
   aitisa_create(dtype, device, dims, 2, NULL, 0, &input);
   aitisa_full(dtype, device, dims, 2, 2, &factor);
   cast_assign_int32(input);
-  aitisa_mul(input, factor, &input);
+  aitisa_mul(input, factor, &temp);
   DataType out_dtype = {TYPE_DOUBLE, sizeof(double)};
 
   Tensor output;
   Status status;
-  status = aitisa_cast(input, out_dtype, &output);
-  status = aitisa_cast(input, out_dtype, &output);
+  status = aitisa_cast(temp, out_dtype, &output);
 
   DataType in_dtype_test = aitisa_tensor_data_type(input);
   DataType out_dtype_test = aitisa_tensor_data_type(output);
@@ -94,6 +95,7 @@ TEST(Cast, Int32ToDouble) {
 
   aitisa_destroy(&factor);
   aitisa_destroy(&input);
+  aitisa_destroy(&temp);
   aitisa_destroy(&output);
 }
 }  // namespace

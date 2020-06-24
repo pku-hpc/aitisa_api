@@ -5,8 +5,8 @@ project(aitisa_api VERSION 0.4.0 LANGUAGES C CXX)
 # General options
 ##############################################
 option(AITISA_API_BUILD_SHARED_LIBS "Compiled as a shared library" ON)
-option(AITISA_API_BUILD_TESTING "Build with testing enabled" OFF)
-option(AITISA_API_BUILD_AUTO_TESTING "Compile auto testing framework as a shared library" ON)
+option(AITISA_API_BUILD_TESTING "Build with testing enabled" ON)
+option(AITISA_API_BUILD_AUTO_TESTING "Compile auto testing framework as a shared library" OFF)
 option(AITISA_API_BUILD_DOCS "Generate documents with Doxygen" ON)
 option(AITISA_API_USE_GTEST_LOCAL "Download and build with GTest" ON)
 

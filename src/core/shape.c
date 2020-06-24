@@ -21,7 +21,10 @@ Status aitisa_create_default_layout(LayoutType layout_type, int64_t ndim,
 
 Status aitisa_destroy_layout(Layout *layout){
   if (!layout) return STATUS_SUCCESS;
-  aitisa_default_cpu_allocator()->raw_dealloc(layout->min2maj);
+  if(layout->min2maj){
+    aitisa_default_cpu_allocator()->raw_dealloc(layout->min2maj);
+    layout->min2maj = NULL;
+  }
   return STATUS_SUCCESS;
 }
 
@@ -44,7 +47,10 @@ Status aitisa_create_shape(LayoutType layout_type, int64_t *dims, int64_t ndim,
 
 Status aitisa_destroy_shape(Shape *shape){
   if (!shape) return STATUS_SUCCESS;
-  aitisa_default_cpu_allocator()->raw_dealloc(shape->dims);
-  CHECK_STATUS(aitisa_destroy_layout(&shape->layout));
+  if(shape->dims){
+    aitisa_default_cpu_allocator()->raw_dealloc(shape->dims);
+    shape->dims = NULL;
+  }
+  CHECK_STATUS(aitisa_destroy_layout(&(shape->layout)));
   return STATUS_SUCCESS;
 }

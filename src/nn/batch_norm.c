@@ -250,6 +250,8 @@ static Status batch_norm_with_channel(const Tensor input, const int axis,
   aitisa_default_cpu_allocator()->raw_dealloc(size);
   aitisa_default_cpu_allocator()->raw_dealloc(step);
   aitisa_default_cpu_allocator()->raw_dealloc(squeeze_axis);
+  aitisa_default_cpu_allocator()->raw_dealloc(index_recorder);
+  aitisa_default_cpu_allocator()->raw_dealloc(offset_recorder);
   return STATUS_SUCCESS;
 }
 
@@ -281,7 +283,7 @@ static Status get_intermediate_tensors(const Tensor input, const int axis,
     // Destroy epsilon and temp tensor
     aitisa_destroy(&eps_tensor);
     aitisa_destroy(&temp);
-  } else if (in_ndim > 2) {
+  }else if (in_ndim > 2) {
     // The case with channel
     int64_t *in_dims = aitisa_tensor_dims(input);
     int64_t num_channels = aitisa_tensor_dim(input, axis);
@@ -358,6 +360,7 @@ static Status get_intermediate_tensors(const Tensor input, const int axis,
       aitisa_destroy(&(var_array[c]));
     }
     aitisa_destroy(&eps_tensor);
+    aitisa_default_cpu_allocator()->raw_dealloc(var_array);
   }
   return STATUS_SUCCESS;
 }
@@ -384,12 +387,24 @@ Status aitisa_batch_norm(const Tensor input, const int axis, const Tensor scale,
                                           variance, epsilon, &denominator_ptr));
     status = batch_norm_without_channel(input, scale, bias, mean, denominator,
                                         output);
+    aitisa_destroy(&denominator);
   } else if (ndim > 2 && ndim < 6) {
     CHECK_STATUS(get_intermediate_tensors(input, axis, scale, &scale_array,
                                           bias, &bias_array, mean, &mean_array,
                                           variance, epsilon, &denominators));
     status = batch_norm_with_channel(input, axis, scale_array, bias_array,
                                      mean_array, denominators, output);
+    int64_t num_channels = aitisa_tensor_dim(input, axis);
+    for(int64_t i = 0; i < num_channels; i++){
+      aitisa_destroy(&scale_array[i]);
+      aitisa_destroy(&bias_array[i]);
+      aitisa_destroy(&mean_array[i]);
+      aitisa_destroy(&denominators[i]);
+    }
+    aitisa_default_cpu_allocator()->raw_dealloc(scale_array);
+    aitisa_default_cpu_allocator()->raw_dealloc(bias_array);
+    aitisa_default_cpu_allocator()->raw_dealloc(mean_array);
+    aitisa_default_cpu_allocator()->raw_dealloc(denominators);
   } else {
     status = STATUS_DIMENSIONS_MISMATCH;
   }
