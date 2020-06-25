@@ -318,6 +318,8 @@ static Status get_intermediate_tensors(const Tensor input, const int axis,
     *denominator = NULL;
     *denominator = aitisa_default_cpu_allocator()->raw_alloc(
         sizeof(**denominator) * num_channels);
+    Tensor *temp = aitisa_default_cpu_allocator()->raw_alloc(
+        sizeof(**temp) * num_channels); 
     Tensor *var_array = aitisa_default_cpu_allocator()->raw_alloc(
         sizeof(*var_array) * num_channels);
     if (!*mean_array || !*scale_array || !*bias_array ||
@@ -333,8 +335,6 @@ static Status get_intermediate_tensors(const Tensor input, const int axis,
                                  NULL, 0, &((*bias_array)[c])));
       CHECK_STATUS(aitisa_create(dtype, device, param_dims, param_ndim,
                                  NULL, 0, &(var_array[c])));
-      CHECK_STATUS(aitisa_create(dtype, device, param_dims, param_ndim,
-                                 NULL, 0, &((*denominator)[c])));
       // Repeatedly copy data to array
       char *mean_array_c_data = aitisa_tensor_data((*mean_array)[c]);
       char *mean_data = aitisa_tensor_data(mean);
@@ -355,12 +355,17 @@ static Status get_intermediate_tensors(const Tensor input, const int axis,
                (void *)(var_data + c * ele_size), ele_size);
       }
       // sqrt(var_array[c] + epsilon_tensor)
-      CHECK_STATUS(aitisa_add(var_array[c], eps_tensor, &((*denominator)[c])));
-      CHECK_STATUS(aitisa_sqrt((*denominator)[c], &((*denominator)[c])));
+      CHECK_STATUS(aitisa_add(var_array[c], eps_tensor, &(temp[c])));
+      CHECK_STATUS(aitisa_sqrt(temp[c], &((*denominator)[c])));
       aitisa_destroy(&(var_array[c]));
     }
     aitisa_destroy(&eps_tensor);
     aitisa_default_cpu_allocator()->raw_dealloc(var_array);
+    aitisa_default_cpu_allocator()->raw_dealloc(param_dims); 
+    for(int64_t i = 0; i < num_channels; i++){
+      aitisa_destroy(&temp[i]);
+    }
+    aitisa_default_cpu_allocator()->raw_dealloc(temp);
   }
   return STATUS_SUCCESS;
 }
