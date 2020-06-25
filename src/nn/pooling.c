@@ -39,7 +39,7 @@ static Status pooling_create_output(const Tensor input, int64_t *out_dims,
   }
   DataType dtype = aitisa_tensor_data_type(input);
   Device device = aitisa_tensor_device(input);
-  LayoutType layout = aitisa_tensor_layout_type(input);
+  // LayoutType layout = aitisa_tensor_layout_type(input);
   return
     aitisa_create(dtype, device, out_dims, ndim, NULL, 0, output);
 }
@@ -176,8 +176,8 @@ Status aitisa_pooling(const Tensor input, const char *mode,
                       Tensor *output){
     Status status;
     int64_t ndim = aitisa_tensor_ndim(input);
-    int axis = 1;
     if(ndim>2 && ndim<6){
+      int axis = 1;
       status = pooling_double(input, mode, ksize, stride,
                                 padding, dilation, axis, output);
     }else{

@@ -11,7 +11,7 @@ Status aitisa_reshape(const Tensor input, int64_t* dims, int64_t ndim,
   }
   // Create output
   Device device = aitisa_tensor_device(input);
-  LayoutType layout_type = aitisa_tensor_layout_type(input);
+  // LayoutType layout_type = aitisa_tensor_layout_type(input);
   DataType dtype = aitisa_tensor_data_type(input);
   Tensor new_tensor;
   CHECK_STATUS(

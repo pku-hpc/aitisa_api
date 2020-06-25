@@ -51,7 +51,7 @@ static Status aitisa_conv_float(const Tensor input, const Tensor filter,
   Tensor new_tensor;
   DataType dtype = aitisa_tensor_data_type(input);
   Device device = aitisa_tensor_device(input);
-  LayoutType layout_type = aitisa_tensor_layout_type(input);
+  // LayoutType layout_type = aitisa_tensor_layout_type(input);
   CHECK_STATUS(
       aitisa_create(dtype, device, out_dims, ndim, NULL, 0, &new_tensor));
   *output_ptr = new_tensor;
@@ -65,7 +65,7 @@ static Status aitisa_conv_float(const Tensor input, const Tensor filter,
   float *out_data = aitisa_tensor_data(*output_ptr);
 
   int64_t out_space_size = size_from_dim(2, out_dims, ndim);
-  int64_t in_space_size = size_from_dim(2, in_dims, ndim);
+  // int64_t in_space_size = size_from_dim(2, in_dims, ndim);
   int64_t fil_space_size = size_from_dim(2, fil_dims, ndim);
 
   int64_t nbatch = aitisa_tensor_dim(input, 0);

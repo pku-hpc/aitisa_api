@@ -112,7 +112,7 @@ static Status tensor_vector_dot(const Tensor tensor1, const Tensor tensor2,
   Tensor new_tensor;
   DataType dtype = aitisa_tensor_data_type(tensor1);
   Device device = aitisa_tensor_device(tensor1);
-  LayoutType layout_type = aitisa_tensor_layout_type(tensor1);
+  // LayoutType layout_type = aitisa_tensor_layout_type(tensor1);
   CHECK_STATUS(aitisa_create(dtype, device, out_dims, out_ndim,
                              NULL, 0, &new_tensor));
   *output = new_tensor;

@@ -11,7 +11,7 @@ static Status softmax_create_output(const Tensor input, Tensor *output){
   Tensor new_tensor;
   DataType dtype = aitisa_tensor_data_type(input);
   Device device = aitisa_tensor_device(input);
-  LayoutType layout_type = aitisa_tensor_layout_type(input);
+  // LayoutType layout_type = aitisa_tensor_layout_type(input);
   status = aitisa_create(dtype, device, dims, ndim, NULL, 0, &new_tensor);
   *output = new_tensor;
   return status;

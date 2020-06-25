@@ -68,7 +68,7 @@ static Status batch_norm_create_output(const Tensor input, Tensor *output) {
   Tensor new_tensor;
   DataType dtype = aitisa_tensor_data_type(input);
   Device device = aitisa_tensor_device(input);
-  LayoutType layout_type = aitisa_tensor_layout_type(input);
+  // LayoutType layout_type = aitisa_tensor_layout_type(input);
   status = aitisa_create(dtype, device, dims, ndim, NULL, 0, &new_tensor);
   if (status == STATUS_SUCCESS) {
     *output = new_tensor;
@@ -87,12 +87,11 @@ static void batch_norm_transport(const Tensor source, Tensor *destination,
   int64_t *des_dims = aitisa_tensor_dims(*destination);
   int64_t src_size = aitisa_tensor_size(source);
   uint8_t ele_size = aitisa_tensor_data_type(source).size;
-  int64_t linear_idx;
   char *src_data = aitisa_tensor_data(source);
   char *des_data = aitisa_tensor_data(*destination);
   for (int64_t i = 0; i < src_size; i++) {
     // Get linear index of current element
-    linear_idx = 0;
+    int64_t linear_idx = 0;
     for (int j = 0; j < des_ndim; j++) {
       linear_idx += index_recorder[j] * offset_recorder[j];
     }
@@ -265,7 +264,7 @@ static Status get_intermediate_tensors(const Tensor input, const int axis,
   int64_t in_ndim = aitisa_tensor_ndim(input);
   DataType dtype = aitisa_tensor_data_type(input);
   Device device = aitisa_tensor_device(input);
-  LayoutType layout = aitisa_tensor_layout_type(input);
+  // LayoutType layout = aitisa_tensor_layout_type(input);
   if (in_ndim == 2) {
     // batch norm 1d without channel
     *scale_array = NULL;
