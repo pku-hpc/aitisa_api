@@ -94,7 +94,7 @@ Status aitisa_matmul(const Tensor tensor1, const Tensor tensor2,
   }
   int64_t ndim_tensor1 = aitisa_tensor_ndim(tensor1);
   int64_t ndim_tensor2 = aitisa_tensor_ndim(tensor2);
-  Status status;
+  Status status = STATUS_SUCCESS;
   if (ndim_tensor1 == 1 && ndim_tensor2 == 1) {
     // vector-vector
     int64_t dim0_tensor1 = aitisa_tensor_dim(tensor1, 0);
