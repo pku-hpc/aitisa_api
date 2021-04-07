@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -std=c++11 -g  -shared -Wl,-soname,libgmockd.so -o ../../../../build/lib64/libgmockd.so CMakeFiles/gmock.dir/src/gmock-all.cc.o -Wl,-rpath,/gpfs/share/home/1801213993/aitisa_api/build/lib64: ../../../../build/lib64/libgtestd.so -pthread 

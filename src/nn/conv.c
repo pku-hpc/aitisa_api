@@ -146,3 +146,28 @@ Status aitisa_conv(const Tensor input, const Tensor filter, const int *stride,
       return STATUS_NOT_SUPPORTED;
   }
 }
+
+Status aitisa_conv2d(const Tensor input, const Tensor filter, const int *stride,
+                     const int stride_len, const int *padding, const int padding_len, 
+                     const int *dilation, const int dilation_len, const int groups,
+                     Tensor *output_ptr) {
+  int64_t ndim = aitisa_tensor_ndim(input);
+  if(ndim != 4){
+    return STATUS_DIMENSIONS_MISMATCH;
+  }
+
+  return aitisa_conv(input, filter, stride, padding, dilation, groups, output_ptr);
+}
+
+Status aitisa_conv3d(const Tensor input, const Tensor filter, const int *stride,
+                     const int stride_len, const int *padding, const int padding_len, 
+                     const int *dilation, const int dilation_len, const int groups,
+                     Tensor *output_ptr) {
+  int64_t ndim = aitisa_tensor_ndim(input);
+  if(ndim != 5){
+    return STATUS_DIMENSIONS_MISMATCH;
+  }
+
+  return aitisa_conv(input, filter, stride, padding, dilation, groups, output_ptr);
+}
+

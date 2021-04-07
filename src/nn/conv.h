@@ -26,4 +26,16 @@ AITISA_API_PUBLIC Status aitisa_conv(const Tensor input, const Tensor filter,
                                      const int *stride, const int *padding,
                                      const int *dilation, const int groups,
                                      Tensor *output);
+
+AITISA_API_PUBLIC Status aitisa_conv2d(const Tensor input, const Tensor filter, 
+                                       const int *stride, const int stride_len, 
+                                       const int *padding, const int padding_len, 
+                                       const int *dilation, const int dilation_len, 
+                                       const int groups, Tensor *output_ptr);
+
+AITISA_API_PUBLIC Status aitisa_conv3d(const Tensor input, const Tensor filter, 
+                                       const int *stride, const int stride_len, 
+                                       const int *padding, const int padding_len, 
+                                       const int *dilation, const int dilation_len, 
+                                       const int groups, Tensor *output_ptr);
 #endif

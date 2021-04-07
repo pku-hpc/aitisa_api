@@ -26,7 +26,8 @@ TEST(Conv2D, P0S1D1) {
   int groups = 1;
   int ndim = aitisa_tensor_ndim(input);
 
-  aitisa_conv(input, filter, stride, padding, dilation, groups, &output);
+  aitisa_conv2d(input, filter, stride, 2, padding, 2, 
+                dilation, 2, groups, &output);
   /*
   tensor_printer2d(input);
   tensor_printer2d(filter);
@@ -80,7 +81,8 @@ TEST(Conv2D, P2S1D1) {
   int groups = 1;
   int ndim = aitisa_tensor_ndim(input);
 
-  aitisa_conv(input, filter, stride, padding, dilation, groups, &output);
+  aitisa_conv2d(input, filter, stride, 2, padding, 2, 
+              dilation, 2, groups, &output);
   /*
   tensor_printer2d(input);
   tensor_printer2d(filter);
@@ -111,7 +113,8 @@ TEST(Conv3D, P0S1D1) {
   int groups = 1;
   int ndim = aitisa_tensor_ndim(input);
 
-  aitisa_conv(input, filter, stride, padding, dilation, groups, &output);
+  aitisa_conv3d(input, filter, stride, 3, padding, 3, 
+                dilation, 3, groups, &output);
   /*
   tensor_printer2d(input);
   tensor_printer2d(filter);

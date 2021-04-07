@@ -73,9 +73,9 @@ private:
 } // namespace anonymous
 
 template <typename InterfaceType>
-class ConvTest : public ::testing::Test{
+class Conv2dTest : public ::testing::Test{
 public:
-  ConvTest():
+  Conv2dTest():
     input0(/*ndim1*/4, /*dims1*/{6,32,124,128}, /*dtype1=float*/8,  
            /*device1=cuda*/1, /*data1*/nullptr, /*len1*/0, 
            /*ndim2*/4, /*dims2*/{64,32,2,2}, /*dtype2=float*/8, 
@@ -113,13 +113,13 @@ public:
       // print_data2d((float*)input_data2, 2, 2);
     }
   }
-  virtual ~ConvTest(){}
+  virtual ~Conv2dTest(){}
   using InputType = Conv_Input;
   using UserInterface = InterfaceType;
   static void aitisa_kernel(const AITISA_Tensor input, const AITISA_Tensor filter, 
                             int *stride, const int *padding, const int *dilation, 
                             const int groups, AITISA_Tensor *output){
-    aitisa_conv(input, filter, stride, padding, dilation, groups, output);
+    aitisa_conv2d(input, filter, stride, 2, padding, 2, dilation, 2, groups, output);
   }
   // inputs
   Conv_Input input0; // Natural assigned int32 type input of CPU with InputDims1{3,3,10,6}, FilterDims2{5,3,2,2}, stride{2,2}, padding{0,0}, dilation{1,1}
@@ -130,9 +130,9 @@ public:
   std::string *input_name[2] = {&input0_name, &input1_name};
   int ninput = 2;
 };
-TYPED_TEST_CASE_P(ConvTest);
+TYPED_TEST_CASE_P(Conv2dTest);
 
-TYPED_TEST_P(ConvTest, TwoTests){
+TYPED_TEST_P(Conv2dTest, TwoTests){
   using UserDataType = typename TestFixture::UserInterface::UserDataType;
   using UserDevice = typename TestFixture::UserInterface::UserDevice;
   using UserTensor = typename TestFixture::UserInterface::UserTensor;
@@ -161,8 +161,8 @@ TYPED_TEST_P(ConvTest, TwoTests){
     aitisa_create(aitisa_dtype2, aitisa_device2, this->input[i]->dims2(), this->input[i]->ndim2(), 
                   (void*)(this->input[i]->data2()), this->input[i]->len2(), &aitisa_tensor2);
     gettimeofday(&aitisa_start,NULL); 
-    aitisa_conv(aitisa_tensor1, aitisa_tensor2, this->input[i]->stride(), this->input[i]->padding(),
-                this->input[i]->dilation(), this->input[i]->groups(), &aitisa_result);
+    aitisa_conv2d(aitisa_tensor1, aitisa_tensor2, this->input[i]->stride(), 2, this->input[i]->padding(), 2,
+                this->input[i]->dilation(), 2, this->input[i]->groups(), &aitisa_result);
     gettimeofday(&aitisa_end,NULL); 
     aitisa_time = (aitisa_end.tv_sec - aitisa_start.tv_sec) * 1000.0 
                 + (aitisa_end.tv_usec - aitisa_start.tv_usec) / 1000.0;
@@ -180,7 +180,7 @@ TYPED_TEST_P(ConvTest, TwoTests){
                            this->input[i]->ndim2(), this->input[i]->data2(), 
                            this->input[i]->len2(), &user_tensor2);
     gettimeofday(&user_start,NULL); 
-    UserFuncs::user_conv(user_tensor1, user_tensor2, this->input[i]->stride(), this->input[i]->padding(),
+    UserFuncs::user_conv2d(user_tensor1, user_tensor2, this->input[i]->stride(), this->input[i]->padding(),
                 this->input[i]->dilation(), this->input[i]->groups(), &user_result);
     gettimeofday(&user_end,NULL); 
     user_time = (user_end.tv_sec - user_start.tv_sec) * 1000.0 
@@ -212,19 +212,21 @@ TYPED_TEST_P(ConvTest, TwoTests){
     std::cout<< /*GREEN <<*/ "\t[  USER  ] " << /*RESET <<*/ user_time << " ms" << std::endl;
   }
 }
-REGISTER_TYPED_TEST_CASE_P(ConvTest, TwoTests);
+REGISTER_TYPED_TEST_CASE_P(Conv2dTest, TwoTests);
 
-#define REGISTER_CONV(CONV)                                                               \
-  class Conv : public Basic {                                                             \
-  public:                                                                                 \
-    static void user_conv(UserTensor input, UserTensor filter, const int *stride,         \
-                          const int *padding, const int *dilation, const int groups,      \
-                          UserTensor *output){                                            \
-      CONV(input, filter, stride, padding, dilation, groups, output);                     \
-    }                                                                                     \
-  };                                                                                      \
-  namespace aitisa_api{                                                                   \
-    INSTANTIATE_TYPED_TEST_CASE_P(aitisa_api, ConvTest, Conv);                            \
+#define REGISTER_CONV2D(CONV)                                                                   \
+  class Conv2d : public Basic {                                                                 \
+  public:                                                                                       \
+    static void user_conv2d(UserTensor input, UserTensor filter, const int *stride,             \
+                            const int stride_len, const int *padding, const int padding_len,    \
+                            const int *dilation, const int dilation_len, const int groups,      \
+                            UserTensor *output){                                                \
+      CONV(input, filter, stride, stride_len, padding,                                          \
+           padding_len, dilation, dilation_len, groups, output);                                \
+    }                                                                                           \
+  };                                                                                            \
+  namespace aitisa_api{                                                                         \
+    INSTANTIATE_TYPED_TEST_CASE_P(aitisa_api, Conv2dTest, Conv2d);                              \
   }
 
 } // namespace aitisa_api

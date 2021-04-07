@@ -1,0 +1,14 @@
+# Target labels
+ gtest-download
+# Source files and their labels
+/gpfs/share/home/1801213993/aitisa_api/third_party/gtest/gtest-download/CMakeFiles/gtest-download
+/gpfs/share/home/1801213993/aitisa_api/third_party/gtest/gtest-download/CMakeFiles/gtest-download.rule
+/gpfs/share/home/1801213993/aitisa_api/third_party/gtest/gtest-download/CMakeFiles/gtest-download-complete.rule
+/gpfs/share/home/1801213993/aitisa_api/third_party/gtest/gtest-stamp/gtest-download-install.rule
+/gpfs/share/home/1801213993/aitisa_api/third_party/gtest/gtest-stamp/gtest-download-mkdir.rule
+/gpfs/share/home/1801213993/aitisa_api/third_party/gtest/gtest-stamp/gtest-download-download.rule
+/gpfs/share/home/1801213993/aitisa_api/third_party/gtest/gtest-stamp/gtest-download-patch.rule
+/gpfs/share/home/1801213993/aitisa_api/third_party/gtest/gtest-stamp/gtest-download-configure.rule
+/gpfs/share/home/1801213993/aitisa_api/third_party/gtest/gtest-stamp/gtest-download-build.rule
+/gpfs/share/home/1801213993/aitisa_api/third_party/gtest/gtest-stamp/gtest-download-test.rule
+/gpfs/share/home/1801213993/aitisa_api/third_party/gtest/gtest-stamp/gtest-download-skip-update.rule
