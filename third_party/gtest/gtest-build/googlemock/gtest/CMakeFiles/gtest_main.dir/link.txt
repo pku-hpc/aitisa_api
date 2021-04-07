@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC  -std=c++11 -g  -shared -Wl,-soname,libgtest_maind.so -o ../../../../../build/lib64/libgtest_maind.so CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -Wl,-rpath,/gpfs/share/home/1801213993/aitisa_api/build/lib64: ../../../../../build/lib64/libgtestd.so -pthread 
